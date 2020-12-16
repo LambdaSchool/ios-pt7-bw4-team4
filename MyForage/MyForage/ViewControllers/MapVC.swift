@@ -7,7 +7,9 @@
 
 import UIKit
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, Storyboarded {
+    
+    weak var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

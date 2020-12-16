@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
