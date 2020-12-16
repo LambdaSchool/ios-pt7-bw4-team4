@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CollectionVC: UIViewController {
+class CollectionVC: UIViewController, Storyboarded {
+    
+    weak var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
