@@ -31,13 +31,27 @@
                     <view key="view" contentMode="scaleToFill" id="dUK-nO-vLD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Yvh-B1-kNp">
+                                <rect key="frame" x="20" y="64" width="374" height="758"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="LZb-hV-ti9"/>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="Yvh-B1-kNp" firstAttribute="leading" secondItem="LZb-hV-ti9" secondAttribute="leading" constant="20" id="I3i-Bv-ioH"/>
+                            <constraint firstItem="LZb-hV-ti9" firstAttribute="trailing" secondItem="Yvh-B1-kNp" secondAttribute="trailing" constant="20" id="I6L-ET-xwV"/>
+                            <constraint firstItem="LZb-hV-ti9" firstAttribute="bottom" secondItem="Yvh-B1-kNp" secondAttribute="bottom" constant="40" id="SmB-bq-Pnr"/>
+                            <constraint firstItem="Yvh-B1-kNp" firstAttribute="top" secondItem="dUK-nO-vLD" secondAttribute="topMargin" constant="20" id="qeG-pn-rMr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="Yvh-B1-kNp" id="Bfj-la-eFt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uo6-v9-KWF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="557"/>
+            <point key="canvasLocation" x="100.00000000000001" y="555.80357142857144"/>
         </scene>
         <!--CollectionVC-->
         <scene sceneID="Xnh-Vi-goF">
