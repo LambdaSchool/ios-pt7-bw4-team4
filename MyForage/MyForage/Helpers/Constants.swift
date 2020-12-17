@@ -9,4 +9,5 @@ import Foundation
 
 enum ReuseIdentifier {
     static let forageAnnotation = "ForageAnnotationView"
+    static let forageCell = "ForageCell"
 }

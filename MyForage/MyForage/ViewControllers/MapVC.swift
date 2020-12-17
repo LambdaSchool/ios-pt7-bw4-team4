@@ -28,14 +28,12 @@ class MapVC: UIViewController {
     
     // TODO:
     // custom annotation, images, styling
-    // didSelect
-    // move ForageSpot to its own file
+    // remove Spot after data model is merged in
     // remove dummyData
     
     
     // MARK: - UI Elements
     
-//    @IBOutlet var mapView: MKMapView!
     private var mapView = MKMapView()
     
     // MARK: - Properties
@@ -94,9 +92,6 @@ class MapVC: UIViewController {
 }
 
 extension MapVC: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let forageSpot = annotation as? Spot else { return nil }
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageSpot) as! MKMarkerAnnotationView

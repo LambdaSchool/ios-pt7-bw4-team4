@@ -24,7 +24,7 @@ class ForageAnnotationView: UIView {
         }
     }
     
-    // MARK - Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
