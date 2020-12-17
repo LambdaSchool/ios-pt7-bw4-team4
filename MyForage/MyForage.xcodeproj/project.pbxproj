@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A473004258AD85400402C5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473003258AD85400402C5E /* Constants.swift */; };
+		1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473007258AD97900402C5E /* ForageAnnotationView.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1532589B29E0076313A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1512589B29E0076313A /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A473003258AD85400402C5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1A473007258AD97900402C5E /* ForageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForageAnnotationView.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A473006258AD90600402C5E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A473007258AD97900402C5E /* ForageAnnotationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1A6CD13F2589B29E0076313A = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +88,7 @@
 				1A6CD14D2589B29E0076313A /* SceneDelegate.swift */,
 				1A6CD1772589B9750076313A /* Models */,
 				1A6CD17B2589B9C30076313A /* ModelControllers */,
+				1A473006258AD90600402C5E /* Views */,
 				1A6CD1652589B8AD0076313A /* ViewControllers */,
 				1A6CD1722589B92E0076313A /* Storyboards */,
 				1A6CD17D2589C1600076313A /* Helpers */,
@@ -127,6 +140,7 @@
 				1A6CD1852589C35B0076313A /* MainCoordinator.swift */,
 				1A6CD17E2589C1770076313A /* Coordinator.swift */,
 				1A6CD1822589C19D0076313A /* Storyboarded.swift */,
+				1A473003258AD85400402C5E /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -203,6 +217,7 @@
 			files = (
 				1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */,
 				1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */,
+				1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */,
 				1A6CD1682589B8C90076313A /* HomeVC.swift in Sources */,
 				1A6CD1632589B8A70076313A /* MapVC.swift in Sources */,
 				1A6CD1792589B9BA0076313A /* APIController.swift in Sources */,
@@ -212,6 +227,7 @@
 				1A6CD1832589C19D0076313A /* Storyboarded.swift in Sources */,
 				1A6CD1702589B8E90076313A /* DetailVC.swift in Sources */,
 				1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */,
+				1A473004258AD85400402C5E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
