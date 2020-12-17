@@ -23,6 +23,24 @@ class MainCoordinator: Coordinator {
         passDependencies()
     }
     
+    func presentDetailViewFromCollection() {
+        // add model to parameters
+        // add action
+    }
+    
+    func presentDetailViewFromMap(forageSpot: Spot) {
+        let detailVC = DetailVC.instantiate()
+        tabBarController.present(detailVC, animated: true, completion: nil)
+    }
+    
+    func presentAddView() {
+        
+    }
+    
+    func presentFilterView() {
+        
+    }
+    
     private func setUpAppNavViews() {
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
