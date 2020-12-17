@@ -10,24 +10,39 @@ import CoreData
 
 class CollectionVC: UIViewController {
     
+    // TODO:
+    // Fill in placeholders with data model
+    // Design cell and layout
+    // Create filter and sort functions
+
+    
+    // MARK: - UI Elements
+    
+    private var addButton: UIBarButtonItem!
+    private var filterButton: UIBarButtonItem!
+    private var collectionView: UICollectionView!
+    
+    // MARK: - Properties
+    
     weak var coordinator: MainCoordinator?
     
     var sorters: [NSSortDescriptor] = [NSSortDescriptor(key: "<#attribute#>", ascending: true)]
     var predicate: NSPredicate?
     
-    private var addButton: UIBarButtonItem!
-    private var filterButton: UIBarButtonItem!
-    private var collectionView: UICollectionView!
 //    private var datasource: UICollectionViewDiffableDataSource<Int, <#Model#>>!
 //    private var fetchedResultsController: NSFetchedResultsController<<#Model#>>!
 //    private let moc = CoreDataStack.shared.mainContext
 
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
         configureDatasource()
         initFetchedResultsController()
     }
+    
+    // MARK: - Private Functions
     
     private func setUpView() {
         title = "My Forage Spots"
@@ -45,7 +60,7 @@ class CollectionVC: UIViewController {
         layout.itemSize = CGSize(width: 160, height: 120)
                 
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(ForageCell.self, forCellWithReuseIdentifier: ForageCell.reuseIdentifier)
+        collectionView?.register(ForageCell.self, forCellWithReuseIdentifier: ReuseIdentifier.forageCell)
         collectionView?.backgroundColor = .white
         collectionView.delegate = self
         
@@ -63,7 +78,7 @@ class CollectionVC: UIViewController {
     
     private func configureDatasource() {
 //        datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, forageSpot) -> UICollectionViewCell? in
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForageCell.reuseIdentifier, for: indexPath) as? ForageCell else { fatalError("Cannot create cell") }
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.forageCell, for: indexPath) as? ForageCell else { fatalError("Cannot create cell") }
 //            cell.<#model#> = forageSpot
 //            return cell
 //        })

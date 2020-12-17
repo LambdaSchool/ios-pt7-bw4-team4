@@ -9,11 +9,15 @@ import UIKit
 
 class MainCoordinator: Coordinator {
     
+    // MARK: - Properties
+    
     var tabBarController: UITabBarController
     var collectionNav = UINavigationController(rootViewController: CollectionVC())
     var mapVC = MapVC()
     var homeVC = HomeVC()
 
+    // MARK: - Lifecycle
+    
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
     }
@@ -22,6 +26,8 @@ class MainCoordinator: Coordinator {
         setUpAppNavViews()
         passDependencies()
     }
+    
+    // MARK: - Functions
     
     func presentDetailViewFromCollection() {
         // add model to parameters
@@ -40,6 +46,8 @@ class MainCoordinator: Coordinator {
     func presentFilterView() {
         
     }
+    
+    // MARK: - Private Functions
     
     private func setUpAppNavViews() {
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)

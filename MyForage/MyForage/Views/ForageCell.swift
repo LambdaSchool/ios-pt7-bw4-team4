@@ -14,9 +14,7 @@ class ForageCell: UICollectionViewCell {
     
     
     // MARK: - Properties
-    
-    static let reuseIdentifier = "ForageCell"
-    
+        
 //    var <#model#>: <#Model#>? {
 //        didSet {
 //            updateViews()
