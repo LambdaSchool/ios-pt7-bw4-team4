@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A473004258AD85400402C5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473003258AD85400402C5E /* Constants.swift */; };
 		1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473007258AD97900402C5E /* ForageAnnotationView.swift */; };
+		1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47300B258AF6D900402C5E /* ForageCell.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1532589B29E0076313A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1512589B29E0076313A /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		1A473003258AD85400402C5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1A473007258AD97900402C5E /* ForageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForageAnnotationView.swift; sourceTree = "<group>"; };
+		1A47300B258AF6D900402C5E /* ForageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForageCell.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				1A473007258AD97900402C5E /* ForageAnnotationView.swift */,
+				1A47300B258AF6D900402C5E /* ForageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */,
 				1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */,
 				1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */,
+				1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */,
 				1A6CD1682589B8C90076313A /* HomeVC.swift in Sources */,
 				1A6CD1632589B8A70076313A /* MapVC.swift in Sources */,
 				1A6CD1792589B9BA0076313A /* APIController.swift in Sources */,

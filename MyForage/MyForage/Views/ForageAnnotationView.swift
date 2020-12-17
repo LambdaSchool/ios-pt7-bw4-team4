@@ -17,7 +17,8 @@ class ForageAnnotationView: UIView {
     
     // MARK: - Properties
     
-    var forageSpot: ForageSpot? {
+    var coordinator: MainCoordinator?
+    var forageSpot: Spot? {
         didSet {
             updateSubviews()
         }
@@ -39,6 +40,10 @@ class ForageAnnotationView: UIView {
         stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +51,11 @@ class ForageAnnotationView: UIView {
     }
     
     // MARK: - Private Functions
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        guard let forageSpot = forageSpot else { return }
+        coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
+    }
     
     private func updateSubviews() {
         guard let forageSpot = forageSpot else { return }
