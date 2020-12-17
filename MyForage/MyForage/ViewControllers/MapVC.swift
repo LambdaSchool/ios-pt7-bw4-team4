@@ -24,7 +24,7 @@ class Spot: NSObject, MKAnnotation {
     }
 }
 
-class MapVC: UIViewController, Storyboarded {
+class MapVC: UIViewController {
     
     // TODO:
     // custom annotation, images, styling
@@ -35,7 +35,8 @@ class MapVC: UIViewController, Storyboarded {
     
     // MARK: - UI Elements
     
-    @IBOutlet var mapView: MKMapView!
+//    @IBOutlet var mapView: MKMapView!
+    private var mapView = MKMapView()
     
     // MARK: - Properties
     
@@ -62,6 +63,7 @@ class MapVC: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setUpMap()
         dummyData()
     }
@@ -69,6 +71,12 @@ class MapVC: UIViewController, Storyboarded {
     // MARK: - Private Functions
     
     private func setUpMap() {
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mapView)
+        mapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80).isActive = true
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

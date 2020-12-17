@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class CollectionVC: UIViewController, Storyboarded {
+class CollectionVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
     

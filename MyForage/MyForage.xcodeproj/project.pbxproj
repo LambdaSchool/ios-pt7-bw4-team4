@@ -12,7 +12,6 @@
 		1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47300B258AF6D900402C5E /* ForageCell.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
-		1A6CD1532589B29E0076313A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1512589B29E0076313A /* Main.storyboard */; };
 		1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1542589B2A10076313A /* Assets.xcassets */; };
 		1A6CD1582589B2A10076313A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1562589B2A10076313A /* LaunchScreen.storyboard */; };
 		1A6CD1632589B8A70076313A /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1622589B8A70076313A /* MapVC.swift */; };
@@ -22,7 +21,6 @@
 		1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1732589B96C0076313A /* MyForage.xcdatamodeld */; };
 		1A6CD1792589B9BA0076313A /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1782589B9BA0076313A /* APIController.swift */; };
 		1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD17E2589C1770076313A /* Coordinator.swift */; };
-		1A6CD1832589C19D0076313A /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1822589C19D0076313A /* Storyboarded.swift */; };
 		1A6CD1862589C35B0076313A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1852589C35B0076313A /* MainCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +31,6 @@
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1A6CD1522589B29E0076313A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1A6CD1542589B2A10076313A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A6CD1572589B2A10076313A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A6CD1592589B2A10076313A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,7 +41,6 @@
 		1A6CD1742589B96C0076313A /* MyForage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyForage.xcdatamodel; sourceTree = "<group>"; };
 		1A6CD1782589B9BA0076313A /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		1A6CD17E2589C1770076313A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		1A6CD1822589C19D0076313A /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		1A6CD1852589C35B0076313A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +111,6 @@
 		1A6CD1722589B92E0076313A /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				1A6CD1512589B29E0076313A /* Main.storyboard */,
 				1A6CD1562589B2A10076313A /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -142,7 +137,6 @@
 			children = (
 				1A6CD1852589C35B0076313A /* MainCoordinator.swift */,
 				1A6CD17E2589C1770076313A /* Coordinator.swift */,
-				1A6CD1822589C19D0076313A /* Storyboarded.swift */,
 				1A473003258AD85400402C5E /* Constants.swift */,
 			);
 			path = Helpers;
@@ -207,7 +201,6 @@
 			files = (
 				1A6CD1582589B2A10076313A /* LaunchScreen.storyboard in Resources */,
 				1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */,
-				1A6CD1532589B29E0076313A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +221,6 @@
 				1A6CD1862589C35B0076313A /* MainCoordinator.swift in Sources */,
 				1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */,
 				1A6CD16C2589B8DC0076313A /* CollectionVC.swift in Sources */,
-				1A6CD1832589C19D0076313A /* Storyboarded.swift in Sources */,
 				1A6CD1702589B8E90076313A /* DetailVC.swift in Sources */,
 				1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */,
 				1A473004258AD85400402C5E /* Constants.swift in Sources */,
@@ -238,14 +230,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1A6CD1512589B29E0076313A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1A6CD1522589B29E0076313A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1A6CD1562589B2A10076313A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

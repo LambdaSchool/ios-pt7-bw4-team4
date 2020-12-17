@@ -10,9 +10,9 @@ import UIKit
 class MainCoordinator: Coordinator {
     
     var tabBarController: UITabBarController
-    var collectionNav = UINavigationController(rootViewController: CollectionVC.instantiate())
-    var mapVC = MapVC.instantiate()
-    var homeVC = HomeVC.instantiate()
+    var collectionNav = UINavigationController(rootViewController: CollectionVC())
+    var mapVC = MapVC()
+    var homeVC = HomeVC()
 
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -29,7 +29,7 @@ class MainCoordinator: Coordinator {
     }
     
     func presentDetailViewFromMap(forageSpot: Spot) {
-        let detailVC = DetailVC.instantiate()
+        let detailVC = DetailVC()
         tabBarController.present(detailVC, animated: true, completion: nil)
     }
     
