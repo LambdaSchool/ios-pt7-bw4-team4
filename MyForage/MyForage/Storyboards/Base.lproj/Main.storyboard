@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--HomeVC-->
         <scene sceneID="w6L-lh-NfA">
             <objects>
                 <viewController storyboardIdentifier="HomeVC" id="VXL-6N-Xh7" customClass="HomeVC" customModule="MyForage" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,6 @@
                         <viewLayoutGuide key="safeArea" id="olu-Fg-fQR"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="vJ6-Do-5B0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ja0-wT-Reb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
