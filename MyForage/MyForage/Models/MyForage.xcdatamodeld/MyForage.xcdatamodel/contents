@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FiveDaysAgo" representedClassName="FiveDaysAgo" syncable="YES" codeGenerationType="class"/>
+    <entity name="FiveDaysAgo" representedClassName="FiveDaysAgo" syncable="YES" codeGenerationType="class">
+        <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="fiveDaysAgo" inverseEntity="WeatherHistory"/>
+    </entity>
     <entity name="ForageSpot" representedClassName="ForageSpot" syncable="YES" codeGenerationType="class">
         <attribute name="favorability" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="geotag" attributeType="String"/>
@@ -10,7 +12,9 @@
         <relationship name="notes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="forageSpot" inverseEntity="Note"/>
         <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="forageSpot" inverseEntity="WeatherHistory"/>
     </entity>
-    <entity name="FourDaysAgo" representedClassName="FourDaysAgo" syncable="YES" codeGenerationType="class"/>
+    <entity name="FourDaysAgo" representedClassName="FourDaysAgo" syncable="YES" codeGenerationType="class">
+        <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="fourDaysAgo" inverseEntity="WeatherHistory"/>
+    </entity>
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -18,25 +22,31 @@
         <attribute name="photo" optional="YES" attributeType="String"/>
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="notes" inverseEntity="ForageSpot"/>
     </entity>
-    <entity name="OneDayAgo" representedClassName="OneDayAgo" syncable="YES" codeGenerationType="class"/>
-    <entity name="ThreeDaysAgo" representedClassName="ThreeDaysAgo" syncable="YES" codeGenerationType="class"/>
-    <entity name="TwoDaysAgo" representedClassName="TwoDaysAgo" syncable="YES" codeGenerationType="class"/>
+    <entity name="OneDayAgo" representedClassName="OneDayAgo" syncable="YES" codeGenerationType="class">
+        <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="oneDayAgo" inverseEntity="WeatherHistory"/>
+    </entity>
+    <entity name="ThreeDaysAgo" representedClassName="ThreeDaysAgo" syncable="YES" codeGenerationType="class">
+        <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="threeDaysAgo" inverseEntity="WeatherHistory"/>
+    </entity>
+    <entity name="TwoDaysAgo" representedClassName="TwoDaysAgo" syncable="YES" codeGenerationType="class">
+        <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="twoDaysAgo" inverseEntity="WeatherHistory"/>
+    </entity>
     <entity name="WeatherHistory" representedClassName="WeatherHistory" syncable="YES" codeGenerationType="class">
-        <relationship name="fiveDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FiveDaysAgo"/>
+        <relationship name="fiveDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FiveDaysAgo" inverseName="weatherHistory" inverseEntity="FiveDaysAgo"/>
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="weatherHistory" inverseEntity="ForageSpot"/>
-        <relationship name="fourDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourDaysAgo"/>
-        <relationship name="oneDayAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OneDayAgo"/>
-        <relationship name="threeDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ThreeDaysAgo"/>
-        <relationship name="twoDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TwoDaysAgo"/>
+        <relationship name="fourDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourDaysAgo" inverseName="weatherHistory" inverseEntity="FourDaysAgo"/>
+        <relationship name="oneDayAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OneDayAgo" inverseName="weatherHistory" inverseEntity="OneDayAgo"/>
+        <relationship name="threeDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ThreeDaysAgo" inverseName="weatherHistory" inverseEntity="ThreeDaysAgo"/>
+        <relationship name="twoDaysAgo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TwoDaysAgo" inverseName="weatherHistory" inverseEntity="TwoDaysAgo"/>
     </entity>
     <elements>
+        <element name="FiveDaysAgo" positionX="-189" positionY="-117" width="128" height="58"/>
         <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="148"/>
+        <element name="FourDaysAgo" positionX="-153" positionY="-81" width="128" height="58"/>
         <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="118"/>
+        <element name="OneDayAgo" positionX="-180" positionY="-108" width="128" height="58"/>
+        <element name="ThreeDaysAgo" positionX="-162" positionY="-90" width="128" height="58"/>
+        <element name="TwoDaysAgo" positionX="-171" positionY="-99" width="128" height="58"/>
         <element name="WeatherHistory" positionX="-135" positionY="-63" width="128" height="133"/>
-        <element name="FiveDaysAgo" positionX="-189" positionY="-117" width="128" height="43"/>
-        <element name="OneDayAgo" positionX="-180" positionY="-108" width="128" height="43"/>
-        <element name="TwoDaysAgo" positionX="-171" positionY="-99" width="128" height="43"/>
-        <element name="ThreeDaysAgo" positionX="-162" positionY="-90" width="128" height="43"/>
-        <element name="FourDaysAgo" positionX="-153" positionY="-81" width="128" height="43"/>
     </elements>
 </model>

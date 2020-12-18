@@ -22,6 +22,9 @@
 		1A6CD1792589B9BA0076313A /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1782589B9BA0076313A /* APIController.swift */; };
 		1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD17E2589C1770076313A /* Coordinator.swift */; };
 		1A6CD1862589C35B0076313A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD1852589C35B0076313A /* MainCoordinator.swift */; };
+		46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B7E258C2285009761BE /* ForageSpot+Convenience.swift */; };
+		46550B95258C27D9009761BE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B94258C27D9009761BE /* CoreDataStack.swift */; };
+		46550B99258C293D009761BE /* Note+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B98258C293D009761BE /* Note+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		1A6CD1782589B9BA0076313A /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		1A6CD17E2589C1770076313A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1A6CD1852589C35B0076313A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		46550B7E258C2285009761BE /* ForageSpot+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ForageSpot+Convenience.swift"; sourceTree = "<group>"; };
+		46550B94258C27D9009761BE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		46550B98258C293D009761BE /* Note+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,9 @@
 			isa = PBXGroup;
 			children = (
 				1A6CD1732589B96C0076313A /* MyForage.xcdatamodeld */,
+				46550B7E258C2285009761BE /* ForageSpot+Convenience.swift */,
+				46550B94258C27D9009761BE /* CoreDataStack.swift */,
+				46550B98258C293D009761BE /* Note+Convenience.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46550B95258C27D9009761BE /* CoreDataStack.swift in Sources */,
 				1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */,
 				1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */,
 				1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */,
@@ -224,6 +234,8 @@
 				1A6CD1702589B8E90076313A /* DetailVC.swift in Sources */,
 				1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */,
 				1A473004258AD85400402C5E /* Constants.swift in Sources */,
+				46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */,
+				46550B99258C293D009761BE /* Note+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
