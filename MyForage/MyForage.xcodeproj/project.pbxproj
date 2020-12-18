@@ -10,6 +10,7 @@
 		1A473004258AD85400402C5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473003258AD85400402C5E /* Constants.swift */; };
 		1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473007258AD97900402C5E /* ForageAnnotationView.swift */; };
 		1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47300B258AF6D900402C5E /* ForageCell.swift */; };
+		1A47301C258C58D500402C5E /* AddForageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47301B258C58D500402C5E /* AddForageVC.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1542589B2A10076313A /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		1A473003258AD85400402C5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1A473007258AD97900402C5E /* ForageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForageAnnotationView.swift; sourceTree = "<group>"; };
 		1A47300B258AF6D900402C5E /* ForageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForageCell.swift; sourceTree = "<group>"; };
+		1A47301B258C58D500402C5E /* AddForageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddForageVC.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				1A6CD1622589B8A70076313A /* MapVC.swift */,
 				1A6CD16B2589B8DC0076313A /* CollectionVC.swift */,
 				1A6CD16F2589B8E90076313A /* DetailVC.swift */,
+				1A47301B258C58D500402C5E /* AddForageVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				1A6CD17F2589C1770076313A /* Coordinator.swift in Sources */,
 				1A473004258AD85400402C5E /* Constants.swift in Sources */,
 				46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */,
+				1A47301C258C58D500402C5E /* AddForageVC.swift in Sources */,
 				46550B99258C293D009761BE /* Note+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

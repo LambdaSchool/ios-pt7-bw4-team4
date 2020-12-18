@@ -18,7 +18,7 @@ class ForageAnnotationView: UIView {
     // MARK: - Properties
     
     var coordinator: MainCoordinator?
-    var forageSpot: Spot? {
+    var forageSpot: ForageSpot? {
         didSet {
             updateSubviews()
         }
@@ -53,14 +53,15 @@ class ForageAnnotationView: UIView {
     // MARK: - Private Functions
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        guard let forageSpot = forageSpot else { return }
-        coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
+//        guard let forageSpot = forageSpot else { return }
+//        coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
     }
     
     private func updateSubviews() {
         guard let forageSpot = forageSpot else { return }
         titleLabel.text = forageSpot.name
-        imageView.image = forageSpot.image
+        imageView.image = UIImage(systemName: "suit.spade.fill")
+        // need func to fetch image with urlString
         
         switch forageSpot.favorability {
         case 0..<3:
