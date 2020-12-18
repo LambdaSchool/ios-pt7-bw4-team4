@@ -36,7 +36,7 @@ class MainCoordinator: Coordinator {
         collectionNav.pushViewController(detailVC, animated: true)
     }
     
-    func presentDetailViewFromMap(forageSpot: Spot) {
+    func presentDetailViewFromMap(forageSpot: ForageSpot) {
         let detailVC = DetailVC()
         detailVC.coordinator = self
         // pass ForageSpot

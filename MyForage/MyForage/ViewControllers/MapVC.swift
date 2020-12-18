@@ -8,22 +8,6 @@
 import UIKit
 import MapKit
 
-class Spot: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
-    var name: String
-    var favorability: Int
-    var image: UIImage
-    var identifier: String
-
-    init(coordinate: CLLocationCoordinate2D, name: String, favorability: Int, image: UIImage, identifier: String) {
-        self.coordinate = coordinate
-        self.name = name
-        self.favorability = favorability
-        self.image = image
-        self.identifier = identifier
-    }
-}
-
 class MapVC: UIViewController {
     
     // TODO:
@@ -43,7 +27,7 @@ class MapVC: UIViewController {
     var span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
     var userLocation: CLLocationCoordinate2D?
     
-    var forageSpots: [Spot] = [] {
+    var forageSpots: [ForageAnnotation] = [] {
         didSet {
             let oldSpots = Set(oldValue)
             let newSpots = Set(forageSpots)
@@ -85,18 +69,18 @@ class MapVC: UIViewController {
     }
     
     private func dummyData() {
-        forageSpots = [Spot(coordinate: CLLocationCoordinate2D(latitude: 37.82, longitude: -122.17), name: "Tasty Mushrooms", favorability: 7, image: UIImage(systemName: "suit.spade.fill")!, identifier: ""),
-                       Spot(coordinate: CLLocationCoordinate2D(latitude: 37.88, longitude: -122.21), name: "Chanterelles?", favorability: 5, image: UIImage(systemName: "suit.spade.fill")!, identifier: "")]
+        forageSpots = [ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: 37.82, longitude: -122.17), name: "Tasty Mushrooms", favorability: 7, image: "Mushroom2"),
+        ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: 37.88, longitude: -122.21), name: "Chanterelles", favorability: 5, image: "Mushroom2")]
     }
 
 }
 
 extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let forageSpot = annotation as? Spot else { return nil }
+        guard let forageSpot = annotation as? ForageAnnotation else { return nil }
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageSpot) as! MKMarkerAnnotationView
         
-        annotationView.glyphImage = UIImage(named: "Mushroom")
+        annotationView.glyphImage = UIImage(named: "Mushroom2")
         annotationView.canShowCallout = true
         let detailView = ForageAnnotationView()
 //        detailView.forageSpot = forageSpot
