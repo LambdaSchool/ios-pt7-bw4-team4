@@ -4,10 +4,12 @@
         <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="fiveDaysAgo" inverseEntity="WeatherHistory"/>
     </entity>
     <entity name="ForageSpot" representedClassName="ForageSpot" syncable="YES" codeGenerationType="class">
-        <attribute name="favorability" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="geotag" attributeType="String"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="favorability" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="mushroomType" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Unamed Spot"/>
         <relationship name="notes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="forageSpot" inverseEntity="Note"/>
         <relationship name="weatherHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherHistory" inverseName="forageSpot" inverseEntity="WeatherHistory"/>
@@ -18,7 +20,7 @@
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="photo" optional="YES" attributeType="String"/>
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="notes" inverseEntity="ForageSpot"/>
     </entity>
@@ -41,7 +43,7 @@
     </entity>
     <elements>
         <element name="FiveDaysAgo" positionX="-189" positionY="-117" width="128" height="58"/>
-        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="148"/>
+        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="178"/>
         <element name="FourDaysAgo" positionX="-153" positionY="-81" width="128" height="58"/>
         <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="118"/>
         <element name="OneDayAgo" positionX="-180" positionY="-108" width="128" height="58"/>

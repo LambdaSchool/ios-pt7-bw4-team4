@@ -11,7 +11,7 @@ import CoreData
 extension Note {
     convenience init(body: String,
                      date: Date,
-                     identifier: String,
+                     identifier: UUID = UUID(),
                      photo: String,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
