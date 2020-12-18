@@ -40,7 +40,7 @@ class ForageCell: UICollectionViewCell {
     private func updateViews() {
         guard let forageSpot = forageSpot else { return }
         nameLabel.text = forageSpot.name
-        imageView.image = UIImage(systemName: "suit.spade.fill")
+        imageView.image = UIImage(named: "Mushroom")
         // need func to fetch image with urlString
     }
     

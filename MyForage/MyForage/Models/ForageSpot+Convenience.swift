@@ -9,12 +9,12 @@ import Foundation
 import CoreData
 
 extension ForageSpot {
-    convenience init(mushroomType: MushroomType,
-                     favorability: Double,
+    @discardableResult convenience init(mushroomType: MushroomType,
+                     favorability: Double = 0,
                      latitude: Double,
                      longitude: Double,
                      identifier: UUID = UUID(),
-                     image: String,
+                     image: String = "",
                      name: String,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)

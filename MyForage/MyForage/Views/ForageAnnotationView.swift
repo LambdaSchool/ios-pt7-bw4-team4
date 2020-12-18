@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class ForageAnnotationView: UIView {
     
@@ -18,7 +19,7 @@ class ForageAnnotationView: UIView {
     // MARK: - Properties
     
     var coordinator: MainCoordinator?
-    var forageSpot: ForageSpot? {
+    var forageAnnotation: ForageAnnotation? {
         didSet {
             updateSubviews()
         }
@@ -28,11 +29,12 @@ class ForageAnnotationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemGreen
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        imageView.image = UIImage(named: "Mushroom2")
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        titleLabel.adjustsFontSizeToFitWidth = true
+        
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
         stackView.spacing = UIStackView.spacingUseSystem
         stackView.axis = .vertical
@@ -55,17 +57,26 @@ class ForageAnnotationView: UIView {
     // MARK: - Private Functions
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-//        guard let forageSpot = forageSpot else { return }
-//        coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
+        guard let forageAnnotation = forageAnnotation else { return }
+        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
+        let idString = forageAnnotation.identifier.uuidString
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", idString)
+        do {
+            if let forageSpot = try CoreDataStack.shared.mainContext.fetch(fetchRequest).first {
+                coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
+            }
+        } catch {
+            NSLog("Unable to fetch forage spot")
+        }
     }
     
     private func updateSubviews() {
-        guard let forageSpot = forageSpot else { return }
-        titleLabel.text = forageSpot.name
-        imageView.image = UIImage(systemName: "Mushroom2")
+        guard let forageAnnotation = forageAnnotation else { return }
+        titleLabel.text = forageAnnotation.name
+        imageView.image = UIImage(named: "Mushroom")
         // need func to fetch image with urlString
         
-        switch forageSpot.favorability {
+        switch forageAnnotation.favorability {
         case 0..<3:
             backgroundColor = .systemRed
         case 3..<5:

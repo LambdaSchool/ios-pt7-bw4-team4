@@ -37,7 +37,7 @@ class AddForageVC: UIViewController {
     var forageSpot: ForageSpot?
     var foragePin = MKPointAnnotation()
     
-//    private let mushroomTypes = MushroomTypes.allCases.map { $0.rawValue }
+    private let mushroomTypes = MushroomType.allCases.map { $0.rawValue }
     
     // MARK: - View Lifecycle
     
@@ -51,7 +51,33 @@ class AddForageVC: UIViewController {
     // MARK: - Actions
     
     @objc func saveForageSpot() {
-        
+        guard let name = nameTextField.text,
+              !name.isEmpty,
+              let lat = latitudeTextField.text,
+              !lat.isEmpty,
+              let latitude = Double(lat),
+              let long = longitudeTextField.text,
+              !long.isEmpty,
+              let longitude = Double(long) else { return }
+        let mushroomString = mushroomTypes[mushroomTypePicker.selectedRow(inComponent: 0)]
+        if forageSpot != nil {
+            forageSpot?.name = name
+            forageSpot?.mushroomType = mushroomString
+            forageSpot?.latitude = latitude
+            forageSpot?.longitude = longitude
+            coordinator?.collectionNav.popViewController(animated: true)
+        } else {
+            guard let mushroomType = MushroomType(rawValue: mushroomString) else { return }
+            ForageSpot(mushroomType: mushroomType, latitude: latitude, longitude: longitude, name: name)
+            let moc = CoreDataStack.shared.mainContext
+            do {
+                try moc.save()
+                coordinator?.collectionNav.popViewController(animated: true)
+            } catch {
+                moc.reset()
+                NSLog("Error saving managed object context: \(error)")
+            }
+        }
         
     }
     
@@ -109,25 +135,25 @@ class AddForageVC: UIViewController {
     // MARK: - Private Functions
     
     private func updateView() {
-//        if let forageSpot = forageSpot,
-//           let name = forageSpot.name,
-//           let mushroomIndex = mushroomTypes.firstIndex(of: forageSpot.mushroomType) {
-//            title = "Edit \(name)"
-//            nameTextField.text = forageSpot.name
-//            mushroomTypePicker.selectRow(mushroomIndex, inComponent: 0, animated: true)
-//            latitudeTextField.text = String(forageSpot.latitude)
-//            longitudeTextField.text = String(forageSpot.longitude)
-//            foragePin.coordinate = CLLocationCoordinate2D(latitude: forageSpot.latitude, longitude: forageSpot.longitude)
-//            mapView.showAnnotations([foragePin], animated: false)
-//            let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, span: span)
-//            mapView.setRegion(coordinateRegion, animated: true)
-//        } else {
-//            title = "Add Forage Spot"
-//            nameTextField.text = ""
-//            addressTextField.text = ""
-//            latitudeTextField.text = ""
-//            longitudeTextField.text = ""
-//        }
+        if let forageSpot = forageSpot,
+           let name = forageSpot.name,
+           let mushroomIndex = mushroomTypes.firstIndex(of: forageSpot.mushroomType ?? MushroomType.chanterelle.rawValue) {
+            title = "Edit \(name)"
+            nameTextField.text = forageSpot.name
+            mushroomTypePicker.selectRow(mushroomIndex, inComponent: 0, animated: true)
+            latitudeTextField.text = String(forageSpot.latitude)
+            longitudeTextField.text = String(forageSpot.longitude)
+            foragePin.coordinate = CLLocationCoordinate2D(latitude: forageSpot.latitude, longitude: forageSpot.longitude)
+            mapView.showAnnotations([foragePin], animated: false)
+            let coordinateRegion = MKCoordinateRegion(center: foragePin.coordinate, span: span)
+            mapView.setRegion(coordinateRegion, animated: true)
+        } else {
+            title = "Add Forage Spot"
+            nameTextField.text = ""
+            addressTextField.text = ""
+            latitudeTextField.text = ""
+            longitudeTextField.text = ""
+        }
     }
     
     private func setUpView() {
@@ -243,11 +269,11 @@ extension AddForageVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 1 // mushroomTypes.count
+        mushroomTypes.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "Chanterelle" // mushroomTypes[row]
+        mushroomTypes[row]
     }
 
 }
