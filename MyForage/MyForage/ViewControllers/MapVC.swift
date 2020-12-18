@@ -96,7 +96,7 @@ extension MapVC: MKMapViewDelegate {
         guard let forageSpot = annotation as? Spot else { return nil }
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageSpot) as! MKMarkerAnnotationView
         
-        annotationView.glyphImage = UIImage(systemName: "heart")!
+        annotationView.glyphImage = UIImage(named: "Mushroom")
         annotationView.canShowCallout = true
         let detailView = ForageAnnotationView()
 //        detailView.forageSpot = forageSpot

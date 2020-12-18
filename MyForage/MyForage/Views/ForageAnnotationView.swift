@@ -30,6 +30,9 @@ class ForageAnnotationView: UIView {
         super.init(frame: frame)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        imageView.heightAnchor.constraint(equalToConstant: 108).isActive = true
+        imageView.image = UIImage(named: "Mushroom")
         imageView.tintColor = .black
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
         stackView.spacing = UIStackView.spacingUseSystem
@@ -60,7 +63,7 @@ class ForageAnnotationView: UIView {
     private func updateSubviews() {
         guard let forageSpot = forageSpot else { return }
         titleLabel.text = forageSpot.name
-        imageView.image = UIImage(systemName: "suit.spade.fill")
+        imageView.image = UIImage(systemName: "Mushroom")
         // need func to fetch image with urlString
         
         switch forageSpot.favorability {
