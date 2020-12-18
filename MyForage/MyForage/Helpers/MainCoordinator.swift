@@ -29,18 +29,24 @@ class MainCoordinator: Coordinator {
     
     // MARK: - Functions
     
-    func presentDetailViewFromCollection() {
-        // add model to parameters
-        // add action
+    func presentDetailViewFromCollection(forageSpot: ForageSpot) {
+        let detailVC = DetailVC()
+        detailVC.coordinator = self
+        // pass ForageSpot
+        collectionNav.pushViewController(detailVC, animated: true)
     }
     
     func presentDetailViewFromMap(forageSpot: Spot) {
         let detailVC = DetailVC()
+        detailVC.coordinator = self
+        // pass ForageSpot
         tabBarController.present(detailVC, animated: true, completion: nil)
     }
     
-    func presentAddView() {
-        
+    func presentAddForageVC() {
+        let addForageVC = AddForageVC()
+        addForageVC.coordinator = self
+        collectionNav.pushViewController(addForageVC, animated: true)
     }
     
     func presentFilterView() {

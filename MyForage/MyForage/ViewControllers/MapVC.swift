@@ -14,7 +14,7 @@ class Spot: NSObject, MKAnnotation {
     var favorability: Int
     var image: UIImage
     var identifier: String
-    
+
     init(coordinate: CLLocationCoordinate2D, name: String, favorability: Int, image: UIImage, identifier: String) {
         self.coordinate = coordinate
         self.name = name
@@ -52,7 +52,7 @@ class MapVC: UIViewController {
             let removedSpots = oldSpots.subtracting(newSpots)
             
             mapView.removeAnnotations(Array(removedSpots))
-            
+
             mapView.addAnnotations(Array(addedSpots))
         }
     }
@@ -71,10 +71,10 @@ class MapVC: UIViewController {
     private func setUpMap() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
-        mapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -99,7 +99,7 @@ extension MapVC: MKMapViewDelegate {
         annotationView.glyphImage = UIImage(systemName: "heart")!
         annotationView.canShowCallout = true
         let detailView = ForageAnnotationView()
-        detailView.forageSpot = forageSpot
+//        detailView.forageSpot = forageSpot
         detailView.coordinator = coordinator
         annotationView.detailCalloutAccessoryView = detailView
         

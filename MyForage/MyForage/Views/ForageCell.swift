@@ -16,11 +16,11 @@ class ForageCell: UICollectionViewCell {
     
     // MARK: - Properties
         
-//    var forageSpot: ForageSpot? {
-//        didSet {
-//            updateViews()
-//        }
-//    }
+    var forageSpot: ForageSpot? {
+        didSet {
+            updateViews()
+        }
+    }
     
     // MARK: - Override Functions
     
@@ -38,9 +38,10 @@ class ForageCell: UICollectionViewCell {
     // MARK: - Private Functions
     
     private func updateViews() {
-//        guard let forageSpot = forageSpot else { return }
-//        nameLabel.text = forageSpot.name
-//        imageView.image = forageSpot.image
+        guard let forageSpot = forageSpot else { return }
+        nameLabel.text = forageSpot.name
+        imageView.image = UIImage(systemName: "suit.spade.fill")
+        // need func to fetch image with urlString
     }
     
     private func setUpView() {

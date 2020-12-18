@@ -11,7 +11,6 @@ import CoreData
 class CollectionVC: UIViewController {
     
     // TODO:
-    // Uncomment code once data model is merged in
     // Create filter and sort functions
 
     
@@ -28,9 +27,9 @@ class CollectionVC: UIViewController {
     var sorters: [NSSortDescriptor] = [NSSortDescriptor(key: "name", ascending: true)]
     var predicate: NSPredicate?
     
-//    private var datasource: UICollectionViewDiffableDataSource<Int, ForageSpot>!
-//    private var fetchedResultsController: NSFetchedResultsController<ForageSpot>!
-//    private let moc = CoreDataStack.shared.mainContext
+    private var datasource: UICollectionViewDiffableDataSource<Int, ForageSpot>!
+    private var fetchedResultsController: NSFetchedResultsController<ForageSpot>!
+    private let moc = CoreDataStack.shared.mainContext
 
     // MARK: - View Lifecycle
     
@@ -68,7 +67,7 @@ class CollectionVC: UIViewController {
     }
     
     @objc private func addVC() {
-        coordinator?.presentAddView()
+        coordinator?.presentAddForageVC()
     }
     
     @objc private func filterVC() {
@@ -76,43 +75,43 @@ class CollectionVC: UIViewController {
     }
     
     private func configureDatasource() {
-//        datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, forageSpot) -> UICollectionViewCell? in
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.forageCell, for: indexPath) as? ForageCell else { fatalError("Cannot create cell") }
-//            cell.forageSpot = forageSpot
-//            return cell
-//        })
-//        collectionView.dataSource = datasource
+        datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, forageSpot) -> UICollectionViewCell? in
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.forageCell, for: indexPath) as? ForageCell else { fatalError("Cannot create cell") }
+            cell.forageSpot = forageSpot
+            return cell
+        })
+        collectionView.dataSource = datasource
     }
     
     private func initFetchedResultsController() {
-//        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
-//        fetchRequest.sortDescriptors = sorters
-//        if predicate != nil {
-//            fetchRequest.predicate = predicate
-//        }
-//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
-//        fetchedResultsController.delegate = self
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            NSLog("Unable to fetch forage collection from main context: \(error)")
-//        }
+        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
+        fetchRequest.sortDescriptors = sorters
+        if predicate != nil {
+            fetchRequest.predicate = predicate
+        }
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Unable to fetch forage collection from main context: \(error)")
+        }
     }
 
 }
 
 extension CollectionVC: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-//        var diffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, ForageSpot>()
-//            diffableDataSourceSnapshot.appendSections([0])
-//            diffableDataSourceSnapshot.appendItems(fetchedResultsController.fetchedObjects ?? [])
-//            datasource?.apply(diffableDataSourceSnapshot, animatingDifferences: view.window != nil)
+        var diffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, ForageSpot>()
+            diffableDataSourceSnapshot.appendSections([0])
+            diffableDataSourceSnapshot.appendItems(fetchedResultsController.fetchedObjects ?? [])
+            datasource?.apply(diffableDataSourceSnapshot, animatingDifferences: view.window != nil)
     }
 }
 
 extension CollectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let selectedSpot = datasource.itemIdentifier(for: indexPath) else { return }
-        coordinator?.presentDetailViewFromCollection() // update with parameter
+        guard let selectedSpot = datasource.itemIdentifier(for: indexPath) else { return }
+        coordinator?.presentDetailViewFromCollection(forageSpot: selectedSpot)
     }
 }
