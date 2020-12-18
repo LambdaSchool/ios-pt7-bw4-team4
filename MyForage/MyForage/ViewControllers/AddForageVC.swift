@@ -113,6 +113,7 @@ class AddForageVC: UIViewController {
     
     @objc func useMyLocation(_ sender: UIButton) {
         if let userLocation = userLocation {
+            addressTextField.text?.removeAll()
             foragePin.coordinate = userLocation
             mapView.showAnnotations([foragePin], animated: true)
             latitudeTextField.text = String(userLocation.latitude)
@@ -286,6 +287,12 @@ extension AddForageVC: CLLocationManagerDelegate {
         userLocation = currentLocation
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: span)
         mapView.setRegion(coordinateRegion, animated: true)
+        if let userLocation = userLocation {
+            foragePin.coordinate = userLocation
+            mapView.showAnnotations([foragePin], animated: true)
+            latitudeTextField.text = String(userLocation.latitude)
+            longitudeTextField.text = String(userLocation.longitude)
+        }
         locationManager.stopUpdatingLocation()
     }
     
