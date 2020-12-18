@@ -32,14 +32,14 @@ class MainCoordinator: Coordinator {
     func presentDetailViewFromCollection(forageSpot: ForageSpot) {
         let detailVC = DetailVC()
         detailVC.coordinator = self
-        // pass ForageSpot
+        detailVC.forageSpot = forageSpot
         collectionNav.pushViewController(detailVC, animated: true)
     }
     
     func presentDetailViewFromMap(forageSpot: ForageSpot) {
         let detailVC = DetailVC()
         detailVC.coordinator = self
-        // pass ForageSpot
+        detailVC.forageSpot = forageSpot
         tabBarController.present(detailVC, animated: true, completion: nil)
     }
     

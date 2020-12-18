@@ -10,11 +10,13 @@ import SwiftUI
 class DetailVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
+    
+    var forageSpot: ForageSpot!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+        title = forageSpot.name
     }
 
 }

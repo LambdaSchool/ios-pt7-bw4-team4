@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MapVC: UIViewController {
     
@@ -27,10 +28,10 @@ class MapVC: UIViewController {
     var span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
     var userLocation: CLLocationCoordinate2D?
     
-    var forageSpots: [ForageAnnotation] = [] {
+    var forageAnnotations: [ForageAnnotation] = [] {
         didSet {
             let oldSpots = Set(oldValue)
-            let newSpots = Set(forageSpots)
+            let newSpots = Set(forageAnnotations)
             
             let addedSpots = newSpots.subtracting(oldSpots)
             let removedSpots = oldSpots.subtracting(newSpots)
@@ -47,7 +48,12 @@ class MapVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setUpMap()
-        dummyData()
+        addAnnotations()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addAnnotations()
     }
     
     // MARK: - Private Functions
@@ -68,26 +74,39 @@ class MapVC: UIViewController {
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: ReuseIdentifier.forageAnnotation)
     }
     
-    private func dummyData() {
-        forageSpots = [ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: 37.82, longitude: -122.17), name: "Tasty Mushrooms", favorability: 7, image: "Mushroom2"),
-        ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: 37.88, longitude: -122.21), name: "Chanterelles", favorability: 5, image: "Mushroom2")]
+    private func addAnnotations() {
+        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
+        do {
+            let forageSpots = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
+            var annotations: [ForageAnnotation] = []
+            for spot in forageSpots {
+                guard let name = spot.name,
+                      let image = spot.image,
+                      let identifier = spot.identifier else { return }
+                let annotation = ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude), name: name, favorability: spot.favorability, image: image, identifier: identifier)
+                annotations.append(annotation)
+            }
+            forageAnnotations = annotations
+        } catch {
+            NSLog("Unable to fetch ForageSpots")
+        }
     }
 
 }
 
 extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let forageSpot = annotation as? ForageAnnotation else { return nil }
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageSpot) as! MKMarkerAnnotationView
+        guard let forageAnnotation = annotation as? ForageAnnotation else { return nil }
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageAnnotation) as! MKMarkerAnnotationView
         
-        annotationView.glyphImage = UIImage(named: "Mushroom2")
+        annotationView.glyphImage = UIImage(named: "Mushroom")
         annotationView.canShowCallout = true
         let detailView = ForageAnnotationView()
-//        detailView.forageSpot = forageSpot
+        detailView.forageAnnotation = forageAnnotation
         detailView.coordinator = coordinator
         annotationView.detailCalloutAccessoryView = detailView
         
-        switch forageSpot.favorability {
+        switch forageAnnotation.favorability {
         case 0..<3:
             annotationView.markerTintColor = .systemRed
         case 3..<5:

@@ -13,14 +13,16 @@ enum ReuseIdentifier {
 }
 
 enum MushroomType: String, CaseIterable, Identifiable {
-    case chantrelles = "chantrelles"
-    case morel = "morel"
-    case lionsMain = "lionsMain"
-    case oyster = "oyster"
-    case giantPuffBall = "giantPuffBall"
-    case wineCap = "wineCap"
-    case porcini = "porcini"
-    case shitake = "shitake"
+    case chanterelle = "Chanterelle"
+    case morel = "Morel"
+    case lionsMain = "Lion's Main"
+    case oyster = "Oyster"
+    case giantPuffBall = "Giant Puff Ball"
+    case wineCap = "Wine Cap"
+    case porcini = "Porcini"
+    case shiitake = "Shiitake"
+    case trumpet = "Trumpet"
+    case other = "Other"
     
     var id: String { self.rawValue }
 }
