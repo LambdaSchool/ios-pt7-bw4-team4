@@ -369,3 +369,12 @@ extension DetailVC: NoteDelegate {
         populateCollectionView()
     }
 }
+
+extension DetailVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let note = datasource?.snapshot().sectionIdentifiers[indexPath.section].sectionItems[indexPath.row] as? Note {
+            NSLog("Note: \(String(describing: note.body))")
+            // present note view
+        }
+    }
+}
