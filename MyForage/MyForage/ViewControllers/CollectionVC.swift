@@ -80,7 +80,6 @@ class CollectionVC: UIViewController {
             cell.forageSpot = forageSpot
             return cell
         })
-        collectionView.dataSource = datasource
     }
     
     private func initFetchedResultsController() {

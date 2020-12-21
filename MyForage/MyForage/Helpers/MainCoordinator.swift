@@ -33,6 +33,7 @@ class MainCoordinator: Coordinator {
         let detailVC = DetailVC()
         detailVC.coordinator = self
         detailVC.forageSpot = forageSpot
+        detailVC.isModal = false
         collectionNav.pushViewController(detailVC, animated: true)
     }
     
@@ -40,13 +41,23 @@ class MainCoordinator: Coordinator {
         let detailVC = DetailVC()
         detailVC.coordinator = self
         detailVC.forageSpot = forageSpot
+        detailVC.isModal = true
         tabBarController.present(detailVC, animated: true, completion: nil)
     }
     
     func presentAddForageVC() {
         let addForageVC = AddForageVC()
         addForageVC.coordinator = self
-        collectionNav.pushViewController(addForageVC, animated: true)
+        addForageVC.editMode = false
+        collectionNav.present(addForageVC, animated: true, completion: nil)
+    }
+    
+    func presentEditForageVC(forageSpot: ForageSpot) {
+        let addForageVC = AddForageVC()
+        addForageVC.coordinator = self
+        addForageVC.forageSpot = forageSpot
+        addForageVC.editMode = true
+        collectionNav.present(addForageVC, animated: true, completion: nil)
     }
     
     func presentFilterView() {

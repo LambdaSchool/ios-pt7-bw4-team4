@@ -23,19 +23,19 @@ class AddForageVC: UIViewController {
     private var useCoordinatesButton = UIButton()
     private var useMyLocationButton = UIButton()
     private var clearPinButton = UIButton()
-    private var saveForageButton: UIBarButtonItem!
+    private var saveForageButton = UIButton()
     
     // MARK: - Properties
     
     weak var coordinator: MainCoordinator?
     
     fileprivate let locationManager = CLLocationManager()
-    var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
-    var userLocation: CLLocationCoordinate2D?
+    private var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+    private var userLocation: CLLocationCoordinate2D?
     
     var editMode: Bool = false
     var forageSpot: ForageSpot?
-    var foragePin = MKPointAnnotation()
+    private var foragePin = MKPointAnnotation()
     
     private let mushroomTypes = MushroomType.allCases.map { $0.rawValue }
     
@@ -160,8 +160,10 @@ class AddForageVC: UIViewController {
     private func setUpView() {
         view.backgroundColor = .white
         
-        saveForageButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveForageSpot))
-        navigationItem.rightBarButtonItem = saveForageButton
+        setUpButton(saveForageButton, text: "Save")
+        saveForageButton.addTarget(self, action: #selector(saveForageSpot), for: .touchUpInside)
+        saveForageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        saveForageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         setUpTextField(nameTextField, placeholder: "Forage Spot Title")
         nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
@@ -238,7 +240,7 @@ class AddForageVC: UIViewController {
         mapView.topAnchor.constraint(equalTo: useMyLocationButton.bottomAnchor, constant: 20).isActive = true
         mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: saveForageButton.topAnchor, constant: -20).isActive = true
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

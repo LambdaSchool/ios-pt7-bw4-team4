@@ -10,6 +10,10 @@ import Foundation
 enum ReuseIdentifier {
     static let forageAnnotation = "ForageAnnotationView"
     static let forageCell = "ForageCell"
+    static let noteCell = "NoteCell"
+    static let weatherCell = "WeatherCell"
+    static let headerView = "HeaderView"
+    static let footerView = "FooterView"
 }
 
 enum MushroomType: String, CaseIterable, Identifiable {

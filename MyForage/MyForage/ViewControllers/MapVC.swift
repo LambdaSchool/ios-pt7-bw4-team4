@@ -25,10 +25,10 @@ class MapVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
     fileprivate let locationManager = CLLocationManager()
-    var span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
-    var userLocation: CLLocationCoordinate2D?
+    private var span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
+    private var userLocation: CLLocationCoordinate2D?
     
-    var forageAnnotations: [ForageAnnotation] = [] {
+    private var forageAnnotations: [ForageAnnotation] = [] {
         didSet {
             let oldSpots = Set(oldValue)
             let newSpots = Set(forageAnnotations)
