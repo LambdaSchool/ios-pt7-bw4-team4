@@ -10,7 +10,7 @@ import CoreData
 
 extension Note {
     convenience init(body: String,
-                     date: Date,
+                     date: Date = Date(),
                      identifier: UUID = UUID(),
                      photo: String,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {

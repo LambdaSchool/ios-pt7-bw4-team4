@@ -11,12 +11,7 @@ class HeaderView: UICollectionReusableView {
     
     private var titleLabel = UILabel()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupView()
-    }
-    
-    func setupView() {
+    func setUpView() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
@@ -26,6 +21,7 @@ class HeaderView: UICollectionReusableView {
     }
     
     func configureHeader(sectionType: AnyHashable) {
+        setUpView()
         if let header = sectionType as? WeatherSection {
             titleLabel.text = header.sectionTitle
         }

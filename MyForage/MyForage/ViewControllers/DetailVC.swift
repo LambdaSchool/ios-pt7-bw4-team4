@@ -7,7 +7,6 @@
 
 import UIKit
 import MapKit
-import CoreData
 
 struct Section<HeaderItem: Hashable, SectionItems: Hashable>: Hashable {
     let headerItem: HeaderItem
@@ -43,7 +42,8 @@ class WeatherSection: Hashable {
     var weatherDays: [WeatherDay]
     
     // Replace dummy data with weatherHistory.oneDayAgo.precipitation, etc.
-    init(weatherHistory: WeatherHistory) {
+//    init(weatherHistory: WeatherHistory) {
+    init() {
         let dayOne = WeatherDay(precipitation: 1.5, temperature: 55)
         let dayTwo = WeatherDay(precipitation: 1, temperature: 60)
         let dayThree = WeatherDay(precipitation: 0, temperature: 65)
@@ -125,7 +125,7 @@ class DetailVC: UIViewController {
             // Add functionality to change image
         }))
         actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
-            // Add functionality to add a note
+            self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
@@ -178,8 +178,8 @@ class DetailVC: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(100),
-            heightDimension: .absolute(100))
+            widthDimension: .absolute(80),
+            heightDimension: .absolute(80))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
@@ -189,12 +189,12 @@ class DetailVC: UIViewController {
         sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 40)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .estimated(78))
+                                                heightDimension: .estimated(35))
         
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .estimated(9))
+                                                heightDimension: .estimated(3))
         let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: footerSize,
             elementKind: UICollectionView.elementKindSectionFooter,
@@ -211,8 +211,8 @@ class DetailVC: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(100),
-            heightDimension: .absolute(100))
+            widthDimension: .absolute(90),
+            heightDimension: .absolute(90))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
@@ -222,7 +222,7 @@ class DetailVC: UIViewController {
         sectionLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 40)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .estimated(78))
+                                                heightDimension: .estimated(30))
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         sectionLayout.boundarySupplementaryItems = [headerSupplementary]
         
@@ -271,10 +271,10 @@ class DetailVC: UIViewController {
     
     private func populateCollectionView() {
         var sections: [Section<AnyHashable, [AnyHashable]>] = []
-        if let weatherhistory = forageSpot.weatherHistory {
-            let weatherSection = WeatherSection(weatherHistory: weatherhistory)
+//        if let weatherhistory = forageSpot.weatherHistory {
+            let weatherSection = WeatherSection()
             sections.append(Section(headerItem: weatherSection, sectionItems: weatherSection.weatherDays))
-        }
+//        }
         if let notes = forageSpot.notes {
             let noteArray = Array(notes) as! [Note]
             let notesSection = NotesSection(notes: noteArray)
@@ -348,8 +348,13 @@ class DetailVC: UIViewController {
 extension DetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let note = datasource?.snapshot().sectionIdentifiers[indexPath.section].sectionItems[indexPath.row] as? Note {
-            NSLog("Note: \(String(describing: note.body))")
-            // present note view
+            coordinator?.presentEditNoteVC(note: note, delegate: self)
         }
+    }
+}
+
+extension DetailVC: NoteDelegate {
+    func noteWasSaved() {
+        populateCollectionView()
     }
 }
