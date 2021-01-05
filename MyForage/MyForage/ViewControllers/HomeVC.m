@@ -57,6 +57,7 @@
     _forageSpotsLabel.text = [NSString stringWithFormat:@"%lu Forage Spots", _forageSpotCount];
     ForageSpot *bestSpot = _forageSpots.firstObject;
     _bestForageSpotLabel.text = [NSString stringWithFormat:@"%@", bestSpot.name];
+
     NSString *chance = @"Unknown";
     switch ((int)bestSpot.favorability) {
         case 0 ... 2:
@@ -71,6 +72,7 @@
         case 9 ... 10:
             chance = @"Excellent";
     }
+	
     _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
     _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
 }
