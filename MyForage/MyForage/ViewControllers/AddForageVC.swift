@@ -73,7 +73,7 @@ class AddForageVC: UIViewController {
         let moc = CoreDataStack.shared.mainContext
         do {
             try moc.save()
-            coordinator?.collectionNav.popViewController(animated: true)
+            coordinator?.collectionNav.dismiss(animated: true, completion: nil)
         } catch {
             moc.reset()
             NSLog("Error saving managed object context: \(error)")
