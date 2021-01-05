@@ -220,7 +220,7 @@ class AddForageVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = placeholder
         view.addSubview(textField)
-        textField.borderStyle = .roundedRect
+        textField.borderStyle = .bezel
     }
     
     private func setUpButton(_ button: UIButton, text: String) {
