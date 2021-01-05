@@ -378,3 +378,9 @@ extension DetailVC: UICollectionViewDelegate {
         }
     }
 }
+
+extension DetailVC: NoteDelegate {
+    func noteWasSaved() {
+        populateCollectionView()
+    }
+}
