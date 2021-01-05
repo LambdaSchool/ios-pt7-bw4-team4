@@ -53,11 +53,28 @@ class MainCoordinator: Coordinator {
     }
     
     func presentEditForageVC(forageSpot: ForageSpot) {
-        let addForageVC = AddForageVC()
-        addForageVC.coordinator = self
-        addForageVC.forageSpot = forageSpot
-        addForageVC.editMode = true
-        collectionNav.present(addForageVC, animated: true, completion: nil)
+        let editForageVC = AddForageVC()
+        editForageVC.coordinator = self
+        editForageVC.forageSpot = forageSpot
+        editForageVC.editMode = true
+        collectionNav.present(editForageVC, animated: true, completion: nil)
+    }
+    
+    func presentAddNoteVC(forageSpot: ForageSpot, delegate: NoteDelegate) {
+        let addNoteVC = AddNoteVC()
+        addNoteVC.coordinator = self
+        addNoteVC.forageSpot = forageSpot
+        addNoteVC.delegate = delegate
+        collectionNav.present(addNoteVC, animated: true, completion: nil)
+    }
+    
+    func presentEditNoteVC(note: Note, delegate: NoteDelegate) {
+        let editNoteVC = AddNoteVC()
+        editNoteVC.coordinator = self
+        editNoteVC.note = note
+        editNoteVC.delegate = delegate
+        editNoteVC.editMode = true
+        collectionNav.pushViewController(editNoteVC, animated: true)
     }
     
     func presentFilterView() {

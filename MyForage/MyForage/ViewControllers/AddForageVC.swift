@@ -65,20 +65,19 @@ class AddForageVC: UIViewController {
             forageSpot?.mushroomType = mushroomString
             forageSpot?.latitude = latitude
             forageSpot?.longitude = longitude
-            coordinator?.collectionNav.popViewController(animated: true)
         } else {
             guard let mushroomType = MushroomType(rawValue: mushroomString) else { return }
             ForageSpot(mushroomType: mushroomType, latitude: latitude, longitude: longitude, name: name)
-            let moc = CoreDataStack.shared.mainContext
-            do {
-                try moc.save()
-                coordinator?.collectionNav.popViewController(animated: true)
-            } catch {
-                moc.reset()
-                NSLog("Error saving managed object context: \(error)")
-            }
         }
         
+        let moc = CoreDataStack.shared.mainContext
+        do {
+            try moc.save()
+            coordinator?.collectionNav.popViewController(animated: true)
+        } catch {
+            moc.reset()
+            NSLog("Error saving managed object context: \(error)")
+        }
     }
     
     @objc func useAddress(_ sender: UIButton) {
