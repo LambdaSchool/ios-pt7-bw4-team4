@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class HomeScreenVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
     private let apiController = ApiController()
