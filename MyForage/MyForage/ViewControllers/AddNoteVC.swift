@@ -155,7 +155,7 @@ class AddNoteVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(text, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
         button.backgroundColor = .brown
         button.setTitleColor(.white, for: .normal)

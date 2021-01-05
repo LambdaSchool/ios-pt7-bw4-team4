@@ -6,15 +6,17 @@
 //
 
 import UIKit
+import CoreData
 
-class MainCoordinator: Coordinator {
+@objcMembers
+class MainCoordinator: NSObject, Coordinator {
     
     // MARK: - Properties
     
     var tabBarController: UITabBarController
     var collectionNav = UINavigationController(rootViewController: CollectionVC())
     var mapVC = MapVC()
-    var homeVC = HomeVC()
+    var homeVC: HomeVC!
 
     // MARK: - Lifecycle
     
@@ -37,7 +39,8 @@ class MainCoordinator: Coordinator {
         collectionNav.pushViewController(detailVC, animated: true)
     }
     
-    func presentDetailViewFromMap(forageSpot: ForageSpot) {
+    @objc
+    func presentDetailView(forageSpot: ForageSpot) {
         let detailVC = DetailVC()
         detailVC.coordinator = self
         detailVC.forageSpot = forageSpot
@@ -81,9 +84,22 @@ class MainCoordinator: Coordinator {
         
     }
     
+    @objc
+    func fetchForageSpots() -> [ForageSpot] {
+        var forageSpots: [ForageSpot] = []
+        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
+        do {
+            forageSpots = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
+        } catch {
+            NSLog("Unable to fetch ForageSpots")
+        }
+        return forageSpots.sorted(by: { $0.favorability > $1.favorability })
+    }
+    
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
+        homeVC = HomeVC(coordinator: self)
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
         collectionNav.tabBarItem = UITabBarItem(title: "Forage Spots", image: nil, tag: 1)
@@ -94,6 +110,5 @@ class MainCoordinator: Coordinator {
         guard let collectionVC = collectionNav.topViewController as? CollectionVC else { return }
         collectionVC.coordinator = self
         mapVC.coordinator = self
-        homeVC.coordinator = self
     }
 }

@@ -63,7 +63,7 @@ class ForageAnnotationView: UIView {
         fetchRequest.predicate = NSPredicate(format: "identifier == %@", idString)
         do {
             if let forageSpot = try CoreDataStack.shared.mainContext.fetch(fetchRequest).first {
-                coordinator?.presentDetailViewFromMap(forageSpot: forageSpot)
+                coordinator?.presentDetailView(forageSpot: forageSpot)
             }
         } catch {
             NSLog("Unable to fetch forage spot")
