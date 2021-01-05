@@ -127,6 +127,17 @@ class DetailVC: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
             self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
         }))
+        actionSheet.addAction(UIAlertAction(title: "Delete Forage Spot", style: .destructive, handler: { _ in
+            let moc = CoreDataStack.shared.mainContext
+            moc.delete(self.forageSpot)
+            do {
+                try moc.save()
+                self.coordinator?.collectionNav.popViewController(animated: true)
+            } catch {
+                moc.reset()
+                NSLog("Error saving managed object context: \(error)")
+            }
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
     }
