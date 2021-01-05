@@ -179,7 +179,7 @@ class DetailVC: UIViewController {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .absolute(80),
-            heightDimension: .absolute(80))
+            heightDimension: .absolute(85))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
@@ -194,7 +194,7 @@ class DetailVC: UIViewController {
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .estimated(3))
+                                                heightDimension: .estimated(2))
         let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: footerSize,
             elementKind: UICollectionView.elementKindSectionFooter,
@@ -211,8 +211,8 @@ class DetailVC: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(90),
-            heightDimension: .absolute(90))
+            widthDimension: .absolute(80),
+            heightDimension: .absolute(80))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
