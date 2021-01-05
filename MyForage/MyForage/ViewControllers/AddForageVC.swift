@@ -217,14 +217,14 @@ class AddForageVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = placeholder
         view.addSubview(textField)
-        textField.borderStyle = .bezel
+        textField.borderStyle = .roundedRect
     }
     
     private func setUpButton(_ button: UIButton, text: String) {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(text, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
         button.backgroundColor = .brown
         button.setTitleColor(.white, for: .normal)
