@@ -335,12 +335,15 @@ class DetailVC: UIViewController {
         foragePin.coordinate = CLLocationCoordinate2D(latitude: forageSpot.latitude, longitude: forageSpot.longitude)
         let coordinateRegion = MKCoordinateRegion(center: foragePin.coordinate, span: span)
         mapView.setRegion(coordinateRegion, animated: true)
-        mapView.showAnnotations([foragePin], animated: true)
+        mapView.delegate = self
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: ReuseIdentifier.forageAnnotation)
+        let forageAnnotation = ForageAnnotation(coordinate: foragePin.coordinate, name: forageSpot.name!, favorability: forageSpot.favorability, image: forageSpot.image!, identifier: UUID())
+        mapView.addAnnotations([forageAnnotation])
         
         let mapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mapTapped(tapGestureRecognizer:)))
         mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(mapGestureRecognizer)
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 20).isActive = true
@@ -370,17 +373,29 @@ extension DetailVC: NoteDelegate {
     }
 }
 
-extension DetailVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let note = datasource?.snapshot().sectionIdentifiers[indexPath.section].sectionItems[indexPath.row] as? Note {
-            NSLog("Note: \(String(describing: note.body))")
-            // present note view
+extension DetailVC: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let forageAnnotation = annotation as? ForageAnnotation else { return nil }
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: ReuseIdentifier.forageAnnotation, for: forageAnnotation) as! MKMarkerAnnotationView
+        
+        annotationView.glyphImage = UIImage(named: "Mushroom")
+        annotationView.canShowCallout = false
+        
+        switch forageAnnotation.favorability {
+        case 0..<3:
+            annotationView.markerTintColor = .systemRed
+        case 3..<6:
+            annotationView.markerTintColor = .systemOrange
+        case 6..<9:
+            annotationView.markerTintColor = .systemYellow
+        case 9...10:
+            annotationView.markerTintColor = .systemGreen
+        default:
+            annotationView.markerTintColor = .systemGray
         }
-    }
-}
-
-extension DetailVC: NoteDelegate {
-    func noteWasSaved() {
-        populateCollectionView()
+        
+        annotationView.displayPriority = .required
+        
+        return annotationView
     }
 }

@@ -10,13 +10,7 @@ import MapKit
 import CoreData
 
 class MapVC: UIViewController {
-    
-    // TODO:
-    // custom annotation, images, styling
-    // remove Spot after data model is merged in
-    // remove dummyData
-    
-    
+
     // MARK: - UI Elements
     
     private var mapView = MKMapView()
