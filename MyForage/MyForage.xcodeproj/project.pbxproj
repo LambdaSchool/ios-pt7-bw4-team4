@@ -32,6 +32,8 @@
 		46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B7E258C2285009761BE /* ForageSpot+Convenience.swift */; };
 		46550B95258C27D9009761BE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B94258C27D9009761BE /* CoreDataStack.swift */; };
 		46550B99258C293D009761BE /* Note+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B98258C293D009761BE /* Note+Convenience.swift */; };
+		4680F21225A4CD07002D32FB /* WeatherHistory+Convinience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680F21125A4CD07002D32FB /* WeatherHistory+Convinience.swift */; };
+		4680F21625A4ED80002D32FB /* WeatherHistoryRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680F21525A4ED80002D32FB /* WeatherHistoryRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		46550B7E258C2285009761BE /* ForageSpot+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ForageSpot+Convenience.swift"; sourceTree = "<group>"; };
 		46550B94258C27D9009761BE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		46550B98258C293D009761BE /* Note+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Convenience.swift"; sourceTree = "<group>"; };
+		4680F21125A4CD07002D32FB /* WeatherHistory+Convinience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherHistory+Convinience.swift"; sourceTree = "<group>"; };
+		4680F21525A4ED80002D32FB /* WeatherHistoryRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHistoryRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,8 @@
 				46550B94258C27D9009761BE /* CoreDataStack.swift */,
 				46550B98258C293D009761BE /* Note+Convenience.swift */,
 				1A473026258D454200402C5E /* ForageAnnotation.swift */,
+				4680F21125A4CD07002D32FB /* WeatherHistory+Convinience.swift */,
+				4680F21525A4ED80002D32FB /* WeatherHistoryRepresentation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4680F21625A4ED80002D32FB /* WeatherHistoryRepresentation.swift in Sources */,
 				46550B95258C27D9009761BE /* CoreDataStack.swift in Sources */,
 				1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */,
 				1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */,
@@ -251,6 +258,7 @@
 				1A6CD1792589B9BA0076313A /* APIController.swift in Sources */,
 				1A473027258D454200402C5E /* ForageAnnotation.swift in Sources */,
 				1A6CD1862589C35B0076313A /* MainCoordinator.swift in Sources */,
+				4680F21225A4CD07002D32FB /* WeatherHistory+Convinience.swift in Sources */,
 				1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */,
 				1A6CD16C2589B8DC0076313A /* CollectionVC.swift in Sources */,
 				1A47303825A3D28D00402C5E /* AddNoteVC.swift in Sources */,
