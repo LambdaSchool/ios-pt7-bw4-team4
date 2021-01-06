@@ -26,7 +26,7 @@ class AddNoteVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
     weak var delegate: NoteDelegate?
-    var forageSpot: ForageSpot?
+    var forageSpot: ForageSpot!
     var note: Note?
     var editMode: Bool = false
 
@@ -40,31 +40,40 @@ class AddNoteVC: UIViewController {
     // MARK: - Actions
     
     @objc func saveNote() {
-        let moc = CoreDataStack.shared.mainContext
         guard let body = bodyTextView.text else { return }
         if editMode {
             // need edit image feature
-            note?.body = body
-            do {
-                try moc.save()
-                delegate?.noteWasSaved()
-                coordinator?.collectionNav.popViewController(animated: true)
-            } catch {
-                moc.reset()
-                NSLog("Error saving managed object context: \(error)")
-            }
+            guard let note = note else { return }
+            coordinator?.modelController.editNote(note: note, newBody: body, newPhoto: "", completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.delegate?.noteWasSaved()
+                        self.coordinator?.collectionNav.popViewController(animated: true)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
         } else {
             // need add image feature
-            let newNote = Note(body: body, photo: "")
-            forageSpot?.addToNotes(newNote)
-            do {
-                try moc.save()
-                delegate?.noteWasSaved()
-                coordinator?.collectionNav.dismiss(animated: true, completion: nil)
-            } catch {
-                moc.reset()
-                NSLog("Error saving managed object context: \(error)")
-            }
+            coordinator?.modelController.addNote(forageSpot: forageSpot, body: body, photo: "", completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.delegate?.noteWasSaved()
+                        self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
         }
     }
     
@@ -85,16 +94,20 @@ class AddNoteVC: UIViewController {
     
     @objc func deleteNote() {
         guard let note = note else { return }
-        let moc = CoreDataStack.shared.mainContext
-        moc.delete(note)
-        do {
-            try moc.save()
-            delegate?.noteWasSaved()
-            coordinator?.collectionNav.popViewController(animated: true)
-        } catch {
-            moc.reset()
-            NSLog("Error saving managed object context: \(error)")
-        }
+        coordinator?.modelController.deleteNote(note: note, completion: { result in
+            switch result {
+            case true:
+                let alert = UIAlertController(title: "Note Deleted", message: nil, preferredStyle: .alert)
+                let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                    self.delegate?.noteWasSaved()
+                    self.coordinator?.collectionNav.popViewController(animated: true)
+                })
+                alert.addAction(button)
+                self.present(alert, animated: true)
+            case false:
+                self.errorAlert()
+            }
+        })
     }
     
     // MARK: - Private Functions
@@ -160,6 +173,13 @@ class AddNoteVC: UIViewController {
         button.backgroundColor = .brown
         button.setTitleColor(.white, for: .normal)
         view.addSubview(button)
+    }
+    
+    private func errorAlert() {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong - please try again.", preferredStyle: .alert)
+        let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true)
     }
 
 }
