@@ -43,6 +43,12 @@
     [self updateView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateView];
+}
+
 - (void)updateView
 {
     [self saveCurrentDate];
@@ -51,7 +57,20 @@
     _forageSpotsLabel.text = [NSString stringWithFormat:@"%lu Forage Spots", _forageSpotCount];
     ForageSpot *bestSpot = _forageSpots.firstObject;
     _bestForageSpotLabel.text = [NSString stringWithFormat:@"%@", bestSpot.name];
-    NSString *chance = @"Excellent";
+    NSString *chance = @"Unknown";
+    switch ((int)bestSpot.favorability) {
+        case 0 ... 2:
+            chance = @"Poor";
+            break;
+        case 3 ... 5:
+            chance = @"Fair";
+            break;
+        case 6 ... 8:
+            chance = @"Good";
+            break;
+        case 9 ... 10:
+            chance = @"Excellent";
+    }
     _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
     _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
 }
