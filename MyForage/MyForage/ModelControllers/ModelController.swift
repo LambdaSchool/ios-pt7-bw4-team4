@@ -15,6 +15,28 @@ class ModelController {
 
     // MARK: - Forage Spot Functions
     
+    func addForageSpot(name: String, typeString: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
+        guard let type = MushroomType(rawValue: typeString) else { return }
+        ForageSpot(mushroomType: type, latitude: latitude, longitude: longitude, name: name)
+        let result = saveMOC()
+        completion(result)
+    }
+    
+    func editForageSpot(forageSpot: ForageSpot, newName: String, newType: String, newLat: Double, newLong: Double, completion: @escaping (Bool) -> Void) {
+        forageSpot.name = newName
+        forageSpot.mushroomType = newType
+        forageSpot.latitude = newLat
+        forageSpot.longitude = newLong
+        let result = saveMOC()
+        completion(result)
+    }
+    
+    func deleteForageSpot(forageSpot: ForageSpot, completion: @escaping (Bool) -> Void) {
+        moc.delete(forageSpot)
+        let result = saveMOC()
+        completion(result)
+    }
+    
     // MARK: - Weather History Functions
     
     // MARK: - Note Functions
