@@ -143,11 +143,33 @@ class DetailVC: UIViewController {
     }
     
     @objc func mapTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        view.bringSubviewToFront(mapView)
+        let mapCenter = mapView.center
+        let imageCenter = imageView.center
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mapView.center = CGPoint(x: self.mapView.center.x + 50, y: self.mapView.center.y)
+            self.imageView.center = CGPoint(x: self.imageView.center.x - 50, y: self.imageView.center.y)
+        }) { (_) in
+            UIView.animate(withDuration: 0.5) {
+                self.view.bringSubviewToFront(self.mapView)
+                self.mapView.center = CGPoint(x: mapCenter.x, y: self.mapView.center.y)
+                self.imageView.center = CGPoint(x: imageCenter.x, y: self.imageView.center.y)
+            }
+        }
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        view.bringSubviewToFront(imageView)
+        let imageCenter = imageView.center
+        let mapCenter = mapView.center
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mapView.center = CGPoint(x: self.mapView.center.x + 50, y: self.mapView.center.y)
+            self.imageView.center = CGPoint(x: self.imageView.center.x - 50, y: self.imageView.center.y)
+        }) { (_) in
+            UIView.animate(withDuration: 0.5) {
+                self.view.bringSubviewToFront(self.imageView)
+                self.mapView.center = CGPoint(x: mapCenter.x, y: self.mapView.center.y)
+                self.imageView.center = CGPoint(x: imageCenter.x, y: self.imageView.center.y)
+            }
+        }
     }
 
     // MARK: - Private Functions
