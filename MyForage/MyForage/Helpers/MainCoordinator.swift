@@ -13,6 +13,7 @@ class MainCoordinator: NSObject, Coordinator {
     
     // MARK: - Properties
     
+    var apiController = ApiController()
     var tabBarController: UITabBarController
     var collectionNav = UINavigationController(rootViewController: CollectionVC())
     var mapVC = MapVC()
