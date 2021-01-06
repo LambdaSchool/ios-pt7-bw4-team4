@@ -19,9 +19,9 @@ extension ForageSpot {
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.mushroomType = mushroomType.rawValue
-        self.favorability = Double(favorability)
-        self.latitude = Double(latitude)
-        self.longitude = Double(longitude)
+        self.favorability = favorability
+        self.latitude = latitude
+        self.longitude = longitude
         self.identifier = identifier
         self.image = image
         self.name = name
