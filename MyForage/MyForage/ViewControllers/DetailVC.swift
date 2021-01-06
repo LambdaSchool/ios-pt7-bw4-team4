@@ -129,15 +129,19 @@ class DetailVC: UIViewController {
             self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
         }))
         actionSheet.addAction(UIAlertAction(title: "Delete Forage Spot", style: .destructive, handler: { _ in
-            let moc = CoreDataStack.shared.mainContext
-            moc.delete(self.forageSpot)
-            do {
-                try moc.save()
-                self.coordinator?.collectionNav.popViewController(animated: true)
-            } catch {
-                moc.reset()
-                NSLog("Error saving managed object context: \(error)")
-            }
+            self.coordinator?.modelController.deleteForageSpot(forageSpot: self.forageSpot, completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Forage Spot Deleted", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.coordinator?.collectionNav.popViewController(animated: true)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
@@ -430,6 +434,13 @@ class DetailVC: UIViewController {
             favorabilityString = "Unknown"
         }
         let alert = UIAlertController(title: "\(favorabilityString) Chance of Finding Mushrooms Here Today", message: nil, preferredStyle: .alert)
+        let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true)
+    }
+    
+    private func errorAlert() {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong - please try again.", preferredStyle: .alert)
         let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(button)
         self.present(alert, animated: true)
