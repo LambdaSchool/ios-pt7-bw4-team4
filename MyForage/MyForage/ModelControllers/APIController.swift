@@ -10,8 +10,13 @@ import Foundation
 
 final class ApiController {
     
+    enum NetworkError: Error {
+        case noData
+        case tryAgain
+        case badUrl
+    }
  
-    func getWeatherHistory(latitude: String, longitude: String, dateTime: String) {
+    func getWeatherHistory(latitude: String, longitude: String, dateTime: String, completion: @escaping (Result<WeatherHistoryRepresentation, NetworkError>) -> Void) {
         
         var semaphore = DispatchSemaphore (value: 0)
 
@@ -22,15 +27,34 @@ final class ApiController {
         request.httpMethod = "GET"
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          guard let data = data else {
-            print(String(describing: error))
-            semaphore.signal()
-            return
-          }
+            
+            if let error = error {
+                print("error fetching data: \(error)")
+                completion(.failure(.noData))
+                return
+            }
+            if let response = response {
+                print("problem fetching data:\(response)")
+                completion(.failure(.tryAgain))
+            }
+            guard let data = data else {
+                print("no data from data task")
+                completion(.failure(.noData))
+                return
+            }
           print(String(data: data, encoding: .utf8)!)
           semaphore.signal()
+        
+        //Decode the Data
+            do {
+                let weatherHistoryResult = try JSONDecoder().decode(WeatherHistoryRepresentation.self, from: data)
+                completion(.success(weatherHistoryResult))
+            } catch {
+                print("Error decoding weather data: \(error)")
+                completion(.failure(.noData))
+                return
+            }
         }
-
         task.resume()
         semaphore.wait()
     }
