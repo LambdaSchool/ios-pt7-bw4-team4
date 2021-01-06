@@ -357,6 +357,16 @@ class DetailVC: UIViewController {
         imageView.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    private func goToLocationGPS() {
+        let destination = MKPlacemark(coordinate: foragePin.coordinate)
+        let destinationItem = MKMapItem(placemark: destination)
+        destinationItem.name = forageSpot.name
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        destinationItem.openInMaps(launchOptions: [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                                                   MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span),
+                                                   MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    
 }
 
 extension DetailVC: UICollectionViewDelegate {
@@ -397,5 +407,16 @@ extension DetailVC: MKMapViewDelegate {
         annotationView.displayPriority = .required
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let alert = UIAlertController(title: "Get Directions", message: "Would you like to open Maps?", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.goToLocationGPS()
+        })
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(okButton)
+        alert.addAction(cancelButton)
+        self.present(alert, animated: true)
     }
 }
