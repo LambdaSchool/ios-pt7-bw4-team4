@@ -91,6 +91,7 @@ class DetailVC: UIViewController {
     private var titleLabel = UILabel()
     private var typeLabel = UILabel()
     private var imageView = UIImageView()
+    private var favorabilityView = UIImageView()
     private var mapView = MKMapView()
     private var collectionView: UICollectionView!
     
@@ -328,7 +329,9 @@ class DetailVC: UIViewController {
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(typeLabel)
         typeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        typeLabel.text = forageSpot.mushroomType
+        if let type = forageSpot.mushroomType {
+            typeLabel.text = "Mushroom Type: \(type)"
+        }
 
         if isModal {
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -347,6 +350,29 @@ class DetailVC: UIViewController {
             
             typeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         }
+        
+        favorabilityView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(favorabilityView)
+        favorabilityView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        favorabilityView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        favorabilityView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        favorabilityView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        favorabilityView.image = UIImage(systemName: "bookmark.fill")
+        switch forageSpot.favorability {
+        case 0..<3:
+            favorabilityView.tintColor = .systemRed
+        case 3..<6:
+            favorabilityView.tintColor = .systemOrange
+        case 6..<9:
+            favorabilityView.tintColor = .systemYellow
+        case 9...10:
+            favorabilityView.tintColor = .systemGreen
+        default:
+            favorabilityView.tintColor = .systemGray
+        }
+        let favorabilityTap = UITapGestureRecognizer(target: self, action: #selector(favorabilityTapped(tapGestureRecognizer:)))
+        favorabilityView.isUserInteractionEnabled = true
+        favorabilityView.addGestureRecognizer(favorabilityTap)
 
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
@@ -387,6 +413,26 @@ class DetailVC: UIViewController {
         destinationItem.openInMaps(launchOptions: [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
                                                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span),
                                                    MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    
+    @objc private func favorabilityTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        var favorabilityString = ""
+        switch forageSpot.favorability {
+        case 0..<3:
+            favorabilityString = "Poor"
+        case 3..<6:
+            favorabilityString = "Fair"
+        case 6..<9:
+            favorabilityString = "Good"
+        case 9...10:
+            favorabilityString = "Excellent"
+        default:
+            favorabilityString = "Unknown"
+        }
+        let alert = UIAlertController(title: "\(favorabilityString) Chance of Finding Mushrooms Here Today", message: nil, preferredStyle: .alert)
+        let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true)
     }
     
 }
