@@ -109,11 +109,11 @@ extension MapVC: MKMapViewDelegate {
         switch forageAnnotation.favorability {
         case 0..<3:
             annotationView.markerTintColor = .systemRed
-        case 3..<5:
+        case 3..<6:
             annotationView.markerTintColor = .systemOrange
-        case 5..<7:
+        case 6..<9:
             annotationView.markerTintColor = .systemYellow
-        case 7...10:
+        case 9...10:
             annotationView.markerTintColor = .systemGreen
         default:
             annotationView.markerTintColor = .systemGray
