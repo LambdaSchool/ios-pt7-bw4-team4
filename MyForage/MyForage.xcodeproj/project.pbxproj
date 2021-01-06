@@ -18,6 +18,7 @@
 		1A473035259054D500402C5E /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A473034259054D500402C5E /* FooterView.swift */; };
 		1A47303825A3D28D00402C5E /* AddNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47303725A3D28D00402C5E /* AddNoteVC.swift */; };
 		1A47304025A4CFB300402C5E /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A47303F25A4CFB300402C5E /* HomeVC.m */; };
+		1A47304625A6261100402C5E /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47304525A6261100402C5E /* ModelController.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1542589B2A10076313A /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		1A47303D25A4CFB200402C5E /* MyForage-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyForage-Bridging-Header.h"; sourceTree = "<group>"; };
 		1A47303E25A4CFB300402C5E /* HomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
 		1A47303F25A4CFB300402C5E /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
+		1A47304525A6261100402C5E /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				1A6CD1782589B9BA0076313A /* APIController.swift */,
+				1A47304525A6261100402C5E /* ModelController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				1A47302C2590238F00402C5E /* NoteCell.swift in Sources */,
 				46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */,
 				1A47304025A4CFB300402C5E /* HomeVC.m in Sources */,
+				1A47304625A6261100402C5E /* ModelController.swift in Sources */,
 				1A47301C258C58D500402C5E /* AddForageVC.swift in Sources */,
 				46550B99258C293D009761BE /* Note+Convenience.swift in Sources */,
 			);
