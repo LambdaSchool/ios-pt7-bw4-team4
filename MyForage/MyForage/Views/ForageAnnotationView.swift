@@ -79,11 +79,11 @@ class ForageAnnotationView: UIView {
         switch forageAnnotation.favorability {
         case 0..<3:
             backgroundColor = .systemRed
-        case 3..<5:
+        case 3..<6:
             backgroundColor = .systemOrange
-        case 5..<7:
+        case 6..<9:
             backgroundColor = .systemYellow
-        case 7...10:
+        case 9...10:
             backgroundColor = .systemGreen
         default:
             backgroundColor = .systemGray
