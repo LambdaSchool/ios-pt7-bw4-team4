@@ -30,7 +30,6 @@ class AddForageVC: UIViewController {
     weak var coordinator: MainCoordinator?
     let apiController: ApiController = ApiController()
     
-    
     fileprivate let locationManager = CLLocationManager()
     private var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
     private var userLocation: CLLocationCoordinate2D?
