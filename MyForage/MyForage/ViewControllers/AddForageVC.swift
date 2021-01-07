@@ -28,7 +28,6 @@ class AddForageVC: UIViewController {
     // MARK: - Properties
     
     weak var coordinator: MainCoordinator?
-    let apiController: ApiController = ApiController()
     
     
     fileprivate let locationManager = CLLocationManager()
