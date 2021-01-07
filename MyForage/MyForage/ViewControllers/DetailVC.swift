@@ -123,7 +123,7 @@ class DetailVC: UIViewController {
             self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot)
         }))
         actionSheet.addAction(UIAlertAction(title: "Update Image", style: .default, handler: { _ in
-            // Add functionality to change image
+            self.coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
         }))
         actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
             self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
@@ -459,6 +459,12 @@ extension DetailVC: UICollectionViewDelegate {
 extension DetailVC: NoteDelegate {
     func noteWasSaved() {
         populateCollectionView()
+    }
+}
+
+extension DetailVC: ImageDelegate {
+    func imageWasSaved() {
+        // need function to reload imageView.image
     }
 }
 

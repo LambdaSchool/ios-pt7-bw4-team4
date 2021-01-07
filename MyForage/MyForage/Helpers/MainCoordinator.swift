@@ -82,6 +82,18 @@ class MainCoordinator: NSObject, Coordinator {
         collectionNav.pushViewController(editNoteVC, animated: true)
     }
     
+    func presentImageVC(forageSpot: ForageSpot?, note: Note?, delegate: ImageDelegate) {
+        let imageVC = ImageVC()
+        imageVC.coordinator = self
+        imageVC.delegate = delegate
+        if let forageSpot = forageSpot {
+            imageVC.forageSpot = forageSpot
+        } else if let note = note {
+            imageVC.note = note
+        }
+        collectionNav.present(imageVC, animated: true, completion: nil)
+    }
+    
     func presentFilterView() {
         
     }
