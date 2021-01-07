@@ -110,6 +110,11 @@ class AddNoteVC: UIViewController {
         })
     }
     
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        guard let note = note else { return }
+        coordinator?.presentImageVC(forageSpot: nil, note: note, delegate: self)
+    }
+    
     // MARK: - Private Functions
     
     private func setUpView() {
@@ -127,6 +132,11 @@ class AddNoteVC: UIViewController {
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 240).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        
         
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         bodyTextView.layer.borderWidth = 1
@@ -182,4 +192,11 @@ class AddNoteVC: UIViewController {
         self.present(alert, animated: true)
     }
 
+}
+
+extension AddNoteVC: ImageDelegate {
+    func imageWasSaved() {
+        // need function to reload imageView.image
+        // also use NoteDelegate to inform collection view on DetailVC
+    }
 }
