@@ -12,12 +12,14 @@ class ModelController {
     // MARK: - Properties
     
     let moc = CoreDataStack.shared.mainContext
+    weak var coordinator: MainCoordinator?
 
     // MARK: - Forage Spot Functions
     
     func addForageSpot(name: String, typeString: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
         guard let type = MushroomType(rawValue: typeString) else { return }
-        ForageSpot(mushroomType: type, latitude: latitude, longitude: longitude, name: name)
+        let forageSpot = ForageSpot(mushroomType: type, latitude: latitude, longitude: longitude, name: name)
+        getFiveDayWeather(forageSpot: forageSpot)
         let result = saveMOC()
         completion(result)
     }
@@ -38,6 +40,39 @@ class ModelController {
     }
     
     // MARK: - Weather History Functions
+    
+    func addWeatherHistory(forageSpot: ForageSpot, weatherRep: WeatherHistoryRepresentation) {
+        let weather = WeatherHistory(weatherHistoryRepresentation: weatherRep)
+        forageSpot.addToWeatherHistory(weather)
+        saveMOC()
+    }
+    
+    func getFiveDayWeather(forageSpot: ForageSpot){
+        var dateArray: [String] = []
+        let timeInterval = Int(Date().timeIntervalSince1970)
+        for x in 1...5 {
+            let dateString = String(timeInterval - (86400 * x))
+            dateArray.append(dateString)
+        }
+        for date in dateArray {
+            coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: date, completion: { (result) in
+                switch result {
+                case .success(let weather):
+                    self.addWeatherHistory(forageSpot: forageSpot, weatherRep: weather)
+                default:
+                    
+                    return
+                }
+                
+                
+            })
+        }
+
+        
+        
+        
+    }
+    
     
     // MARK: - Note Functions
     
@@ -65,7 +100,7 @@ class ModelController {
 
     // MARK: - Private Functions
     
-    private func saveMOC() -> Bool {
+    @discardableResult private func saveMOC() -> Bool {
         do {
             try moc.save()
             return true

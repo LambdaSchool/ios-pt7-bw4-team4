@@ -15,17 +15,18 @@ final class ApiController {
         case tryAgain
         case badUrl
     }
- 
-    func getWeatherHistory(latitude: String, longitude: String, dateTime: String, completion: @escaping (Result<WeatherHistoryRepresentation, NetworkError>) -> Void) {
+    
+    func getWeatherHistory(latitude: Double, longitude: Double, dateTime: String, completion: @escaping (Result<WeatherHistoryRepresentation, NetworkError>) -> Void) {
         
-        var semaphore = DispatchSemaphore (value: 0)
-
-        var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=\(latitude)&lon=\(longitude)&dt=\(dateTime)&appid=8944fa47fcfbfa7e3b1406342202eaf2&units=imperial")!,timeoutInterval: Double.infinity)
+        let latitudeString = String(latitude)
+        let longitudeString = String(longitude)
+        
+        var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=\(latitudeString)&lon=\(longitudeString)&dt=\(dateTime)&appid=8944fa47fcfbfa7e3b1406342202eaf2&units=imperial")!,timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "accept")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-
+        
         request.httpMethod = "GET"
-
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             if let error = error {
@@ -33,7 +34,8 @@ final class ApiController {
                 completion(.failure(.noData))
                 return
             }
-            if let response = response {
+            if let response = response as? HTTPURLResponse,
+               !(200...210 ~= response.statusCode) {
                 print("problem fetching data:\(response)")
                 completion(.failure(.tryAgain))
             }
@@ -42,12 +44,11 @@ final class ApiController {
                 completion(.failure(.noData))
                 return
             }
-          print(String(data: data, encoding: .utf8)!)
-          semaphore.signal()
-        
-        //Decode the Data
+            
+            //Decode the Data
             do {
                 let weatherHistoryResult = try JSONDecoder().decode(WeatherHistoryRepresentation.self, from: data)
+                print(weatherHistoryResult.temperatureHigh)
                 completion(.success(weatherHistoryResult))
             } catch {
                 print("Error decoding weather data: \(error)")
@@ -56,6 +57,6 @@ final class ApiController {
             }
         }
         task.resume()
-        semaphore.wait()
     }
+    
 }
