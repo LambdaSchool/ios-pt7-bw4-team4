@@ -43,15 +43,12 @@
     [self updateView];
 }
 
-<<<<<<< HEAD
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateView];
 }
 
-=======
->>>>>>> Home Screen in Objective C
 - (void)updateView
 {
     [self saveCurrentDate];
@@ -60,7 +57,7 @@
     _forageSpotsLabel.text = [NSString stringWithFormat:@"%lu Forage Spots", _forageSpotCount];
     ForageSpot *bestSpot = _forageSpots.firstObject;
     _bestForageSpotLabel.text = [NSString stringWithFormat:@"%@", bestSpot.name];
-<<<<<<< HEAD
+
     NSString *chance = @"Unknown";
     switch ((int)bestSpot.favorability) {
         case 0 ... 2:
@@ -75,9 +72,7 @@
         case 9 ... 10:
             chance = @"Excellent";
     }
-=======
-    NSString *chance = @"Excellent";
->>>>>>> Home Screen in Objective C
+    
     _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
     _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
 }
