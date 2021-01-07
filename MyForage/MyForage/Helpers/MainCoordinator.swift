@@ -113,6 +113,7 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
+        modelController.updateAllWeatherHistory()
         homeVC = HomeVC(coordinator: self)
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)

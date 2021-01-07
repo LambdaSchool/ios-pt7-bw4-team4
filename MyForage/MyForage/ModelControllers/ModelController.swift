@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class ModelController {
     
@@ -47,6 +48,11 @@ class ModelController {
         saveMOC()
     }
     
+    func deleteWeatherHistory(weather: WeatherHistory) {
+        moc.delete(weather)
+        saveMOC()
+    }
+    
     func getFiveDayWeather(forageSpot: ForageSpot){
         var dateArray: [String] = []
         let timeInterval = Int(Date().timeIntervalSince1970)
@@ -60,19 +66,78 @@ class ModelController {
                 case .success(let weather):
                     self.addWeatherHistory(forageSpot: forageSpot, weatherRep: weather)
                 default:
-                    
                     return
                 }
-                
-                
             })
         }
-
-        
-        
-        
     }
     
+    func updateFiveDayWeather(forageSpot: ForageSpot) {
+        let weatherData = Array(forageSpot.weatherHistory as? Set<WeatherHistory> ?? []).sorted(by: { $0.dateTime! > $1.dateTime! })
+        
+        guard weatherData.count != 0  else {
+            getFiveDayWeather(forageSpot: forageSpot)
+            return
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+
+        var dateStringArray: [String] = []
+        for x in 1...5 {
+            let dateInt = Int(Date().timeIntervalSince1970) - (86400 * x)
+            let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
+            dateStringArray.append(dateString)
+        }
+
+        let firstWeatherDay = formatter.string(from: weatherData[0].dateTime!)
+        guard firstWeatherDay != dateStringArray[0] else { return }
+
+        var weatherDayArray: [String] = []
+        for weatherIndex in 0..<weatherData.count {
+            let dateString = String(formatter.string(from: weatherData[weatherIndex].dateTime!))
+            weatherDayArray.append(dateString)
+        }
+        
+        var daysToRemove: [Int] = []
+        for dayIndex in 0..<weatherDayArray.count {
+            if let dateIndex = dateStringArray.firstIndex(of: weatherDayArray[dayIndex]) {
+                dateStringArray.remove(at: dateIndex)
+            } else {
+                daysToRemove.insert(dayIndex, at: 0)
+            }
+        }
+        
+        for day in daysToRemove {
+            deleteWeatherHistory(weather: weatherData[day])
+        }
+        
+        for dateString in dateStringArray {
+            let date = formatter.date(from: dateString)
+            let urlString = String(Int(date!.timeIntervalSince1970))
+            coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: urlString, completion: { result in
+                switch result {
+                case .success(let weather):
+                    self.addWeatherHistory(forageSpot: forageSpot, weatherRep: weather)
+                default:
+                    return
+                }
+            })
+        }
+    }
+    
+    func updateAllWeatherHistory() {
+        let fetchRequest: NSFetchRequest<ForageSpot> = ForageSpot.fetchRequest()
+        do {
+            let forageSpots = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
+            guard !forageSpots.isEmpty else { return }
+            for spot in forageSpots {
+                updateFiveDayWeather(forageSpot: spot)
+            }
+        } catch {
+            NSLog("Unable to fetch ForageSpots")
+        }
+    }
     
     // MARK: - Note Functions
     

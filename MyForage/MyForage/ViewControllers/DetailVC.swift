@@ -69,7 +69,7 @@ class NotesSection: Hashable {
     var notes: [Note]
         
     init(notes: [Note]) {
-        self.notes = notes.sorted(by: { $0.date! < $1.date! })
+        self.notes = notes.sorted(by: { $0.date! > $1.date! })
     }
      
     func hash(into hasher: inout Hasher) {

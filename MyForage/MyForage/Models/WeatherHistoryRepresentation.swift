@@ -35,7 +35,9 @@ struct WeatherHistoryRepresentation: Decodable {
         
         let curretnContainer = try rootDict.nestedContainer(keyedBy: Keys.CurrentKeys.self, forKey: .current )
         
-        dateTime = try curretnContainer.decode(Date.self, forKey: .dateTime)
+        let dateInt = try curretnContainer.decode(Int.self, forKey: .dateTime)
+        dateTime = Date(timeIntervalSince1970: Double(dateInt))
+        
         var hourlyContainer = try rootDict.nestedUnkeyedContainer(forKey: .hourly)
         
         var highestTemp: Double = -100
@@ -57,8 +59,7 @@ struct WeatherHistoryRepresentation: Decodable {
         }
         
         temperatureHigh = highestTemp
-        totalRain = totalRainMm
-        
+        totalRain = (totalRainMm * 0.03937008) // converting millimeters to inches
         
     }
     
