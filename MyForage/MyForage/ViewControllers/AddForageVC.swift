@@ -62,23 +62,34 @@ class AddForageVC: UIViewController {
               !long.isEmpty,
               let longitude = Double(long) else { return }
         let mushroomString = mushroomTypes[mushroomTypePicker.selectedRow(inComponent: 0)]
-        if forageSpot != nil {
-            forageSpot?.name = name
-            forageSpot?.mushroomType = mushroomString
-            forageSpot?.latitude = latitude
-            forageSpot?.longitude = longitude
+        if let forageSpot = forageSpot {
+            coordinator?.modelController.editForageSpot(forageSpot: forageSpot, newName: name, newType: mushroomString, newLat: latitude, newLong: longitude, completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Forage Saved", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
         } else {
-            guard let mushroomType = MushroomType(rawValue: mushroomString) else { return }
-            ForageSpot(mushroomType: mushroomType, latitude: latitude, longitude: longitude, name: name)
-        }
-        
-        let moc = CoreDataStack.shared.mainContext
-        do {
-            try moc.save()
-            coordinator?.collectionNav.dismiss(animated: true, completion: nil)
-        } catch {
-            moc.reset()
-            NSLog("Error saving managed object context: \(error)")
+            coordinator?.modelController.addForageSpot(name: name, typeString: mushroomString, latitude: latitude, longitude: longitude, completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Forage Saved", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
         }
     }
     
@@ -263,11 +274,17 @@ class AddForageVC: UIViewController {
             completion(placemark)
         }
     }
+    
+    private func errorAlert() {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong - please try again.", preferredStyle: .alert)
+        let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true)
+    }
 
 }
 
 extension AddForageVC: UIPickerViewDelegate, UIPickerViewDataSource {
-
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
@@ -279,12 +296,10 @@ extension AddForageVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         mushroomTypes[row]
     }
-
 }
 
 extension AddForageVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let location = locations.last! as CLLocation
         let currentLocation = location.coordinate
         userLocation = currentLocation
