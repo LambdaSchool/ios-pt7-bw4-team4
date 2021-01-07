@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 extension WeatherHistory {
-    @discardableResult convenience init(dateTime: Date = Date(),
+    @discardableResult convenience init(dateTime: Date,
                                         temperatureHigh: Double,
                                         totalRain: Double,
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
