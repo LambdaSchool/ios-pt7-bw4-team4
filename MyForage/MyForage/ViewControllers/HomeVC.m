@@ -72,7 +72,7 @@
         case 9 ... 10:
             chance = @"Excellent";
     }
-    
+
     _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
     _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
 }
