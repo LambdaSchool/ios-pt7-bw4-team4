@@ -124,5 +124,6 @@ class MainCoordinator: NSObject, Coordinator {
         guard let collectionVC = collectionNav.topViewController as? CollectionVC else { return }
         collectionVC.coordinator = self
         mapVC.coordinator = self
+        modelController.coordinator = self
     }
 }
