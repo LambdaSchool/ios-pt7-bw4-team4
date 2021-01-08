@@ -8,6 +8,10 @@
 import UIKit
 import MapKit
 
+protocol ForageDelegate: AnyObject {
+    func forageSpotWasSaved()
+}
+
 class AddForageVC: UIViewController {
     
     // MARK: - UI Elements
@@ -27,6 +31,7 @@ class AddForageVC: UIViewController {
     // MARK: - Properties
     
     weak var coordinator: MainCoordinator?
+    weak var delegate: ForageDelegate?
 
     fileprivate let locationManager = CLLocationManager()
     private var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
@@ -65,6 +70,7 @@ class AddForageVC: UIViewController {
                 case true:
                     let alert = UIAlertController(title: "Forage Saved", message: nil, preferredStyle: .alert)
                     let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.delegate?.forageSpotWasSaved()
                         self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
                     })
                     alert.addAction(button)
@@ -79,6 +85,7 @@ class AddForageVC: UIViewController {
                 case true:
                     let alert = UIAlertController(title: "Forage Saved", message: nil, preferredStyle: .alert)
                     let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.delegate?.forageSpotWasSaved()
                         self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
                     })
                     alert.addAction(button)
