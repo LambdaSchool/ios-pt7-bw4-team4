@@ -36,6 +36,7 @@
 		46550B99258C293D009761BE /* Note+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46550B98258C293D009761BE /* Note+Convenience.swift */; };
 		4680F21225A4CD07002D32FB /* WeatherHistory+Convinience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680F21125A4CD07002D32FB /* WeatherHistory+Convinience.swift */; };
 		4680F21625A4ED80002D32FB /* WeatherHistoryRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4680F21525A4ED80002D32FB /* WeatherHistoryRepresentation.swift */; };
+		46FA0E8F25A769DB00A2A33B /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46FA0E8E25A769DB00A2A33B /* SplashScreenVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		46550B98258C293D009761BE /* Note+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Convenience.swift"; sourceTree = "<group>"; };
 		4680F21125A4CD07002D32FB /* WeatherHistory+Convinience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherHistory+Convinience.swift"; sourceTree = "<group>"; };
 		4680F21525A4ED80002D32FB /* WeatherHistoryRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHistoryRepresentation.swift; sourceTree = "<group>"; };
+		46FA0E8E25A769DB00A2A33B /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 		1A6CD1652589B8AD0076313A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				46FA0E8E25A769DB00A2A33B /* SplashScreenVC.swift */,
 				1A6CD1622589B8A70076313A /* MapVC.swift */,
 				1A6CD16B2589B8DC0076313A /* CollectionVC.swift */,
 				1A6CD16F2589B8E90076313A /* DetailVC.swift */,
@@ -281,6 +284,7 @@
 				1A473035259054D500402C5E /* FooterView.swift in Sources */,
 				1A47302C2590238F00402C5E /* NoteCell.swift in Sources */,
 				46550B7F258C2285009761BE /* ForageSpot+Convenience.swift in Sources */,
+				46FA0E8F25A769DB00A2A33B /* SplashScreenVC.swift in Sources */,
 				1A47304025A4CFB300402C5E /* HomeVC.m in Sources */,
 				1A47304625A6261100402C5E /* ModelController.swift in Sources */,
 				1A47301C258C58D500402C5E /* AddForageVC.swift in Sources */,
