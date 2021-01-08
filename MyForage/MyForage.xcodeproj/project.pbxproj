@@ -24,6 +24,7 @@
 		1A47306325A8287B00402C5E /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306225A8287B00402C5E /* FilterViewModel.swift */; };
 		1A47306625A8290000402C5E /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306525A8290000402C5E /* FilterView.swift */; };
 		1A47306925A8C9C500402C5E /* SplashScreenHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306825A8C9C400402C5E /* SplashScreenHC.swift */; };
+		1A47306C25A8F0B800402C5E /* EditMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306B25A8F0B800402C5E /* EditMenuView.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1542589B2A10076313A /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		1A47306225A8287B00402C5E /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		1A47306525A8290000402C5E /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		1A47306825A8C9C400402C5E /* SplashScreenHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenHC.swift; sourceTree = "<group>"; };
+		1A47306B25A8F0B800402C5E /* EditMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuView.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				1A473034259054D500402C5E /* FooterView.swift */,
 				1A47306525A8290000402C5E /* FilterView.swift */,
 				1A47306225A8287B00402C5E /* FilterViewModel.swift */,
+				1A47306B25A8F0B800402C5E /* EditMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				1A47306925A8C9C500402C5E /* SplashScreenHC.swift in Sources */,
 				1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */,
 				1A47306025A8275600402C5E /* FilterHC.swift in Sources */,
+				1A47306C25A8F0B800402C5E /* EditMenuView.swift in Sources */,
 				1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */,
 				1A6CD1632589B8A70076313A /* MapVC.swift in Sources */,
 				1A6CD1792589B9BA0076313A /* APIController.swift in Sources */,

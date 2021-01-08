@@ -117,6 +117,7 @@ class ModelController {
         }
         
         if dateStringArray.count == 0 {
+            deleteWeatherHistory(weather: weatherData[0])
             let dateInt = Int(Date().timeIntervalSince1970)
             let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
             dateStringArray.append(dateString)
