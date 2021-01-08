@@ -103,6 +103,7 @@ class AddForageVC: UIViewController {
             if let latitude = placemark.location?.coordinate.latitude,
                let longitude = placemark.location?.coordinate.longitude {
                 self.foragePin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                
                 self.mapView.showAnnotations([self.foragePin], animated: true)
                 self.latitudeTextField.text = String(latitude)
                 self.longitudeTextField.text = String(longitude)
@@ -292,7 +293,9 @@ extension AddForageVC: CLLocationManagerDelegate {
         userLocation = currentLocation
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: span)
         mapView.setRegion(coordinateRegion, animated: true)
-        if let userLocation = userLocation {
+        
+        if let userLocation = userLocation,
+           forageSpot == nil {
             foragePin.coordinate = userLocation
             mapView.showAnnotations([foragePin], animated: true)
             latitudeTextField.text = String(userLocation.latitude)

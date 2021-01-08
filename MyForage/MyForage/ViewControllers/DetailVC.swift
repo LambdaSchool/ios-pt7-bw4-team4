@@ -76,6 +76,7 @@ class DetailVC: UIViewController {
     fileprivate let locationManager = CLLocationManager()
     private var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
     private var foragePin = MKPointAnnotation()
+    private var forageAnnotation: ForageAnnotation?
     
     private var datasource: UICollectionViewDiffableDataSource<Section<AnyHashable, [AnyHashable]>, AnyHashable>!
 
@@ -90,33 +91,6 @@ class DetailVC: UIViewController {
     // MARK: - Actions
     
     @objc func editActionSheet() {
-//        let actionSheet = UIAlertController(title: "What would you like to do?", message: nil, preferredStyle: .actionSheet)
-//        actionSheet.addAction(UIAlertAction(title: "Edit Forage Spot", style: .default, handler: { _ in
-//            self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "Update Image", style: .default, handler: { _ in
-//            self.coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
-//            self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "Delete Forage Spot", style: .destructive, handler: { _ in
-//            self.coordinator?.modelController.deleteForageSpot(forageSpot: self.forageSpot, completion: { result in
-//                switch result {
-//                case true:
-//                    let alert = UIAlertController(title: "Forage Spot Deleted", message: nil, preferredStyle: .alert)
-//                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-//                        self.coordinator?.collectionNav.popViewController(animated: true)
-//                    })
-//                    alert.addAction(button)
-//                    self.present(alert, animated: true)
-//                case false:
-//                    self.errorAlert()
-//                }
-//            })
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//        present(actionSheet, animated: true, completion: nil)
         coordinator?.presentEditMenu(delegate: self)
     }
     
@@ -354,6 +328,9 @@ class DetailVC: UIViewController {
 
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
+        if let forageAnnotation = forageAnnotation {
+            mapView.removeAnnotations([forageAnnotation])
+        }
         mapView.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 20).isActive = true
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 60).isActive = true
         mapView.widthAnchor.constraint(equalToConstant: 200).isActive = true
@@ -363,8 +340,10 @@ class DetailVC: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.delegate = self
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: ReuseIdentifier.forageAnnotation)
-        let forageAnnotation = ForageAnnotation(coordinate: foragePin.coordinate, name: forageSpot.name!, favorability: forageSpot.favorability, image: forageSpot.image!, identifier: UUID())
-        mapView.addAnnotations([forageAnnotation])
+        forageAnnotation = ForageAnnotation(coordinate: foragePin.coordinate, name: forageSpot.name!, favorability: forageSpot.favorability, image: forageSpot.image!, identifier: UUID())
+        if let forageAnnotation = forageAnnotation {
+            mapView.addAnnotations([forageAnnotation])
+        }
         
         let mapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mapTapped(tapGestureRecognizer:)))
         mapView.isUserInteractionEnabled = true
