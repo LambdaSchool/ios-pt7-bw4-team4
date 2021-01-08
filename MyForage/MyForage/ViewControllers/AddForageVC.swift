@@ -22,7 +22,6 @@ class AddForageVC: UIViewController {
     private var useAddressButton = UIButton()
     private var useCoordinatesButton = UIButton()
     private var useMyLocationButton = UIButton()
-    private var clearPinButton = UIButton()
     private var saveForageButton = UIButton()
     
     // MARK: - Properties
@@ -131,18 +130,6 @@ class AddForageVC: UIViewController {
         }
     }
     
-    @objc func clearPin(_ sender: UIButton) {
-        let pin = [foragePin]
-        mapView.removeAnnotations(pin)
-        latitudeTextField.text?.removeAll()
-        longitudeTextField.text?.removeAll()
-        addressTextField.text?.removeAll()
-        if let userLocation = userLocation {
-            let coordinateRegion = MKCoordinateRegion(center: userLocation, span: span)
-            mapView.setRegion(coordinateRegion, animated: true)
-        }
-    }
-    
     // MARK: - Private Functions
     
     private func updateView() {
@@ -176,13 +163,13 @@ class AddForageVC: UIViewController {
         saveForageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         setUpTextField(nameTextField, placeholder: "Forage Spot Title")
-        nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         
         mushroomTypePicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mushroomTypePicker)
-        mushroomTypePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
+        mushroomTypePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         mushroomTypePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mushroomTypePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         mushroomTypePicker.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -196,31 +183,26 @@ class AddForageVC: UIViewController {
         addressTextField.topAnchor.constraint(equalTo: mushroomTypePicker.bottomAnchor, constant: 10).isActive = true
         addressTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         addressTextField.trailingAnchor.constraint(equalTo: useAddressButton.leadingAnchor, constant: -5).isActive = true
-
-        setUpButton(useCoordinatesButton, text: "Use Coordinates")
-        useCoordinatesButton.addTarget(self, action: #selector(useCoordinates), for: .touchUpInside)
-        useCoordinatesButton.topAnchor.constraint(equalTo: useAddressButton.bottomAnchor, constant: 10).isActive = true
-        useCoordinatesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         
         setUpTextField(latitudeTextField, placeholder: "Latitude")
         latitudeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10).isActive = true
-        latitudeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        latitudeTextField.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        latitudeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        latitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
         
         setUpTextField(longitudeTextField, placeholder: "Longitude")
         longitudeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10).isActive = true
-        longitudeTextField.leadingAnchor.constraint(equalTo: latitudeTextField.trailingAnchor, constant: 5).isActive = true
-        longitudeTextField.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        longitudeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        longitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
+        
+        setUpButton(useCoordinatesButton, text: "Use Coordinates")
+        useCoordinatesButton.addTarget(self, action: #selector(useCoordinates), for: .touchUpInside)
+        useCoordinatesButton.topAnchor.constraint(equalTo: latitudeTextField.bottomAnchor, constant: 10).isActive = true
+        useCoordinatesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
         
         setUpButton(useMyLocationButton, text: "Use My Location")
         useMyLocationButton.addTarget(self, action: #selector(useMyLocation), for: .touchUpInside)
         useMyLocationButton.topAnchor.constraint(equalTo: latitudeTextField.bottomAnchor, constant: 10).isActive = true
-        useMyLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        
-        setUpButton(clearPinButton, text: "Clear Pin")
-        clearPinButton.addTarget(self, action: #selector(clearPin), for: .touchUpInside)
-        clearPinButton.topAnchor.constraint(equalTo: useCoordinatesButton.bottomAnchor, constant: 10).isActive = true
-        clearPinButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        useMyLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
                 
         setUpMap()
         updateView()
