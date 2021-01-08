@@ -92,7 +92,7 @@ class DetailVC: UIViewController {
     @objc func editActionSheet() {
         let actionSheet = UIAlertController(title: "What would you like to do?", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Edit Forage Spot", style: .default, handler: { _ in
-            self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot)
+            self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
         }))
         actionSheet.addAction(UIAlertAction(title: "Update Image", style: .default, handler: { _ in
             self.coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
@@ -438,6 +438,13 @@ extension DetailVC: NoteDelegate {
 extension DetailVC: ImageDelegate {
     func imageWasSaved() {
         // need function to reload imageView.image
+    }
+}
+
+extension DetailVC: ForageDelegate {
+    func forageSpotWasSaved() {
+        setUpView()
+        populateCollectionView()
     }
 }
 

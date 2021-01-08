@@ -56,10 +56,11 @@ class MainCoordinator: NSObject, Coordinator {
         collectionNav.present(addForageVC, animated: true, completion: nil)
     }
     
-    func presentEditForageVC(forageSpot: ForageSpot) {
+    func presentEditForageVC(forageSpot: ForageSpot, delegate: ForageDelegate) {
         let editForageVC = AddForageVC()
         editForageVC.coordinator = self
         editForageVC.forageSpot = forageSpot
+        editForageVC.delegate = delegate
         editForageVC.editMode = true
         collectionNav.present(editForageVC, animated: true, completion: nil)
     }
