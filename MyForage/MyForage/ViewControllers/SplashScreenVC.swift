@@ -122,9 +122,6 @@ extension SplashScreen {
         runAnimationPart1()
         runAnimationPart2()
         runAnimationPart3()
-        if SplashScreen.shouldAnimate {
-            restartAnimation()
-        }
     }
     
     func runAnimationPart1() {
@@ -176,18 +173,7 @@ extension SplashScreen {
             }
         }
     }
-    
-    func restartAnimation() {
-        let deadline: DispatchTime = .now() + 2*oAnimationDuration + finalAnimationDuration
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            self.percent = 0
-            self.textScale = 1
-            self.coverCircleAlpha = 0
-            self.coverCircleScale = 1
-            self.handleAnimations()
-            self.mushroomOpasity = 0
-        }
-    }
+
 }
 
 struct ForageO: Shape {

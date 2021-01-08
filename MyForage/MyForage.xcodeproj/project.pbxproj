@@ -23,6 +23,7 @@
 		1A47306025A8275600402C5E /* FilterHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47305F25A8275600402C5E /* FilterHC.swift */; };
 		1A47306325A8287B00402C5E /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306225A8287B00402C5E /* FilterViewModel.swift */; };
 		1A47306625A8290000402C5E /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306525A8290000402C5E /* FilterView.swift */; };
+		1A47306925A8C9C500402C5E /* SplashScreenHC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A47306825A8C9C400402C5E /* SplashScreenHC.swift */; };
 		1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14B2589B29E0076313A /* AppDelegate.swift */; };
 		1A6CD14E2589B29E0076313A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6CD14D2589B29E0076313A /* SceneDelegate.swift */; };
 		1A6CD1552589B2A10076313A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A6CD1542589B2A10076313A /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		1A47305F25A8275600402C5E /* FilterHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHC.swift; sourceTree = "<group>"; };
 		1A47306225A8287B00402C5E /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		1A47306525A8290000402C5E /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		1A47306825A8C9C400402C5E /* SplashScreenHC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenHC.swift; sourceTree = "<group>"; };
 		1A6CD1482589B29E0076313A /* MyForage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyForage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A6CD14B2589B29E0076313A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A6CD14D2589B29E0076313A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				1A47303725A3D28D00402C5E /* AddNoteVC.swift */,
 				1A47305325A68C6300402C5E /* ImageVC.swift */,
 				1A47305F25A8275600402C5E /* FilterHC.swift */,
+				1A47306825A8C9C400402C5E /* SplashScreenHC.swift */,
 				1A47303E25A4CFB300402C5E /* HomeVC.h */,
 				1A47303F25A4CFB300402C5E /* HomeVC.m */,
 				1A47303D25A4CFB200402C5E /* MyForage-Bridging-Header.h */,
@@ -275,6 +278,7 @@
 				1A6CD14C2589B29E0076313A /* AppDelegate.swift in Sources */,
 				1A47305425A68C6300402C5E /* ImageVC.swift in Sources */,
 				1A6CD1752589B96C0076313A /* MyForage.xcdatamodeld in Sources */,
+				1A47306925A8C9C500402C5E /* SplashScreenHC.swift in Sources */,
 				1A473008258AD97A00402C5E /* ForageAnnotationView.swift in Sources */,
 				1A47306025A8275600402C5E /* FilterHC.swift in Sources */,
 				1A47300C258AF6D900402C5E /* ForageCell.swift in Sources */,

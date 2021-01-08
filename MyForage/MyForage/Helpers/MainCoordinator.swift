@@ -115,19 +115,28 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
+        let splashHC = SplashScreenHC(coordinator: self, contentView: SplashScreen())
+        tabBarController.setViewControllers([splashHC], animated: true)
+        tabBarController.tabBar.backgroundImage = UIImage()
+        tabBarController.tabBar.shadowImage = UIImage()
+        
         modelController.coordinator = self
         modelController.updateAllWeatherHistory()
         homeVC = HomeVC(coordinator: self)
-        
-        tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
-        homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
-        collectionNav.tabBarItem = UITabBarItem(title: "My Forage Spots", image: nil, tag: 1)
-        mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, tag: 2)
-        
-        mapVC.coordinator = self
-        guard let collectionVC = collectionNav.topViewController as? CollectionVC else { return }
-        collectionVC.coordinator = self
-        filterViewModel.delegate = collectionVC
+        let seconds = 3.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.tabBarController.tabBar.backgroundImage = nil
+            
+            self.tabBarController.setViewControllers([self.homeVC, self.collectionNav, self.mapVC], animated: false)
+            self.homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
+            self.collectionNav.tabBarItem = UITabBarItem(title: "My Forage Spots", image: nil, tag: 1)
+            self.mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, tag: 2)
+            
+            self.mapVC.coordinator = self
+            guard let collectionVC = self.collectionNav.topViewController as? CollectionVC else { return }
+            collectionVC.coordinator = self
+            self.filterViewModel.delegate = collectionVC
+        }
     }
     
 }
