@@ -75,10 +75,10 @@
         NSString *chance = @"Unknown";
         switch ((int)bestSpot.favorability) {
             case 0 ... 2:
-                chance = @"Poor";
+                chance = @"No";
                 break;
             case 3 ... 5:
-                chance = @"Fair";
+                chance = @"Low";
                 break;
             case 6 ... 8:
                 chance = @"Good";
