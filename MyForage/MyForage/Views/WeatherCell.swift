@@ -19,7 +19,7 @@ class WeatherCell: UICollectionViewCell {
     
     // MARK: - Properties
         
-    var weather: WeatherDay? {
+    var weather: WeatherHistory? {
         didSet {
             updateViews()
         }
@@ -42,9 +42,12 @@ class WeatherCell: UICollectionViewCell {
     
     private func updateViews() {
         guard let weather = weather else { return }
-        tempLabel.text = "\(weather.temperature)°F"
-        rainLabel.text = "\(weather.precipitation)\""
-        dateLabel.text = "(date)"
+        tempLabel.text = String(format: "%.0f°F", weather.temperatureHigh)
+        rainLabel.text = String(format: "%.1f\"", weather.totalRain)
+        let formatter = DateFormatter()
+        formatter.timeZone = NSTimeZone.local
+        formatter.dateFormat = "E"
+        dateLabel.text = formatter.string(from: weather.dateTime!).uppercased()
     }
     
     private func setUpView() {

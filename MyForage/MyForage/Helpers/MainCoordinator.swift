@@ -28,7 +28,6 @@ class MainCoordinator: NSObject, Coordinator {
     
     func start() {
         setUpAppNavViews()
-        passDependencies()
     }
     
     // MARK: - Functions
@@ -113,18 +112,18 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
+        modelController.coordinator = self
         modelController.updateAllWeatherHistory()
         homeVC = HomeVC(coordinator: self)
+        
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
         collectionNav.tabBarItem = UITabBarItem(title: "Forage Spots", image: nil, tag: 1)
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, tag: 2)
-    }
-    
-    private func passDependencies() {
+        
+        mapVC.coordinator = self
         guard let collectionVC = collectionNav.topViewController as? CollectionVC else { return }
         collectionVC.coordinator = self
-        mapVC.coordinator = self
-        modelController.coordinator = self
     }
+    
 }
