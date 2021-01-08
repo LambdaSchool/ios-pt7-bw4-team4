@@ -95,6 +95,7 @@ class ModelController {
             let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
             dateStringArray.append(dateString)
         }
+        
 
         var weatherDayArray: [String] = []
         for weatherIndex in 0..<weatherData.count {
@@ -113,6 +114,12 @@ class ModelController {
         
         for day in daysToRemove {
             deleteWeatherHistory(weather: weatherData[day])
+        }
+        
+        if dateStringArray.count == 0 {
+            let dateInt = Int(Date().timeIntervalSince1970)
+            let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
+            dateStringArray.append(dateString)
         }
         
         for dateString in dateStringArray {
