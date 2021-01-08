@@ -48,6 +48,7 @@ class ModelController {
     func addWeatherHistory(forageSpot: ForageSpot, weatherRep: WeatherHistoryRepresentation) {
         let weather = WeatherHistory(weatherHistoryRepresentation: weatherRep)
         forageSpot.addToWeatherHistory(weather)
+        setFavorabilityScore(forageSpot: forageSpot)
         saveMOC()
     }
     
@@ -154,6 +155,71 @@ class ModelController {
         } catch {
             NSLog("Unable to fetch ForageSpots")
         }
+    }
+    
+    func setFavorabilityScore(forageSpot: ForageSpot) {
+        guard let weatherHistory = forageSpot.weatherHistory else { return }
+        let weather = Array(weatherHistory) as! [WeatherHistory]
+        guard weather.count > 3 else {
+            forageSpot.favorability = 0
+            return
+        }
+        
+        var score: Double = 0
+        
+        var totalRain: Double = 0
+        for day in weather {
+            totalRain += day.totalRain
+        }
+        
+        switch totalRain {
+        case 0.5..<2:
+            score += 3
+        case 2..<4:
+            score += 4
+        case 4...100:
+            score += 5
+        default:
+            break
+        }
+        
+        var earlyRain: Double = 0
+        var earlierDays = weather.sorted(by: { $0.dateTime! > $1.dateTime! })
+        earlierDays.remove(at: 0)
+        earlierDays.remove(at: 0)
+        for day in earlierDays {
+            earlyRain += day.totalRain
+        }
+        
+        if earlyRain > (totalRain / 2) {
+            score += 2
+        } else {
+            score -= 1
+        }
+        
+        let averageTemperature = (weather.map { Int($0.temperatureHigh) }).reduce(0, +) / weather.count
+        switch averageTemperature {
+        case -100...32:
+            score = 1
+        case 51...69:
+            score += 1
+        case 70...85:
+            score += 5
+        case 86...95:
+            score += 2
+        case 96...150:
+            score -= 3
+        default:
+            break
+        }
+        
+        if score < 1 {
+            score = 1
+        } else if score > 10 {
+            score = 10
+        }
+        
+        forageSpot.favorability = score
     }
     
     // MARK: - Note Functions
