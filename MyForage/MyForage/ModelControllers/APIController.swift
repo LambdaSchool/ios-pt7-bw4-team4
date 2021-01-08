@@ -48,7 +48,6 @@ final class ApiController {
             //Decode the Data
             do {
                 let weatherHistoryResult = try JSONDecoder().decode(WeatherHistoryRepresentation.self, from: data)
-                print(weatherHistoryResult.temperatureHigh)
                 completion(.success(weatherHistoryResult))
             } catch {
                 print("Error decoding weather data: \(error)")

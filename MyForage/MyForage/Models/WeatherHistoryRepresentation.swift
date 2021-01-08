@@ -60,7 +60,6 @@ struct WeatherHistoryRepresentation: Decodable {
         
         temperatureHigh = highestTemp
         totalRain = (totalRainMm * 0.03937008) // converting millimeters to inches
-        
     }
     
     

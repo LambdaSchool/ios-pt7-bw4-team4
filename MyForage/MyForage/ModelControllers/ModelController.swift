@@ -28,6 +28,9 @@ class ModelController {
     func editForageSpot(forageSpot: ForageSpot, newName: String, newType: String, newLat: Double, newLong: Double, completion: @escaping (Bool) -> Void) {
         forageSpot.name = newName
         forageSpot.mushroomType = newType
+        if (forageSpot.latitude != newLat || forageSpot.longitude != newLong) {
+            replaceFiveDayWeather(forageSpot: forageSpot)
+        }
         forageSpot.latitude = newLat
         forageSpot.longitude = newLong
         let result = saveMOC()
@@ -56,8 +59,9 @@ class ModelController {
     func getFiveDayWeather(forageSpot: ForageSpot){
         var dateArray: [String] = []
         let timeInterval = Int(Date().timeIntervalSince1970)
-        for x in 1...5 {
-            let dateString = String(timeInterval - (86400 * x))
+        
+        for x in 0...4 {
+            let dateString = String(timeInterval - (86400 * x) + timeZoneAdjustment())
             dateArray.append(dateString)
         }
         for date in dateArray {
@@ -81,17 +85,15 @@ class ModelController {
         }
         
         let formatter = DateFormatter()
+        formatter.timeZone = NSTimeZone.local
         formatter.dateStyle = .short
 
         var dateStringArray: [String] = []
-        for x in 1...5 {
+        for x in 0...4 {
             let dateInt = Int(Date().timeIntervalSince1970) - (86400 * x)
             let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
             dateStringArray.append(dateString)
         }
-
-        let firstWeatherDay = formatter.string(from: weatherData[0].dateTime!)
-        guard firstWeatherDay != dateStringArray[0] else { return }
 
         var weatherDayArray: [String] = []
         for weatherIndex in 0..<weatherData.count {
@@ -114,7 +116,7 @@ class ModelController {
         
         for dateString in dateStringArray {
             let date = formatter.date(from: dateString)
-            let urlString = String(Int(date!.timeIntervalSince1970))
+            let urlString = String(Int(date!.timeIntervalSince1970) + timeZoneAdjustment())
             coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: urlString, completion: { result in
                 switch result {
                 case .success(let weather):
@@ -124,6 +126,21 @@ class ModelController {
                 }
             })
         }
+    }
+    
+    private func timeZoneAdjustment() -> Int {
+        let timeZoneFormatter = DateFormatter()
+        timeZoneFormatter.timeZone = NSTimeZone.local
+        timeZoneFormatter.dateFormat = "Z"
+        return (Int(timeZoneFormatter.string(from: Date()))! * 60 * 60 / 100)
+    }
+    
+    func replaceFiveDayWeather(forageSpot: ForageSpot) {
+        let weatherData = Array(forageSpot.weatherHistory as? Set<WeatherHistory> ?? []).sorted(by: { $0.dateTime! > $1.dateTime! })
+        for day in weatherData {
+            deleteWeatherHistory(weather: day)
+        }
+        getFiveDayWeather(forageSpot: forageSpot)
     }
     
     func updateAllWeatherHistory() {

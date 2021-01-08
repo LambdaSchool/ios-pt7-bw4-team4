@@ -17,40 +17,12 @@ struct DataSource<Section: Hashable> {
     let sections: [Section]
 }
 
-class WeatherDay: Hashable {
-    var precipitation: Double
-    var temperature: Int
-    
-    init(precipitation: Double, temperature: Int) {
-        self.precipitation = precipitation
-        self.temperature = temperature
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
-    }
-    
-    static func == (lhs: WeatherDay, rhs: WeatherDay) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-    
-    private let identifier = UUID()
-}
-
 class WeatherSection: Hashable {
     var sectionTitle = "Recent Weather"
-    var weatherDays: [WeatherDay]
+    var weatherDays: [WeatherHistory]
     
-    // Replace dummy data with weatherHistory.oneDayAgo.precipitation, etc.
-//    init(weatherHistory: WeatherHistory) {
-    init() {
-        let dayOne = WeatherDay(precipitation: 1.5, temperature: 55)
-        let dayTwo = WeatherDay(precipitation: 1, temperature: 60)
-        let dayThree = WeatherDay(precipitation: 0, temperature: 65)
-        let dayFour = WeatherDay(precipitation: 0, temperature: 63)
-        let dayFive = WeatherDay(precipitation: 0.5, temperature: 58)
-        
-        self.weatherDays = [dayOne, dayTwo, dayThree, dayFour, dayFive]
+    init(weather: [WeatherHistory]) {
+        self.weatherDays = weather.sorted(by: { $0.dateTime! > $1.dateTime! })
     }
     
     func hash(into hasher: inout Hasher) {
@@ -269,7 +241,7 @@ class DetailVC: UIViewController {
     
     private func configureDatasource() {
         datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            if let weather = item as? WeatherDay {
+            if let weather = item as? WeatherHistory {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.weatherCell, for: indexPath) as? WeatherCell else { fatalError("Cannot create cell")
                 }
                 cell.weather = weather
@@ -309,10 +281,11 @@ class DetailVC: UIViewController {
     
     private func populateCollectionView() {
         var sections: [Section<AnyHashable, [AnyHashable]>] = []
-//        if let weatherhistory = forageSpot.weatherHistory {
-            let weatherSection = WeatherSection()
+        if let weatherHistory = forageSpot.weatherHistory {
+            let weatherArray = Array(weatherHistory) as! [WeatherHistory]
+            let weatherSection = WeatherSection(weather: weatherArray)
             sections.append(Section(headerItem: weatherSection, sectionItems: weatherSection.weatherDays))
-//        }
+        }
         if let notes = forageSpot.notes {
             let noteArray = Array(notes) as! [Note]
             let notesSection = NotesSection(notes: noteArray)
