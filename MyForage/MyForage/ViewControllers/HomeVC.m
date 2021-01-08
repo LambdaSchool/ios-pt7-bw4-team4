@@ -54,27 +54,42 @@
     [self saveCurrentDate];
     [self fetchForageSpots];
     _titleLabel.text = [NSString stringWithFormat:@"Good %@!", _timeOfDay];
-    _forageSpotsLabel.text = [NSString stringWithFormat:@"%lu Forage Spots", _forageSpotCount];
-    ForageSpot *bestSpot = _forageSpots.firstObject;
-    _bestForageSpotLabel.text = [NSString stringWithFormat:@"%@", bestSpot.name];
-
-    NSString *chance = @"Unknown";
-    switch ((int)bestSpot.favorability) {
-        case 0 ... 2:
-            chance = @"Poor";
-            break;
-        case 3 ... 5:
-            chance = @"Fair";
-            break;
-        case 6 ... 8:
-            chance = @"Good";
-            break;
-        case 9 ... 10:
-            chance = @"Excellent";
+    if (_forageSpots.count == 0) {
+        [_imageView setUserInteractionEnabled:NO];
+        _forageSpotsLabel.text = @"No Forage Spots";
+        _todaysBestLabel.text = @"Add your first Forage Spot in the";
+        _bestForageSpotLabel.text = @"\"My Forage Spots\" section";
+        _chanceLabel.text = @"";
+        _typeLabel.text = @"";
+    } else {
+        [_imageView setUserInteractionEnabled:YES];
+        _todaysBestLabel.text = @"Today's Best Forage Spot:";
+        if (_forageSpots.count == 1) {
+            _forageSpotsLabel.text = @"1 Forage Spot";
+        } else {
+            _forageSpotsLabel.text = [NSString stringWithFormat:@"%lu Forage Spots", _forageSpotCount];
+        }
+        ForageSpot *bestSpot = _forageSpots.firstObject;
+        _bestForageSpotLabel.text = [NSString stringWithFormat:@"%@", bestSpot.name];
+        
+        NSString *chance = @"Unknown";
+        switch ((int)bestSpot.favorability) {
+            case 0 ... 2:
+                chance = @"Poor";
+                break;
+            case 3 ... 5:
+                chance = @"Fair";
+                break;
+            case 6 ... 8:
+                chance = @"Good";
+                break;
+            case 9 ... 10:
+                chance = @"Excellent";
+        }
+        
+        _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
+        _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
     }
-
-    _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
-    _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
 }
 
 - (void)setUpView

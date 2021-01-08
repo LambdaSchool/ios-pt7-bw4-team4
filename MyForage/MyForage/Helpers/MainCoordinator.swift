@@ -118,7 +118,7 @@ class MainCoordinator: NSObject, Coordinator {
         
         tabBarController.setViewControllers([homeVC, collectionNav, mapVC], animated: false)
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
-        collectionNav.tabBarItem = UITabBarItem(title: "Forage Spots", image: nil, tag: 1)
+        collectionNav.tabBarItem = UITabBarItem(title: "My Forage Spots", image: nil, tag: 1)
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, tag: 2)
         
         mapVC.coordinator = self
