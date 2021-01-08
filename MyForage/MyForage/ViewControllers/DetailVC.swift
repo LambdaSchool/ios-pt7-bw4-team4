@@ -90,33 +90,34 @@ class DetailVC: UIViewController {
     // MARK: - Actions
     
     @objc func editActionSheet() {
-        let actionSheet = UIAlertController(title: "What would you like to do?", message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Edit Forage Spot", style: .default, handler: { _ in
-            self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Update Image", style: .default, handler: { _ in
-            self.coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
-            self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Delete Forage Spot", style: .destructive, handler: { _ in
-            self.coordinator?.modelController.deleteForageSpot(forageSpot: self.forageSpot, completion: { result in
-                switch result {
-                case true:
-                    let alert = UIAlertController(title: "Forage Spot Deleted", message: nil, preferredStyle: .alert)
-                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                        self.coordinator?.collectionNav.popViewController(animated: true)
-                    })
-                    alert.addAction(button)
-                    self.present(alert, animated: true)
-                case false:
-                    self.errorAlert()
-                }
-            })
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(actionSheet, animated: true, completion: nil)
+//        let actionSheet = UIAlertController(title: "What would you like to do?", message: nil, preferredStyle: .actionSheet)
+//        actionSheet.addAction(UIAlertAction(title: "Edit Forage Spot", style: .default, handler: { _ in
+//            self.coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "Update Image", style: .default, handler: { _ in
+//            self.coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "Add a Note", style: .default, handler: { _ in
+//            self.coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "Delete Forage Spot", style: .destructive, handler: { _ in
+//            self.coordinator?.modelController.deleteForageSpot(forageSpot: self.forageSpot, completion: { result in
+//                switch result {
+//                case true:
+//                    let alert = UIAlertController(title: "Forage Spot Deleted", message: nil, preferredStyle: .alert)
+//                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+//                        self.coordinator?.collectionNav.popViewController(animated: true)
+//                    })
+//                    alert.addAction(button)
+//                    self.present(alert, animated: true)
+//                case false:
+//                    self.errorAlert()
+//                }
+//            })
+//        }))
+//        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        present(actionSheet, animated: true, completion: nil)
+        coordinator?.presentEditMenu(delegate: self)
     }
     
     @objc func mapTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -445,6 +446,39 @@ extension DetailVC: ForageDelegate {
     func forageSpotWasSaved() {
         setUpView()
         populateCollectionView()
+    }
+}
+
+extension DetailVC: EditDelegate {
+    func didSelectOption(editOption: EditOption) {
+        switch editOption {
+        case .editForageSpot:
+            coordinator?.collectionNav.dismiss(animated: true)
+            coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
+        case .updateImage:
+            coordinator?.collectionNav.dismiss(animated: true)
+            coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
+        case .addNote:
+            coordinator?.collectionNav.dismiss(animated: true)
+            coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
+        case .deleteForageSpot:
+            coordinator?.collectionNav.dismiss(animated: true)
+            coordinator?.modelController.deleteForageSpot(forageSpot: self.forageSpot, completion: { result in
+                switch result {
+                case true:
+                    let alert = UIAlertController(title: "Forage Spot Deleted", message: nil, preferredStyle: .alert)
+                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        self.coordinator?.collectionNav.popViewController(animated: true)
+                    })
+                    alert.addAction(button)
+                    self.present(alert, animated: true)
+                case false:
+                    self.errorAlert()
+                }
+            })
+        case .cancel:
+            coordinator?.collectionNav.dismiss(animated: true)
+        }
     }
 }
 

@@ -100,6 +100,11 @@ class MainCoordinator: NSObject, Coordinator {
         collectionNav.present(filterHC, animated: true)
     }
     
+    func presentEditMenu(delegate: EditDelegate) {
+        let editMenuHC = FilterHC(coordinator: self, contentView: EditMenuView(delegate: delegate))
+        collectionNav.present(editMenuHC, animated: true, completion: nil)
+    }
+    
     @objc
     func fetchForageSpots() -> [ForageSpot] {
         var forageSpots: [ForageSpot] = []
