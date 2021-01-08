@@ -396,9 +396,9 @@ class DetailVC: UIViewController {
         var favorabilityString = ""
         switch forageSpot.favorability {
         case 0..<3:
-            favorabilityString = "Poor"
+            favorabilityString = "No"
         case 3..<6:
-            favorabilityString = "Fair"
+            favorabilityString = "Low"
         case 6..<9:
             favorabilityString = "Good"
         case 9...10:

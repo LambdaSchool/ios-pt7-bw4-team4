@@ -19,6 +19,7 @@ class MainCoordinator: NSObject, Coordinator {
     var collectionNav = UINavigationController(rootViewController: CollectionVC())
     var mapVC = MapVC()
     var homeVC: HomeVC!
+    var filterViewModel = FilterViewModel()
 
     // MARK: - Lifecycle
     
@@ -95,7 +96,8 @@ class MainCoordinator: NSObject, Coordinator {
     }
     
     func presentFilterView() {
-        
+        let filterHC = FilterHC(coordinator: self, contentView: FilterView().environmentObject(filterViewModel))
+        collectionNav.present(filterHC, animated: true)
     }
     
     @objc
@@ -125,6 +127,7 @@ class MainCoordinator: NSObject, Coordinator {
         mapVC.coordinator = self
         guard let collectionVC = collectionNav.topViewController as? CollectionVC else { return }
         collectionVC.coordinator = self
+        filterViewModel.delegate = collectionVC
     }
     
 }

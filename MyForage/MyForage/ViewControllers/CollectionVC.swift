@@ -10,10 +10,6 @@ import CoreData
 
 class CollectionVC: UIViewController {
     
-    // TODO:
-    // Create filter and sort functions
-
-    
     // MARK: - UI Elements
     
     private var addButton: UIBarButtonItem!
@@ -112,5 +108,12 @@ extension CollectionVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedSpot = datasource.itemIdentifier(for: indexPath) else { return }
         coordinator?.presentDetailViewFromCollection(forageSpot: selectedSpot)
+    }
+}
+
+extension CollectionVC: FilterDelegate {
+    func filterSpots(predicate: NSPredicate?) {
+        self.predicate = predicate
+        initFetchedResultsController()
     }
 }

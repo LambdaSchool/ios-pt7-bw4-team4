@@ -19,7 +19,7 @@ enum ReuseIdentifier {
 enum MushroomType: String, CaseIterable, Identifiable {
     case chanterelle = "Chanterelle"
     case morel = "Morel"
-    case lionsMain = "Lion's Main"
+    case lionsMain = "Lion's Mane"
     case oyster = "Oyster"
     case giantPuffBall = "Giant Puff Ball"
     case wineCap = "Wine Cap"
