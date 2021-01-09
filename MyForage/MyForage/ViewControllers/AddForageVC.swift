@@ -163,7 +163,7 @@ class AddForageVC: UIViewController {
     }
     
     private func setUpView() {
-        view.backgroundColor = .white
+        view.backgroundColor = appColor.cream
         
         setUpButton(saveForageButton, text: "Save")
         saveForageButton.addTarget(self, action: #selector(saveForageSpot), for: .touchUpInside)
@@ -177,10 +177,13 @@ class AddForageVC: UIViewController {
         
         mushroomTypePicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mushroomTypePicker)
-        mushroomTypePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
+        mushroomTypePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
         mushroomTypePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mushroomTypePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         mushroomTypePicker.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        mushroomTypePicker.backgroundColor = appColor.lightGreen
+        mushroomTypePicker.layer.cornerRadius = 15
+        mushroomTypePicker.layer.masksToBounds = true
 
         setUpButton(useAddressButton, text: "Use Address")
         useAddressButton.addTarget(self, action: #selector(useAddress), for: .touchUpInside)
@@ -229,8 +232,8 @@ class AddForageVC: UIViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
-        button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = appColor.mediumGreen
+        button.setTitleColor(appColor.cream, for: .normal)
         view.addSubview(button)
     }
     

@@ -14,6 +14,7 @@ struct FilterView: View {
     var body: some View {
         VStack(spacing: 20) {
             Text("Filters")
+                .foregroundColor(Color("CharcoalColor"))
                 .font(.largeTitle)
                 .fontWeight(.semibold)
                 .padding(.top, 30)
@@ -24,7 +25,7 @@ struct FilterView: View {
                         Text(mushroomType.rawValue)
                     }
                 }
-                .background(Color.blue)
+                .background(Color("YellowColor"))
                 .frame(width: 200, height: 100)
                 .cornerRadius(15)
                 .shadow(radius: 8, x: 3, y: 3)
@@ -35,9 +36,9 @@ struct FilterView: View {
                     Text("Filter by Type")
                         .font(.title)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color(.white))
+                        .foregroundColor(Color("CreamColor"))
                         .padding(10)
-                        .background(Color.blue)
+                        .background(Color("OrangeColor"))
                         .cornerRadius(15)
                         .shadow(radius: 8, x: 3, y: 3)
                 })
@@ -47,9 +48,9 @@ struct FilterView: View {
                 Text("Good Spots")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(.white))
+                    .foregroundColor(Color("CreamColor"))
                     .padding(10)
-                    .background(Color.green)
+                    .background(Color("MediumGreenColor"))
                     .cornerRadius(15)
                     .shadow(radius: 8, x: 3, y: 3)
             })
@@ -58,15 +59,15 @@ struct FilterView: View {
                 Text("Clear Filters")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(.white))
+                    .foregroundColor(Color("CreamColor"))
                     .padding(10)
-                    .background(Color.red)
+                    .background(Color("RedColor"))
                     .cornerRadius(15)
                     .shadow(radius: 8, x: 3, y: 3)
             })
             .padding(.bottom, 30)
         }
-        .background(Color.white)
+        .background(Color("CreamColor"))
     }
 }
 

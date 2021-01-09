@@ -51,7 +51,13 @@ class WeatherCell: UICollectionViewCell {
     }
     
     private func setUpView() {
-        backgroundColor = .white
+        backgroundColor = appColor.cream
+        
+        layer.cornerRadius = 8
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+        layer.shadowColor = appColor.gray.cgColor
+        layer.shadowOpacity = 0.7
         
         rainDrop.translatesAutoresizingMaskIntoConstraints = false
         rainDrop.image = UIImage(systemName: "drop.fill")
@@ -80,14 +86,21 @@ class WeatherCell: UICollectionViewCell {
         rainLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23).isActive = true
         
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.backgroundColor = .blue
-        dateLabel.textColor = .white
+        dateLabel.backgroundColor = appColor.lightGreen
+        dateLabel.textColor = appColor.darkGreen
         dateLabel.textAlignment = .center
         contentView.addSubview(dateLabel)
         dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 3).isActive = true
         dateLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        dateLabel.layer.cornerRadius = 8
+        dateLabel.layer.shadowRadius = 5
+        dateLabel.layer.shadowOffset = CGSize(width: 3, height: 3)
+        dateLabel.layer.shadowColor = appColor.gray.cgColor
+        dateLabel.layer.shadowOpacity = 0.7
+        dateLabel.layer.masksToBounds = true
     }
     
 }

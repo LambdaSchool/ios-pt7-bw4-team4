@@ -16,7 +16,8 @@ class HeaderView: UICollectionReusableView {
         addSubview(titleLabel)
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = appColor.darkGreen
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         titleLabel.adjustsFontForContentSizeCategory = true
     }
     

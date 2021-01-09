@@ -40,7 +40,7 @@ class MapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = appColor.yellow
         setUpMap()
         addAnnotations()
     }
@@ -102,15 +102,15 @@ extension MapVC: MKMapViewDelegate {
         
         switch forageAnnotation.favorability {
         case 0..<3:
-            annotationView.markerTintColor = .systemRed
+            annotationView.markerTintColor = appColor.red
         case 3..<6:
-            annotationView.markerTintColor = .systemOrange
+            annotationView.markerTintColor = appColor.orange
         case 6..<9:
-            annotationView.markerTintColor = .systemYellow
+            annotationView.markerTintColor = appColor.lightGreen
         case 9...10:
-            annotationView.markerTintColor = .systemGreen
+            annotationView.markerTintColor = appColor.mediumGreen
         default:
-            annotationView.markerTintColor = .systemGray
+            annotationView.markerTintColor = appColor.gray
         }
         
         annotationView.displayPriority = .required

@@ -34,6 +34,9 @@ class ForageAnnotationView: UIView {
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.textColor = appColor.cream
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        titleLabel.textAlignment = .center
         
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
         stackView.spacing = UIStackView.spacingUseSystem
@@ -78,15 +81,15 @@ class ForageAnnotationView: UIView {
         
         switch forageAnnotation.favorability {
         case 0..<3:
-            backgroundColor = .systemRed
+            backgroundColor = appColor.red
         case 3..<6:
-            backgroundColor = .systemOrange
+            backgroundColor = appColor.orange
         case 6..<9:
-            backgroundColor = .systemYellow
+            backgroundColor = appColor.lightGreen
         case 9...10:
-            backgroundColor = .systemGreen
+            backgroundColor = appColor.mediumGreen
         default:
-            backgroundColor = .systemGray
+            backgroundColor = appColor.gray
         }
     }
 

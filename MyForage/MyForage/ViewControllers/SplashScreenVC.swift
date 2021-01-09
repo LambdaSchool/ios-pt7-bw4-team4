@@ -15,12 +15,12 @@ struct SplashScreen: View {
     let mushroomStemHeight:  CGFloat = 4
     let mushroomStemWidth: CGFloat = 27
     let mushroomCapLength: CGFloat = 21
-    let black = Color("black")
+    let black = Color("CharcoalColor")
     
     @State var mushroomOpasity: Double = 0
     @State var percent = 0.0
     @State var oScale: CGFloat = 1
-    @State var mushroomColor = Color.black
+    @State var mushroomColor = Color("CharcoalColor")
     @State var mushroomScale: CGFloat = 1
     @State var mushroomStemScale: CGFloat = 1
     @State var textAlpha = 0.0
@@ -61,7 +61,7 @@ struct SplashScreen: View {
                 .scaleEffect(textScale)
             
             ForageO(percent: percent)
-                .stroke(Color.black, lineWidth: oLineWidth)
+                .stroke(self.black, lineWidth: oLineWidth)
                 .rotationEffect(.degrees(-90))
                 .aspectRatio(1, contentMode: .fit)
                 .padding(20)

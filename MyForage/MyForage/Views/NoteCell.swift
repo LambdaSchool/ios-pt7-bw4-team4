@@ -49,7 +49,13 @@ class NoteCell: UICollectionViewCell {
     }
     
     private func setUpView() {
-        backgroundColor = .white
+        backgroundColor = appColor.cream
+        
+        layer.cornerRadius = 8
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+        layer.shadowColor = appColor.gray.cgColor
+        layer.shadowOpacity = 0.7
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
@@ -61,11 +67,18 @@ class NoteCell: UICollectionViewCell {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.textAlignment = .center
         dateLabel.adjustsFontSizeToFitWidth = true
-        dateLabel.backgroundColor = .white
+        dateLabel.backgroundColor = appColor.lightGreen
         contentView.addSubview(dateLabel)
         dateLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        dateLabel.layer.cornerRadius = 8
+        dateLabel.layer.shadowRadius = 5
+        dateLabel.layer.shadowOffset = CGSize(width: 3, height: 3)
+        dateLabel.layer.shadowColor = appColor.gray.cgColor
+        dateLabel.layer.shadowOpacity = 0.7
+        dateLabel.layer.masksToBounds = true
     }
     
 }
