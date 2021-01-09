@@ -50,12 +50,12 @@ class CollectionVC: UIViewController {
         let view = UIView()
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
         layout.itemSize = CGSize(width: 120, height: 140)
                 
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(ForageCell.self, forCellWithReuseIdentifier: ReuseIdentifier.forageCell)
-        collectionView?.backgroundColor = .white
+        collectionView?.backgroundColor = appColor.cream
         collectionView.delegate = self
         
         view.addSubview(collectionView ?? UICollectionView())

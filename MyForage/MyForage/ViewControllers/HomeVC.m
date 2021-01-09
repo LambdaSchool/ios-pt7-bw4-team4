@@ -94,11 +94,13 @@
 
 - (void)setUpView
 {
-    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = [UIColor colorNamed:@"CreamColor"];
     
     _titleLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_titleLabel text:@"Hello!" fontSize:28.];
     [_titleLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:50].active = YES;
+    _titleLabel.shadowColor = [UIColor colorNamed:@"GrayColor"];
+    _titleLabel.shadowOffset = CGSizeMake(0.5, 1.0);
     
     _youHaveLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_youHaveLabel text:@"You Have:" fontSize:20.];
@@ -107,6 +109,9 @@
     _forageSpotsLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_forageSpotsLabel text:@"0 Forage Spots" fontSize:28.];
     [_forageSpotsLabel.topAnchor constraintEqualToAnchor:_youHaveLabel.bottomAnchor constant:10].active = YES;
+    _forageSpotsLabel.textColor = [UIColor colorNamed:@"MediumGreenColor"];
+    _forageSpotsLabel.shadowColor = [UIColor colorNamed:@"DarkGreenColor"];
+    _forageSpotsLabel.shadowOffset = CGSizeMake(0.5, 1.0);
     
     _todaysBestLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_todaysBestLabel text:@"Today's Best Forage Spot:" fontSize:20.];
@@ -115,6 +120,9 @@
     _bestForageSpotLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_bestForageSpotLabel text:@"Forage Spot Title" fontSize:28.];
     [_bestForageSpotLabel.topAnchor constraintEqualToAnchor:_todaysBestLabel.bottomAnchor constant:10].active = YES;
+    _bestForageSpotLabel.textColor = [UIColor colorNamed:@"MediumGreenColor"];
+    _bestForageSpotLabel.shadowColor = [UIColor colorNamed:@"DarkGreenColor"];
+    _bestForageSpotLabel.shadowOffset = CGSizeMake(0.5, 1.0);
     
     _imageView = [[UIImageView alloc] init];
     [self.view addSubview:_imageView];
@@ -131,10 +139,14 @@
     _chanceLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_chanceLabel text:@"Great Chance of Finding" fontSize:18.];
     [_chanceLabel.topAnchor constraintEqualToAnchor:_imageView.bottomAnchor constant:15].active = YES;
+    _chanceLabel.textColor = [UIColor colorNamed:@"RedColor"];
     
     _typeLabel = [[UILabel alloc] init];
     [self setUpLabelWithLabel:_typeLabel text:@"Mushrooms" fontSize:24.];
     [_typeLabel.topAnchor constraintEqualToAnchor:_chanceLabel.bottomAnchor constant:5].active = YES;
+    _typeLabel.textColor = [UIColor colorNamed:@"MediumGreenColor"];
+    _typeLabel.shadowColor = [UIColor colorNamed:@"DarkGreenColor"];
+    _typeLabel.shadowOffset = CGSizeMake(0.5, 1.0);
 }
 
 - (void)setUpLabelWithLabel:(UILabel *)label text:(NSString *)text fontSize:(CGFloat)size
@@ -144,6 +156,7 @@
     label.font = [UIFont boldSystemFontOfSize:size];
     label.text = text;
     [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    label.textColor = [UIColor colorNamed:@"CharcoalColor"];
 }
 
 - (void)saveCurrentDate

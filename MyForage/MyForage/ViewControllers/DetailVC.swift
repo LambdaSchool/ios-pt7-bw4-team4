@@ -127,13 +127,18 @@ class DetailVC: UIViewController {
     // MARK: - Private Functions
     
     private func configureCollectionView() {
-        let frame = CGRect(x: 20, y: (view.frame.height / 2), width: (view.frame.width - 40), height: ((view.frame.height / 2) - 60))
+        let frame = CGRect(x: 20, y: (view.frame.height / 2), width: (view.frame.width - 40), height: ((view.frame.height / 2) - 70))
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout())
         collectionView?.register(WeatherCell.self, forCellWithReuseIdentifier: ReuseIdentifier.weatherCell)
         collectionView.register(NoteCell.self, forCellWithReuseIdentifier: ReuseIdentifier.noteCell)
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ReuseIdentifier.headerView)
         collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReuseIdentifier.footerView)
-        collectionView?.backgroundColor = .blue
+        collectionView?.backgroundColor = appColor.yellow
+        collectionView.layer.cornerRadius = 15
+        collectionView.layer.shadowRadius = 5
+        collectionView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        collectionView.layer.shadowColor = appColor.gray.cgColor
+        collectionView.layer.shadowOpacity = 0.7
         collectionView.delegate = self
         
         view.addSubview(collectionView)
@@ -276,11 +281,13 @@ class DetailVC: UIViewController {
     }
     
     private func setUpView() {
-        view.backgroundColor = .white
+        view.backgroundColor = appColor.cream
         
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(typeLabel)
         typeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        typeLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        typeLabel.textColor = appColor.darkGreen
         if let type = forageSpot.mushroomType {
             typeLabel.text = "Mushroom Type: \(type)"
         }
@@ -291,6 +298,10 @@ class DetailVC: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             titleLabel.text = forageSpot.name
+            titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+            titleLabel.textColor = appColor.red
+            titleLabel.shadowColor = appColor.gray
+            titleLabel.shadowOffset = CGSize(width: 0.5, height: 1)
 
             typeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
             
@@ -312,15 +323,15 @@ class DetailVC: UIViewController {
         favorabilityView.image = UIImage(systemName: "bookmark.fill")
         switch forageSpot.favorability {
         case 0..<3:
-            favorabilityView.tintColor = .systemRed
+            favorabilityView.tintColor = appColor.red
         case 3..<6:
-            favorabilityView.tintColor = .systemOrange
+            favorabilityView.tintColor = appColor.orange
         case 6..<9:
-            favorabilityView.tintColor = .systemYellow
+            favorabilityView.tintColor = appColor.lightGreen
         case 9...10:
-            favorabilityView.tintColor = .systemGreen
+            favorabilityView.tintColor = appColor.mediumGreen
         default:
-            favorabilityView.tintColor = .systemGray
+            favorabilityView.tintColor = appColor.gray
         }
         let favorabilityTap = UITapGestureRecognizer(target: self, action: #selector(favorabilityTapped(tapGestureRecognizer:)))
         favorabilityView.isUserInteractionEnabled = true
@@ -471,15 +482,15 @@ extension DetailVC: MKMapViewDelegate {
         
         switch forageAnnotation.favorability {
         case 0..<3:
-            annotationView.markerTintColor = .systemRed
+            annotationView.markerTintColor = appColor.red
         case 3..<6:
-            annotationView.markerTintColor = .systemOrange
+            annotationView.markerTintColor = appColor.orange
         case 6..<9:
-            annotationView.markerTintColor = .systemYellow
+            annotationView.markerTintColor = appColor.lightGreen
         case 9...10:
-            annotationView.markerTintColor = .systemGreen
+            annotationView.markerTintColor = appColor.mediumGreen
         default:
-            annotationView.markerTintColor = .systemGray
+            annotationView.markerTintColor = appColor.gray
         }
         
         annotationView.displayPriority = .required

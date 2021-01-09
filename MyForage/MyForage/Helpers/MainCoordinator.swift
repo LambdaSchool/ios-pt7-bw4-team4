@@ -120,6 +120,10 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
+        var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
+        }
+        
         let splashHC = SplashScreenHC(coordinator: self, contentView: SplashScreen())
         tabBarController.setViewControllers([splashHC], animated: true)
         tabBarController.tabBar.backgroundImage = UIImage()
@@ -131,6 +135,13 @@ class MainCoordinator: NSObject, Coordinator {
         let seconds = 3.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.tabBarController.tabBar.backgroundImage = nil
+            self.tabBarController.tabBar.barTintColor = appColor.lightGreen
+            self.tabBarController.tabBar.tintColor = appColor.red
+            self.tabBarController.tabBar.unselectedItemTintColor = appColor.darkGreen
+            
+            self.collectionNav.navigationBar.barTintColor = appColor.lightGreen
+            self.collectionNav.navigationBar.tintColor = appColor.darkGreen
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : appColor.red]
             
             self.tabBarController.setViewControllers([self.homeVC, self.collectionNav, self.mapVC], animated: false)
             self.homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)

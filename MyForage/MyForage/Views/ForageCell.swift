@@ -45,7 +45,13 @@ class ForageCell: UICollectionViewCell {
     }
     
     private func setUpView() {
-        backgroundColor = .white
+        backgroundColor = appColor.yellow
+        
+        layer.cornerRadius = 15
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+        layer.shadowColor = appColor.gray.cgColor
+        layer.shadowOpacity = 0.7
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textAlignment = .center
