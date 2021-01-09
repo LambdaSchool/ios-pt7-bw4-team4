@@ -27,6 +27,10 @@ struct FilterView: View {
                 }
                 .background(Color("YellowColor"))
                 .frame(width: 200, height: 100)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color("OrangeColor"), lineWidth: 4)
+                    )
                 .cornerRadius(15)
                 .shadow(radius: 8, x: 3, y: 3)
                 .padding(.horizontal, 30)
@@ -68,6 +72,12 @@ struct FilterView: View {
             .padding(.bottom, 30)
         }
         .background(Color("CreamColor"))
+        .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color("MediumGreenColor"), lineWidth: 6)
+            )
+        .cornerRadius(20)
+        .shadow(radius: 8, x: 3, y: 3)
     }
 }
 

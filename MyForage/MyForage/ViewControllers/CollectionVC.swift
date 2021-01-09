@@ -52,6 +52,7 @@ class CollectionVC: UIViewController {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
         layout.itemSize = CGSize(width: 120, height: 140)
+        layout.minimumLineSpacing = 20
                 
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(ForageCell.self, forCellWithReuseIdentifier: ReuseIdentifier.forageCell)

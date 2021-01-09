@@ -51,13 +51,17 @@ class ImageVC: UIViewController {
     // MARK: - Private Functions
     
     private func setUpView() {
-        view.backgroundColor = .white
+        view.backgroundColor = appColor.cream
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         titleLabel.text = "Update Image"
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.textColor = appColor.red
+        titleLabel.shadowColor = appColor.gray
+        titleLabel.shadowOffset = CGSize(width: 0.5, height: 1)
         
         titleInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleInfoLabel)
@@ -73,6 +77,10 @@ class ImageVC: UIViewController {
         }
         titleInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         titleInfoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleInfoLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleInfoLabel.textColor = appColor.mediumGreen
+        titleInfoLabel.shadowColor = appColor.darkGreen
+        titleInfoLabel.shadowOffset = CGSize(width: 0.5, height: 1)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -81,6 +89,10 @@ class ImageVC: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 240).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 240).isActive = true
         imageView.image = UIImage(named: "Mushroom")
+        imageView.backgroundColor = .white
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = appColor.mediumGreen.cgColor
         
         setUpButton(chooseImageButton, text: "Choose Image")
         chooseImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
@@ -97,7 +109,7 @@ class ImageVC: UIViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
-        button.backgroundColor = .brown
+        button.backgroundColor = appColor.mediumGreen
         button.setTitleColor(.white, for: .normal)
         view.addSubview(button)
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

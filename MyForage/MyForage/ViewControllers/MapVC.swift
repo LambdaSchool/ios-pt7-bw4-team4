@@ -59,6 +59,11 @@ class MapVC: UIViewController {
         mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        mapView.layer.masksToBounds = true
+        mapView.layer.cornerRadius = 15
+        mapView.layer.borderWidth = 3
+        mapView.layer.borderColor = appColor.mediumGreen.cgColor
+        
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
