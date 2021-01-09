@@ -100,6 +100,12 @@ struct EditMenuView: View {
             .padding(20)
         }
         .background(Color("CreamColor"))
+        .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color("MediumGreenColor"), lineWidth: 6)
+            )
+        .cornerRadius(20)
+        .shadow(radius: 8, x: 3, y: 3)
     }
     
     func editForageSpot() {

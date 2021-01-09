@@ -164,6 +164,8 @@ class AddForageVC: UIViewController {
     
     private func setUpView() {
         view.backgroundColor = appColor.cream
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
         
         setUpButton(saveForageButton, text: "Save")
         saveForageButton.addTarget(self, action: #selector(saveForageSpot), for: .touchUpInside)
@@ -184,6 +186,8 @@ class AddForageVC: UIViewController {
         mushroomTypePicker.backgroundColor = appColor.lightGreen
         mushroomTypePicker.layer.cornerRadius = 15
         mushroomTypePicker.layer.masksToBounds = true
+        mushroomTypePicker.layer.borderWidth = 3
+        mushroomTypePicker.layer.borderColor = appColor.mediumGreen.cgColor
 
         setUpButton(useAddressButton, text: "Use Address")
         useAddressButton.addTarget(self, action: #selector(useAddress), for: .touchUpInside)
@@ -244,6 +248,11 @@ class AddForageVC: UIViewController {
         mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         mapView.bottomAnchor.constraint(equalTo: saveForageButton.topAnchor, constant: -20).isActive = true
+        mapView.layer.masksToBounds = true
+        mapView.layer.cornerRadius = 15
+        mapView.layer.borderWidth = 3
+        mapView.layer.borderColor = appColor.mediumGreen.cgColor
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

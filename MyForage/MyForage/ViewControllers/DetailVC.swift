@@ -22,7 +22,7 @@ class WeatherSection: Hashable {
     var weatherDays: [WeatherHistory]
     
     init(weather: [WeatherHistory]) {
-        self.weatherDays = weather.sorted(by: { $0.dateTime! > $1.dateTime! })
+        self.weatherDays = weather.sorted(by: { $0.dateTime! < $1.dateTime! })
     }
     
     func hash(into hasher: inout Hasher) {
@@ -346,6 +346,11 @@ class DetailVC: UIViewController {
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 60).isActive = true
         mapView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor).isActive = true
+        mapView.layer.masksToBounds = true
+        mapView.layer.cornerRadius = 15
+        mapView.layer.borderWidth = 3
+        mapView.layer.borderColor = appColor.mediumGreen.cgColor
+        
         foragePin.coordinate = CLLocationCoordinate2D(latitude: forageSpot.latitude, longitude: forageSpot.longitude)
         let coordinateRegion = MKCoordinateRegion(center: foragePin.coordinate, span: span)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -415,7 +420,7 @@ class DetailVC: UIViewController {
 extension DetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let note = datasource?.snapshot().sectionIdentifiers[indexPath.section].sectionItems[indexPath.row] as? Note {
-            coordinator?.presentEditNoteVC(note: note, delegate: self)
+            coordinator?.presentEditNoteVC(note: note, delegate: self, isModal: isModal)
         }
     }
 }

@@ -111,19 +111,28 @@ class AddNoteVC: UIViewController {
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        guard let note = note else { return }
-        coordinator?.presentImageVC(forageSpot: nil, note: note, delegate: self)
+        if let note = note {
+            coordinator?.presentImageVC(forageSpot: nil, note: note, delegate: self)
+        } else {
+            coordinator?.presentImageVC(forageSpot: nil, note: nil, delegate: self)
+        }
     }
     
     // MARK: - Private Functions
     
     private func setUpView() {
-        view.backgroundColor = .white
+        view.backgroundColor = appColor.cream
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.textColor = appColor.red
+        titleLabel.shadowColor = appColor.gray
+        titleLabel.shadowOffset = CGSize(width: 0.5, height: 1)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "Mushroom")
@@ -180,7 +189,7 @@ class AddNoteVC: UIViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
-        button.backgroundColor = .brown
+        button.backgroundColor = appColor.mediumGreen
         button.setTitleColor(.white, for: .normal)
         view.addSubview(button)
     }

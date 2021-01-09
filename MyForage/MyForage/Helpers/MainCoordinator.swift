@@ -74,13 +74,19 @@ class MainCoordinator: NSObject, Coordinator {
         collectionNav.present(addNoteVC, animated: true, completion: nil)
     }
     
-    func presentEditNoteVC(note: Note, delegate: NoteDelegate) {
+    func presentEditNoteVC(note: Note, delegate: NoteDelegate, isModal: Bool) {
         let editNoteVC = AddNoteVC()
         editNoteVC.coordinator = self
         editNoteVC.note = note
         editNoteVC.delegate = delegate
         editNoteVC.editMode = true
-        collectionNav.pushViewController(editNoteVC, animated: true)
+        if isModal {
+            if let detail = mapVC.presentedViewController {
+                detail.present(editNoteVC, animated: true)
+            }
+        } else {
+            collectionNav.show(editNoteVC, sender: nil)
+        }
     }
     
     func presentImageVC(forageSpot: ForageSpot?, note: Note?, delegate: ImageDelegate) {
@@ -92,7 +98,9 @@ class MainCoordinator: NSObject, Coordinator {
         } else if let note = note {
             imageVC.note = note
         }
-        collectionNav.present(imageVC, animated: true, completion: nil)
+        if let presentingVC = collectionNav.topViewController {
+            presentingVC.present(imageVC, animated: true, completion: nil)
+        }
     }
     
     func presentFilterView() {
@@ -144,9 +152,9 @@ class MainCoordinator: NSObject, Coordinator {
             UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : appColor.red]
             
             self.tabBarController.setViewControllers([self.homeVC, self.collectionNav, self.mapVC], animated: false)
-            self.homeVC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
-            self.collectionNav.tabBarItem = UITabBarItem(title: "My Forage Spots", image: nil, tag: 1)
-            self.mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, tag: 2)
+            self.homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+            self.collectionNav.tabBarItem = UITabBarItem(title: "My Forage Spots", image: UIImage(named: "TabBarMushroom"), tag: 1)
+            self.mapVC.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map.fill"), tag: 2)
             
             self.mapVC.coordinator = self
             guard let collectionVC = self.collectionNav.topViewController as? CollectionVC else { return }
