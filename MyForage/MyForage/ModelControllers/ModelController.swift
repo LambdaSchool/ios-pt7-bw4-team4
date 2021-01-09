@@ -89,24 +89,24 @@ class ModelController {
         formatter.timeZone = NSTimeZone.local
         formatter.dateStyle = .short
 
-        var dateStringArray: [String] = []
+        var datesWeWantArray: [String] = []
         for x in 0...4 {
             let dateInt = Int(Date().timeIntervalSince1970) - (86400 * x)
             let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
-            dateStringArray.append(dateString)
+            datesWeWantArray.append(dateString)
         }
         
 
-        var weatherDayArray: [String] = []
+        var datesWeHaveArray: [String] = []
         for weatherIndex in 0..<weatherData.count {
             let dateString = String(formatter.string(from: weatherData[weatherIndex].dateTime!))
-            weatherDayArray.append(dateString)
+            datesWeHaveArray.append(dateString)
         }
         
         var daysToRemove: [Int] = []
-        for dayIndex in 0..<weatherDayArray.count {
-            if let dateIndex = dateStringArray.firstIndex(of: weatherDayArray[dayIndex]) {
-                dateStringArray.remove(at: dateIndex)
+        for dayIndex in 0..<datesWeHaveArray.count {
+            if let dateIndex = datesWeWantArray.firstIndex(of: datesWeHaveArray[dayIndex]) {
+                datesWeWantArray.remove(at: dateIndex)
             } else {
                 daysToRemove.insert(dayIndex, at: 0)
             }
@@ -116,14 +116,20 @@ class ModelController {
             deleteWeatherHistory(weather: weatherData[day])
         }
         
-        if dateStringArray.count == 0 {
+        if datesWeWantArray.count == 0 {
             deleteWeatherHistory(weather: weatherData[0])
-            let dateInt = Int(Date().timeIntervalSince1970)
-            let dateString = formatter.string(from: Date(timeIntervalSince1970: Double(dateInt)))
-            dateStringArray.append(dateString)
+            let urlString = String(Int(Date().timeIntervalSince1970) + timeZoneAdjustment())
+            coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: urlString, completion: { result in
+                switch result {
+                case .success(let weather):
+                    self.addWeatherHistory(forageSpot: forageSpot, weatherRep: weather)
+                default:
+                    return
+                }
+            })
         }
         
-        for dateString in dateStringArray {
+        for dateString in datesWeWantArray {
             let date = formatter.date(from: dateString)
             let urlString = String(Int(date!.timeIntervalSince1970) + timeZoneAdjustment())
             coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: urlString, completion: { result in
@@ -141,7 +147,7 @@ class ModelController {
         let timeZoneFormatter = DateFormatter()
         timeZoneFormatter.timeZone = NSTimeZone.local
         timeZoneFormatter.dateFormat = "Z"
-        return (Int(timeZoneFormatter.string(from: Date()))! * 60 * 60 / 100)
+        return ((Int(timeZoneFormatter.string(from: Date()))! * 60 * 60 / 100))
     }
     
     func replaceFiveDayWeather(forageSpot: ForageSpot) {
