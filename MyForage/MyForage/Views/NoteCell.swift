@@ -45,7 +45,9 @@ class NoteCell: UICollectionViewCell {
         let dateString = formatter.string(from: date)
         dateLabel.text = dateString
         if let imageData = note.imageData?.img {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         } else {
             imageView.image = UIImage(named: "Mushroom")
         }

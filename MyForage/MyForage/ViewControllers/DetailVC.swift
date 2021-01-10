@@ -446,7 +446,9 @@ extension DetailVC: ImageDelegate {
     func imageWasSaved() {
         self.dismiss(animated: true, completion: nil)
         if let imageData = forageSpot.imageData?.img {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         }
     }
     
