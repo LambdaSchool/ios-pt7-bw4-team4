@@ -63,7 +63,13 @@ class AddForageVC: UIViewController {
               let latitude = Double(lat),
               let long = longitudeTextField.text,
               !long.isEmpty,
-              let longitude = Double(long) else { return }
+              let longitude = Double(long) else {
+            let alert = UIAlertController(title: "Error", message: "Forage Spot must have a name and location to be saved.", preferredStyle: .alert)
+            let button = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(button)
+            self.present(alert, animated: true)
+            return
+        }
         let mushroomString = mushroomTypes[mushroomTypePicker.selectedRow(inComponent: 0)]
         if let forageSpot = forageSpot {
             coordinator?.modelController.editForageSpot(forageSpot: forageSpot, newName: name, newType: mushroomString, newLat: latitude, newLong: longitude, completion: { result in
