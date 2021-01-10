@@ -90,7 +90,9 @@
         _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
         _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
         if (bestSpot.imageData) {
-            _imageView.image = [UIImage imageWithData:bestSpot.imageData.img];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self->_imageView.image = [UIImage imageWithData:bestSpot.imageData.img];
+            });
         }
     }
 }

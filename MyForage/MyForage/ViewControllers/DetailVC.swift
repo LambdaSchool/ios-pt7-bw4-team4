@@ -375,7 +375,9 @@ class DetailVC: UIViewController {
         imageView.layer.masksToBounds = true
         
         if let imageData = forageSpot.imageData?.img {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         } else {
             imageView.image = UIImage(named: "Mushroom")
         }
