@@ -42,7 +42,14 @@ class AddNoteVC: UIViewController {
     // MARK: - Actions
     
     @objc func saveNote() {
-        guard let body = bodyTextView.text else { return }
+        guard let body = bodyTextView.text,
+              body != "" else {
+            let alert = UIAlertController(title: "Error", message: "Note must have a text body to be saved.", preferredStyle: .alert)
+            let button = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(button)
+            self.present(alert, animated: true)
+            return
+        }
         if editMode {
             guard let note = note else { return }
             coordinator?.modelController.editNote(note: note, newBody: body, newPhoto: "", completion: { result in
@@ -65,17 +72,13 @@ class AddNoteVC: UIViewController {
                     self.coordinator?.modelController.saveImage(data: imageData, forageSpot: nil, note: note, completion: { result in
                         switch result {
                         case true:
-                            let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
-                            let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                                self.delegate?.noteWasSaved()
-                                self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
-                            })
-                            alert.addAction(button)
-                            self.present(alert, animated: true)
+                            self.successAlertDismiss()
                         case false:
                             self.errorAlert()
                         }
                     })
+                } else {
+                    self.successAlertDismiss()
                 }
             })
         }
@@ -214,6 +217,16 @@ class AddNoteVC: UIViewController {
     private func errorAlert() {
         let alert = UIAlertController(title: "Error", message: "Something went wrong - please try again.", preferredStyle: .alert)
         let button = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true)
+    }
+    
+    private func successAlertDismiss() {
+        let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
+        let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            self.delegate?.noteWasSaved()
+            self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+        })
         alert.addAction(button)
         self.present(alert, animated: true)
     }
