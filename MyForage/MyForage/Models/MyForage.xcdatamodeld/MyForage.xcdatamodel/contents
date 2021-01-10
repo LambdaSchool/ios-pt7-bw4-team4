@@ -34,5 +34,6 @@
         <element name="ImageData" positionX="-189" positionY="-144" width="128" height="88"/>
         <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="118"/>
         <element name="WeatherHistory" positionX="-135" positionY="-63" width="128" height="89"/>
+        <element name="ImageData" positionX="-189" positionY="-144" width="128" height="88"/>
     </elements>
 </model>
