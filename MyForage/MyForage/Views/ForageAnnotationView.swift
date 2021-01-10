@@ -15,6 +15,7 @@ class ForageAnnotationView: UIView {
     
     private let titleLabel = UILabel()
     private let imageView = UIImageView()
+    private let backgroundView = UIView()
     
     // MARK: - Properties
     
@@ -30,9 +31,17 @@ class ForageAnnotationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundView)
+        backgroundView.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        backgroundView.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.textColor = appColor.cream
         titleLabel.font = UIFont.boldSystemFont(ofSize: 12)
@@ -42,11 +51,11 @@ class ForageAnnotationView: UIView {
         stackView.spacing = UIStackView.spacingUseSystem
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
-        stackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backgroundView.addSubview(stackView)
+        stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        stackView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageView.isUserInteractionEnabled = true
@@ -76,8 +85,11 @@ class ForageAnnotationView: UIView {
     private func updateSubviews() {
         guard let forageAnnotation = forageAnnotation else { return }
         titleLabel.text = forageAnnotation.name
-        imageView.image = UIImage(named: "Mushroom")
-        // need func to fetch image with urlString
+        if let imageData = forageAnnotation.imageData {
+            imageView.image = UIImage(data: imageData)
+        } else {
+            imageView.image = UIImage(named: "Mushroom")
+        }
         
         switch forageAnnotation.favorability {
         case 0..<3:

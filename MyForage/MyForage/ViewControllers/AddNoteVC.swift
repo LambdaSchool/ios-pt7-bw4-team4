@@ -9,6 +9,7 @@ import UIKit
 
 protocol NoteDelegate: AnyObject {
     func noteWasSaved()
+    func imageWasAddedToNote()
 }
 
 class AddNoteVC: UIViewController {
@@ -28,6 +29,7 @@ class AddNoteVC: UIViewController {
     weak var delegate: NoteDelegate?
     var forageSpot: ForageSpot!
     var note: Note?
+    var newImageData: Data?
     var editMode: Bool = false
 
     // MARK: - View Lifecycle
@@ -42,7 +44,6 @@ class AddNoteVC: UIViewController {
     @objc func saveNote() {
         guard let body = bodyTextView.text else { return }
         if editMode {
-            // need edit image feature
             guard let note = note else { return }
             coordinator?.modelController.editNote(note: note, newBody: body, newPhoto: "", completion: { result in
                 switch result {
@@ -59,19 +60,22 @@ class AddNoteVC: UIViewController {
                 }
             })
         } else {
-            // need add image feature
-            coordinator?.modelController.addNote(forageSpot: forageSpot, body: body, photo: "", completion: { result in
-                switch result {
-                case true:
-                    let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
-                    let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                        self.delegate?.noteWasSaved()
-                        self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+            coordinator?.modelController.addNote(forageSpot: forageSpot, body: body, photo: "", completion: { note in
+                if let imageData = self.newImageData {
+                    self.coordinator?.modelController.saveImage(data: imageData, forageSpot: nil, note: note, completion: { result in
+                        switch result {
+                        case true:
+                            let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
+                            let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                                self.delegate?.noteWasSaved()
+                                self.coordinator?.collectionNav.dismiss(animated: true, completion: nil)
+                            })
+                            alert.addAction(button)
+                            self.present(alert, animated: true)
+                        case false:
+                            self.errorAlert()
+                        }
                     })
-                    alert.addAction(button)
-                    self.present(alert, animated: true)
-                case false:
-                    self.errorAlert()
                 }
             })
         }
@@ -115,9 +119,9 @@ class AddNoteVC: UIViewController {
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         if let note = note {
-            coordinator?.presentImageVC(forageSpot: nil, note: note, delegate: self)
+            coordinator?.presentImageVC(forageSpot: nil, note: note, delegate: self, presentingVC: self)
         } else {
-            coordinator?.presentImageVC(forageSpot: nil, note: nil, delegate: self)
+            coordinator?.presentImageVC(forageSpot: nil, note: nil, delegate: self, presentingVC: self)
         }
     }
     
@@ -144,6 +148,8 @@ class AddNoteVC: UIViewController {
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 240).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        imageView.layer.cornerRadius = 15
+        imageView.layer.masksToBounds = true
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageView.isUserInteractionEnabled = true
@@ -161,15 +167,20 @@ class AddNoteVC: UIViewController {
         bodyTextView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         if editMode {
-            guard let date = note?.date,
-                  let body = note?.body else { return }
+            guard let note = note,
+                  let date = note.date,
+                  let body = note.body else { return }
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             let dateString = formatter.string(from: date)
             titleLabel.text = "Note from \(dateString)"
             bodyTextView.text = body
             bodyTextView.isUserInteractionEnabled = false
-            // imageView.image = ...
+            if let imageData = note.imageData?.img {
+                imageView.image = UIImage(data: imageData)
+            } else {
+                imageView.image = UIImage(named: "Mushroom")
+            }
             
             setUpButton(editButton, text: "Edit Note")
             editButton.addTarget(self, action: #selector(startEditing), for: .touchUpInside)
@@ -211,7 +222,17 @@ class AddNoteVC: UIViewController {
 
 extension AddNoteVC: ImageDelegate {
     func imageWasSaved() {
-        // need function to reload imageView.image
-        // also use NoteDelegate to inform collection view on DetailVC
+        self.dismiss(animated: true, completion: nil)
+        if let imageData = note?.imageData?.img {
+            imageView.image = UIImage(data: imageData)
+        }
+        delegate?.imageWasAddedToNote()
+    }
+    
+    func imageWasAddedToNewNote(imageData: Data) {
+        self.dismiss(animated: true, completion: nil)
+        imageView.image = UIImage(data: imageData)
+        newImageData = imageData
+        delegate?.imageWasAddedToNote()
     }
 }

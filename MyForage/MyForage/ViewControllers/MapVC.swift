@@ -80,9 +80,8 @@ class MapVC: UIViewController {
             var annotations: [ForageAnnotation] = []
             for spot in forageSpots {
                 guard let name = spot.name,
-                      let image = spot.image,
                       let identifier = spot.identifier else { return }
-                let annotation = ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude), name: name, favorability: spot.favorability, image: image, identifier: identifier)
+                let annotation = ForageAnnotation(coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude), name: name, favorability: spot.favorability, imageData: spot.imageData?.img, identifier: identifier)
                 annotations.append(annotation)
             }
             forageAnnotations = annotations

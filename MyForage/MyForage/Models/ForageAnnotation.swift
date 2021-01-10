@@ -13,14 +13,14 @@ class ForageAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var name: String
     var favorability: Double
-    var image: String
+    var imageData: Data?
     var identifier: UUID
 
-    init(coordinate: CLLocationCoordinate2D, name: String, favorability: Double, image: String, identifier: UUID) {
+    init(coordinate: CLLocationCoordinate2D, name: String, favorability: Double, imageData: Data?, identifier: UUID) {
         self.coordinate = coordinate
         self.name = name
         self.favorability = favorability
-        self.image = image
+        self.imageData = imageData
         self.identifier = identifier
     }
 }

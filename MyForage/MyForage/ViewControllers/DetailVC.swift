@@ -318,8 +318,8 @@ class DetailVC: UIViewController {
         view.addSubview(favorabilityView)
         favorabilityView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         favorabilityView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        favorabilityView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        favorabilityView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        favorabilityView.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        favorabilityView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         favorabilityView.image = UIImage(systemName: "bookmark.fill")
         switch forageSpot.favorability {
         case 0..<3:
@@ -344,7 +344,7 @@ class DetailVC: UIViewController {
         }
         mapView.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 20).isActive = true
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 60).isActive = true
-        mapView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        mapView.widthAnchor.constraint(equalToConstant: 180).isActive = true
         mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor).isActive = true
         mapView.layer.masksToBounds = true
         mapView.layer.cornerRadius = 15
@@ -356,7 +356,7 @@ class DetailVC: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.delegate = self
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: ReuseIdentifier.forageAnnotation)
-        forageAnnotation = ForageAnnotation(coordinate: foragePin.coordinate, name: forageSpot.name!, favorability: forageSpot.favorability, image: forageSpot.image!, identifier: UUID())
+        forageAnnotation = ForageAnnotation(coordinate: foragePin.coordinate, name: forageSpot.name!, favorability: forageSpot.favorability, imageData: forageSpot.imageData?.img, identifier: UUID())
         if let forageAnnotation = forageAnnotation {
             mapView.addAnnotations([forageAnnotation])
         }
@@ -367,11 +367,18 @@ class DetailVC: UIViewController {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 20).isActive = true
+        imageView.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 40).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -60).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
-        imageView.image = UIImage(named: "Mushroom")
+        imageView.layer.cornerRadius = 15
+        imageView.layer.masksToBounds = true
+        
+        if let imageData = forageSpot.imageData?.img {
+            imageView.image = UIImage(data: imageData)
+        } else {
+            imageView.image = UIImage(named: "Mushroom")
+        }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageView.isUserInteractionEnabled = true
@@ -429,11 +436,21 @@ extension DetailVC: NoteDelegate {
     func noteWasSaved() {
         populateCollectionView()
     }
+    
+    func imageWasAddedToNote() {
+        populateCollectionView()
+    }
 }
 
 extension DetailVC: ImageDelegate {
     func imageWasSaved() {
-        // need function to reload imageView.image
+        self.dismiss(animated: true, completion: nil)
+        if let imageData = forageSpot.imageData?.img {
+            imageView.image = UIImage(data: imageData)
+        }
+    }
+    
+    func imageWasAddedToNewNote(imageData: Data) {
     }
 }
 
@@ -452,7 +469,7 @@ extension DetailVC: EditDelegate {
             coordinator?.presentEditForageVC(forageSpot: self.forageSpot, delegate: self)
         case .updateImage:
             coordinator?.collectionNav.dismiss(animated: true)
-            coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self)
+            coordinator?.presentImageVC(forageSpot: self.forageSpot, note: nil, delegate: self, presentingVC: self)
         case .addNote:
             coordinator?.collectionNav.dismiss(animated: true)
             coordinator?.presentAddNoteVC(forageSpot: self.forageSpot, delegate: self)
