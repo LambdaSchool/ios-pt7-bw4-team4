@@ -241,16 +241,15 @@ class ModelController {
     
     // MARK: - Note Functions
     
-    func addNote(forageSpot: ForageSpot, body: String, photo: String, completion: @escaping (Note) -> Void) {
-        let note = Note(body: body, photo: photo)
+    func addNote(forageSpot: ForageSpot, body: String, completion: @escaping (Note) -> Void) {
+        let note = Note(body: body)
         forageSpot.addToNotes(note)
         saveMOC()
         completion(note)
     }
     
-    func editNote(note: Note, newBody: String, newPhoto: String, completion: @escaping (Bool) -> Void) {
+    func editNote(note: Note, newBody: String, completion: @escaping (Bool) -> Void) {
         note.body = newBody
-        note.photo = newPhoto
         let result = saveMOC()
         completion(result)
     }

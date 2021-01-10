@@ -52,7 +52,7 @@ class AddNoteVC: UIViewController {
         }
         if editMode {
             guard let note = note else { return }
-            coordinator?.modelController.editNote(note: note, newBody: body, newPhoto: "", completion: { result in
+            coordinator?.modelController.editNote(note: note, newBody: body, completion: { result in
                 switch result {
                 case true:
                     let alert = UIAlertController(title: "Note Saved", message: nil, preferredStyle: .alert)
@@ -67,7 +67,7 @@ class AddNoteVC: UIViewController {
                 }
             })
         } else {
-            coordinator?.modelController.addNote(forageSpot: forageSpot, body: body, photo: "", completion: { note in
+            coordinator?.modelController.addNote(forageSpot: forageSpot, body: body, completion: { note in
                 if let imageData = self.newImageData {
                     self.coordinator?.modelController.saveImage(data: imageData, forageSpot: nil, note: note, completion: { result in
                         switch result {
