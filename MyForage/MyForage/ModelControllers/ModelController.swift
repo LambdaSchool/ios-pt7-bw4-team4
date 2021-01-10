@@ -131,7 +131,10 @@ class ModelController {
         
         for dateString in datesWeWantArray {
             let date = formatter.date(from: dateString)
-            let urlString = String(Int(date!.timeIntervalSince1970) + timeZoneAdjustment())
+            let midnightString = formatter.string(from: Date())
+            let midnight = formatter.date(from: midnightString)
+            let timeAdjust = Int(Date().timeIntervalSince1970) - Int(midnight!.timeIntervalSince1970)
+            let urlString = String(Int(date!.timeIntervalSince1970) + timeZoneAdjustment() + timeAdjust)
             coordinator?.apiController.getWeatherHistory(latitude: forageSpot.latitude, longitude: forageSpot.longitude, dateTime: urlString, completion: { result in
                 switch result {
                 case .success(let weather):
