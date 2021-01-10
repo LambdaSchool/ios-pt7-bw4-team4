@@ -86,7 +86,9 @@ class ForageAnnotationView: UIView {
         guard let forageAnnotation = forageAnnotation else { return }
         titleLabel.text = forageAnnotation.name
         if let imageData = forageAnnotation.imageData {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         } else {
             imageView.image = UIImage(named: "Mushroom")
         }
