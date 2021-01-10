@@ -3,7 +3,6 @@
     <entity name="ForageSpot" representedClassName="ForageSpot" syncable="YES" codeGenerationType="class">
         <attribute name="favorability" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mushroomType" optional="YES" attributeType="String"/>
@@ -21,7 +20,6 @@
         <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="photo" optional="YES" attributeType="String"/>
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="notes" inverseEntity="ForageSpot"/>
         <relationship name="imageData" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ImageData" inverseName="note" inverseEntity="ImageData"/>
     </entity>
@@ -32,9 +30,9 @@
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="weatherHistory" inverseEntity="ForageSpot"/>
     </entity>
     <elements>
-        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="193"/>
-        <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="133"/>
-        <element name="WeatherHistory" positionX="-135" positionY="-63" width="128" height="89"/>
+        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="178"/>
         <element name="ImageData" positionX="-189" positionY="-144" width="128" height="88"/>
+        <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="118"/>
+        <element name="WeatherHistory" positionX="-135" positionY="-63" width="128" height="89"/>
     </elements>
 </model>

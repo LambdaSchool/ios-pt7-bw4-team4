@@ -14,7 +14,6 @@ extension ForageSpot {
                      latitude: Double,
                      longitude: Double,
                      identifier: UUID = UUID(),
-                     image: String = "",
                      name: String,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
@@ -23,7 +22,6 @@ extension ForageSpot {
         self.latitude = latitude
         self.longitude = longitude
         self.identifier = identifier
-        self.image = image
         self.name = name
     }
 }
