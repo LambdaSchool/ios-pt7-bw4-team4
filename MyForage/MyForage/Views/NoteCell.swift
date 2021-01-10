@@ -44,8 +44,11 @@ class NoteCell: UICollectionViewCell {
         formatter.dateStyle = .short
         let dateString = formatter.string(from: date)
         dateLabel.text = dateString
-        imageView.image = UIImage(named: "Mushroom")
-        // need func to fetch image with urlString
+        if let imageData = note.imageData?.img {
+            imageView.image = UIImage(data: imageData)
+        } else {
+            imageView.image = UIImage(named: "Mushroom")
+        }
     }
     
     private func setUpView() {
@@ -63,6 +66,8 @@ class NoteCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
         
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.textAlignment = .center

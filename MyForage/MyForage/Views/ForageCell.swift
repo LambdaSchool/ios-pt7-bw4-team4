@@ -40,8 +40,11 @@ class ForageCell: UICollectionViewCell {
     private func updateViews() {
         guard let forageSpot = forageSpot else { return }
         nameLabel.text = forageSpot.name
-        imageView.image = UIImage(named: "Mushroom")
-        // need func to fetch image with urlString
+        if let imageData = forageSpot.imageData?.img {
+            imageView.image = UIImage(data: imageData)
+        } else {
+            imageView.image = UIImage(named: "Mushroom")
+        }
     }
     
     private func setUpView() {
@@ -67,6 +70,8 @@ class ForageCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -5).isActive = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
     }
     
 }

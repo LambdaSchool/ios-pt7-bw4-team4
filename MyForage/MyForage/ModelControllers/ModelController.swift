@@ -241,11 +241,11 @@ class ModelController {
     
     // MARK: - Note Functions
     
-    func addNote(forageSpot: ForageSpot, body: String, photo: String, completion: @escaping (Bool) -> Void) {
+    func addNote(forageSpot: ForageSpot, body: String, photo: String, completion: @escaping (Note) -> Void) {
         let note = Note(body: body, photo: photo)
         forageSpot.addToNotes(note)
-        let result = saveMOC()
-        completion(result)
+        saveMOC()
+        completion(note)
     }
     
     func editNote(note: Note, newBody: String, newPhoto: String, completion: @escaping (Bool) -> Void) {
@@ -262,6 +262,18 @@ class ModelController {
     }
     
     // MARK: - Image Functions
+    
+    func saveImage(data: Data, forageSpot: ForageSpot?, note: Note?, completion: @escaping (Bool) -> Void) {
+        let imageData = ImageData(context: moc)
+        imageData.img = data
+        if let forageSpot = forageSpot {
+            forageSpot.imageData = imageData
+        } else if let note = note {
+            note.imageData = imageData
+        }
+        let result = saveMOC()
+        completion(result)
+    }
 
     // MARK: - Private Functions
     

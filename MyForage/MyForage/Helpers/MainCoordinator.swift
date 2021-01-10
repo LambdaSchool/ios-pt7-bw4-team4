@@ -89,7 +89,7 @@ class MainCoordinator: NSObject, Coordinator {
         }
     }
     
-    func presentImageVC(forageSpot: ForageSpot?, note: Note?, delegate: ImageDelegate) {
+    func presentImageVC(forageSpot: ForageSpot?, note: Note?, delegate: ImageDelegate, presentingVC: UIViewController) {
         let imageVC = ImageVC()
         imageVC.coordinator = self
         imageVC.delegate = delegate
@@ -98,9 +98,7 @@ class MainCoordinator: NSObject, Coordinator {
         } else if let note = note {
             imageVC.note = note
         }
-        if let presentingVC = collectionNav.topViewController {
-            presentingVC.present(imageVC, animated: true, completion: nil)
-        }
+        presentingVC.present(imageVC, animated: true, completion: nil)
     }
     
     func presentFilterView() {

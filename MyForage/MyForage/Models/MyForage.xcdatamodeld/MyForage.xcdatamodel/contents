@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ForageSpot" representedClassName="ForageSpot" syncable="YES" codeGenerationType="class">
         <attribute name="favorability" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -8,8 +8,14 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mushroomType" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Unamed Spot"/>
+        <relationship name="imageData" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ImageData" inverseName="forageSpot" inverseEntity="ImageData"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Note" inverseName="forageSpot" inverseEntity="Note"/>
         <relationship name="weatherHistory" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WeatherHistory" inverseName="forageSpot" inverseEntity="WeatherHistory"/>
+    </entity>
+    <entity name="ImageData" representedClassName="ImageData" syncable="YES" codeGenerationType="class">
+        <attribute name="img" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="imageData" inverseEntity="ForageSpot"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="imageData" inverseEntity="Note"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="body" optional="YES" attributeType="String"/>
@@ -17,6 +23,7 @@
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="photo" optional="YES" attributeType="String"/>
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="notes" inverseEntity="ForageSpot"/>
+        <relationship name="imageData" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ImageData" inverseName="note" inverseEntity="ImageData"/>
     </entity>
     <entity name="WeatherHistory" representedClassName="WeatherHistory" syncable="YES" codeGenerationType="class">
         <attribute name="dateTime" attributeType="Date" usesScalarValueType="NO"/>
@@ -25,8 +32,9 @@
         <relationship name="forageSpot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ForageSpot" inverseName="weatherHistory" inverseEntity="ForageSpot"/>
     </entity>
     <elements>
-        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="164"/>
-        <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="118"/>
+        <element name="ForageSpot" positionX="-98.3046875" positionY="-299.9375" width="128" height="193"/>
+        <element name="Note" positionX="-271.3203125" positionY="-28.78125" width="128" height="133"/>
         <element name="WeatherHistory" positionX="-135" positionY="-63" width="128" height="89"/>
+        <element name="ImageData" positionX="-189" positionY="-144" width="128" height="88"/>
     </elements>
 </model>

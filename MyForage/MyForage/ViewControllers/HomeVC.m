@@ -89,6 +89,9 @@
         
         _chanceLabel.text = [NSString stringWithFormat:@"%@ Chance of Finding", chance];
         _typeLabel.text = [NSString stringWithFormat:@"%@ Mushrooms", bestSpot.mushroomType];
+        if (bestSpot.imageData) {
+            _imageView.image = [UIImage imageWithData:bestSpot.imageData.img];
+        }
     }
 }
 
@@ -131,6 +134,8 @@
     [_imageView.widthAnchor constraintEqualToConstant:200.].active = YES;
     [_imageView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     [_imageView.topAnchor constraintEqualToAnchor:_bestForageSpotLabel.bottomAnchor constant:15].active = YES;
+    _imageView.layer.cornerRadius = 15;
+    _imageView.layer.masksToBounds = YES;
     _imageView.image = [UIImage imageNamed:@"Mushroom"];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(presentDetailVC)];
     [_imageView addGestureRecognizer:tapGesture];

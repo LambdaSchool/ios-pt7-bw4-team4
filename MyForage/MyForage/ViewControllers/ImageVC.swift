@@ -9,6 +9,7 @@ import UIKit
 
 protocol ImageDelegate: AnyObject {
     func imageWasSaved()
+    func imageWasAddedToNewNote(imageData: Data)
 }
 
 class ImageVC: UIViewController {
@@ -42,10 +43,30 @@ class ImageVC: UIViewController {
     }
     
     @objc func saveImage() {
-        // need function to save image
-        // check whether it is for forageSpot or note
-        // use delegate.imageWasSaved - needs implementation in DetailVC and AddNoteVC
-        errorAlert()
+        if let imageData = imageView.image?.pngData() {
+            if forageSpot == nil && note == nil {
+                let alert = UIAlertController(title: "Image Added", message: nil, preferredStyle: .alert)
+                let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                    self.delegate?.imageWasAddedToNewNote(imageData: imageData)
+                })
+                alert.addAction(button)
+                self.present(alert, animated: true)
+            } else {
+                coordinator?.modelController.saveImage(data: imageData, forageSpot: forageSpot, note: note, completion: { result in
+                    switch result {
+                    case true:
+                        let alert = UIAlertController(title: "Image Saved", message: nil, preferredStyle: .alert)
+                        let button = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                            self.delegate?.imageWasSaved()
+                        })
+                        alert.addAction(button)
+                        self.present(alert, animated: true)
+                    case false:
+                        self.errorAlert()
+                    }
+                })
+            }
+        }
     }
     
     // MARK: - Private Functions
