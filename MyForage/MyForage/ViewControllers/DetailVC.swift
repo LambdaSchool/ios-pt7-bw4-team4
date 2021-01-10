@@ -40,7 +40,7 @@ class NotesSection: Hashable {
     var sectionTitle = "Notes"
     var notes: [Note]
         
-    init(notes: [Note]) {
+init(notes: [Note]) {
         self.notes = notes.sorted(by: { $0.date! > $1.date! })
     }
      
