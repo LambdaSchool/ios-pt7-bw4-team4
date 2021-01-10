@@ -213,7 +213,7 @@ class AddForageVC: UIViewController {
         setUpTextField(longitudeTextField, placeholder: "Longitude")
         longitudeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10).isActive = true
         longitudeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        longitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6, constant: -30).isActive = true
+        longitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
         
         setUpButton(useCoordinatesButton, text: "Use Coordinates")
         useCoordinatesButton.addTarget(self, action: #selector(useCoordinates), for: .touchUpInside)
