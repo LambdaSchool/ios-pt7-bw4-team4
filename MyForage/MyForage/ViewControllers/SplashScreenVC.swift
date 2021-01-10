@@ -98,9 +98,12 @@ struct SplashScreen: View {
                 .opacity(mushroomOpasity)
                 .frame(width: 45, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             
-            Image(systemName: "circle").font(.system(size: 55, weight: .semibold))
+            Image(systemName: "circle")
+                .foregroundColor(mushroomColor)
+                .font(.system(size: 55, weight: .semibold))
                 .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .opacity(mushroomOpasity)
+
             
             
             Spacer()

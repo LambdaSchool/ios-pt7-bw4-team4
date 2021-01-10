@@ -128,9 +128,6 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: - Private Functions
     
     private func setUpAppNavViews() {
-        var preferredStatusBarStyle: UIStatusBarStyle {
-            return .lightContent
-        }
         
         let splashHC = SplashScreenHC(coordinator: self, contentView: SplashScreen())
         tabBarController.setViewControllers([splashHC], animated: true)

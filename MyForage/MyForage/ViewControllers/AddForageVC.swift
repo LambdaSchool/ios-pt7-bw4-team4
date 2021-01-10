@@ -171,6 +171,8 @@ class AddForageVC: UIViewController {
         saveForageButton.addTarget(self, action: #selector(saveForageSpot), for: .touchUpInside)
         saveForageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         saveForageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        saveForageButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
+
         
         setUpTextField(nameTextField, placeholder: "Forage Spot Title")
         nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
@@ -183,16 +185,20 @@ class AddForageVC: UIViewController {
         mushroomTypePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mushroomTypePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         mushroomTypePicker.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        mushroomTypePicker.backgroundColor = appColor.lightGreen
+        mushroomTypePicker.backgroundColor = appColor.mediumGreen
+        mushroomTypePicker.setValue(UIColor(.white), forKeyPath: "textColor")
         mushroomTypePicker.layer.cornerRadius = 15
         mushroomTypePicker.layer.masksToBounds = true
         mushroomTypePicker.layer.borderWidth = 3
-        mushroomTypePicker.layer.borderColor = appColor.mediumGreen.cgColor
+        mushroomTypePicker.layer.borderColor = appColor.lightGreen.cgColor
 
         setUpButton(useAddressButton, text: "Use Address")
         useAddressButton.addTarget(self, action: #selector(useAddress), for: .touchUpInside)
         useAddressButton.topAnchor.constraint(equalTo: mushroomTypePicker.bottomAnchor, constant: 10).isActive = true
         useAddressButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        useAddressButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
+
+        
         
         setUpTextField(addressTextField, placeholder: "123 Main St, Anytown, CA 54321")
         addressTextField.topAnchor.constraint(equalTo: mushroomTypePicker.bottomAnchor, constant: 10).isActive = true
@@ -201,23 +207,23 @@ class AddForageVC: UIViewController {
         
         setUpTextField(latitudeTextField, placeholder: "Latitude")
         latitudeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10).isActive = true
-        latitudeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        latitudeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         latitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
         
         setUpTextField(longitudeTextField, placeholder: "Longitude")
         longitudeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10).isActive = true
-        longitudeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        longitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
+        longitudeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        longitudeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6, constant: -30).isActive = true
         
         setUpButton(useCoordinatesButton, text: "Use Coordinates")
         useCoordinatesButton.addTarget(self, action: #selector(useCoordinates), for: .touchUpInside)
         useCoordinatesButton.topAnchor.constraint(equalTo: latitudeTextField.bottomAnchor, constant: 10).isActive = true
-        useCoordinatesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        useCoordinatesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         
         setUpButton(useMyLocationButton, text: "Use My Location")
         useMyLocationButton.addTarget(self, action: #selector(useMyLocation), for: .touchUpInside)
         useMyLocationButton.topAnchor.constraint(equalTo: latitudeTextField.bottomAnchor, constant: 10).isActive = true
-        useMyLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        useMyLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
                 
         setUpMap()
         updateView()
@@ -226,8 +232,13 @@ class AddForageVC: UIViewController {
     private func setUpTextField(_ textField: UITextField, placeholder: String) {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = placeholder
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 5
+        textField.backgroundColor = appColor.cream
+        textField.layer.borderWidth = 1.5
+        textField.layer.borderColor = #colorLiteral(red: 0.3762139678, green: 0.4250671864, blue: 0.2216579318, alpha: 1)
         view.addSubview(textField)
-        textField.borderStyle = .bezel
+
     }
     
     private func setUpButton(_ button: UIButton, text: String) {
