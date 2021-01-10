@@ -23,13 +23,14 @@ struct FilterView: View {
                 Picker("", selection: $filterViewModel.mushroomType) {
                     ForEach(MushroomType.allCases) { mushroomType in
                         Text(mushroomType.rawValue)
+                            .foregroundColor(Color("CreamColor"))
                     }
                 }
-                .background(Color("YellowColor"))
+                .background(Color("OrangeColor"))
                 .frame(width: 200, height: 100)
                 .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color("OrangeColor"), lineWidth: 4)
+                            .stroke(Color("YellowColor"), lineWidth: 4)
                     )
                 .cornerRadius(15)
                 .shadow(radius: 8, x: 3, y: 3)

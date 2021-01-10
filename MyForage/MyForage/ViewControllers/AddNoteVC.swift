@@ -85,11 +85,14 @@ class AddNoteVC: UIViewController {
         saveButton.addTarget(self, action: #selector(saveNote), for: .touchUpInside)
         saveButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 20).isActive = true
         saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        saveButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -35).isActive = true
+        
         
         setUpButton(deleteButton, text: "Delete Note")
         deleteButton.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
         deleteButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 20).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        deleteButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -35).isActive = true
     }
     
     @objc func deleteNote() {
@@ -148,8 +151,9 @@ class AddNoteVC: UIViewController {
         
         
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
-        bodyTextView.layer.borderWidth = 1
-        bodyTextView.layer.borderColor = UIColor.darkGray.cgColor
+        bodyTextView.layer.borderWidth = 2.5
+        bodyTextView.layer.borderColor = appColor.mediumGreen.cgColor
+        bodyTextView.layer.cornerRadius = 15
         view.addSubview(bodyTextView)
         bodyTextView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
         bodyTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -171,6 +175,7 @@ class AddNoteVC: UIViewController {
             editButton.addTarget(self, action: #selector(startEditing), for: .touchUpInside)
             editButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 20).isActive = true
             editButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            editButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
             
         } else {
             guard let name = forageSpot?.name else { return }
@@ -180,6 +185,7 @@ class AddNoteVC: UIViewController {
             saveButton.addTarget(self, action: #selector(saveNote), for: .touchUpInside)
             saveButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 20).isActive = true
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            saveButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
         }
     }
     
