@@ -41,7 +41,9 @@ class ForageCell: UICollectionViewCell {
         guard let forageSpot = forageSpot else { return }
         nameLabel.text = forageSpot.name
         if let imageData = forageSpot.imageData?.img {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         } else {
             imageView.image = UIImage(named: "Mushroom")
         }
