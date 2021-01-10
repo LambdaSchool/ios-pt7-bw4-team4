@@ -180,7 +180,9 @@ class AddNoteVC: UIViewController {
             bodyTextView.text = body
             bodyTextView.isUserInteractionEnabled = false
             if let imageData = note.imageData?.img {
-                imageView.image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                }
             } else {
                 imageView.image = UIImage(named: "Mushroom")
             }
@@ -237,14 +239,18 @@ extension AddNoteVC: ImageDelegate {
     func imageWasSaved() {
         self.dismiss(animated: true, completion: nil)
         if let imageData = note?.imageData?.img {
-            imageView.image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: imageData)
+            }
         }
         delegate?.imageWasAddedToNote()
     }
     
     func imageWasAddedToNewNote(imageData: Data) {
         self.dismiss(animated: true, completion: nil)
-        imageView.image = UIImage(data: imageData)
+        DispatchQueue.main.async {
+            self.imageView.image = UIImage(data: imageData)
+        }
         newImageData = imageData
         delegate?.imageWasAddedToNote()
     }
