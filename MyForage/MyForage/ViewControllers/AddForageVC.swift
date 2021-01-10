@@ -16,6 +16,7 @@ class AddForageVC: UIViewController {
     
     // MARK: - UI Elements
     
+    private var titleLabel = UILabel()
     private var nameTextField = UITextField()
     private var mushroomTypePicker = UIPickerView()
     private var addressTextField = UITextField()
@@ -32,7 +33,7 @@ class AddForageVC: UIViewController {
     
     weak var coordinator: MainCoordinator?
     weak var delegate: ForageDelegate?
-
+    
     fileprivate let locationManager = CLLocationManager()
     private var span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
     private var userLocation: CLLocationCoordinate2D?
@@ -99,6 +100,10 @@ class AddForageVC: UIViewController {
     
     @objc func useAddress(_ sender: UIButton) {
         guard let address = addressTextField.text else { return }
+        useAddressButton.backgroundColor = appColor.darkGreen
+        useCoordinatesButton.backgroundColor = appColor.mediumGreen
+        useMyLocationButton.backgroundColor = appColor.mediumGreen
+        
         reverseGeocode(address: address) { placemark in
             if let latitude = placemark.location?.coordinate.latitude,
                let longitude = placemark.location?.coordinate.longitude {
@@ -117,10 +122,14 @@ class AddForageVC: UIViewController {
     }
     
     @objc func useCoordinates(_ sender: UIButton) {
+        
         if let latText = latitudeTextField.text,
            let longText = longitudeTextField.text {
             if let latitude = Double(latText),
                let longitude = Double(longText) {
+                useAddressButton.backgroundColor = appColor.mediumGreen
+                useCoordinatesButton.backgroundColor = appColor.darkGreen
+                useMyLocationButton.backgroundColor = appColor.mediumGreen
                 addressTextField.text?.removeAll()
                 foragePin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 mapView.showAnnotations([foragePin], animated: true)
@@ -130,6 +139,9 @@ class AddForageVC: UIViewController {
     
     @objc func useMyLocation(_ sender: UIButton) {
         if let userLocation = userLocation {
+            useAddressButton.backgroundColor = appColor.mediumGreen
+            useCoordinatesButton.backgroundColor = appColor.mediumGreen
+            useMyLocationButton.backgroundColor = appColor.darkGreen
             addressTextField.text?.removeAll()
             foragePin.coordinate = userLocation
             mapView.showAnnotations([foragePin], animated: true)
@@ -167,15 +179,25 @@ class AddForageVC: UIViewController {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 19)
+        titleLabel.textColor = appColor.red
+        titleLabel.shadowColor = appColor.gray
+        titleLabel.shadowOffset = CGSize(width: 0.5, height: 1)
+        titleLabel.text = "Add Forage Spot"
+                
         setUpButton(saveForageButton, text: "Save")
         saveForageButton.addTarget(self, action: #selector(saveForageSpot), for: .touchUpInside)
         saveForageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         saveForageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saveForageButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
-
+        
         
         setUpTextField(nameTextField, placeholder: "Forage Spot Title")
-        nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         
@@ -184,20 +206,21 @@ class AddForageVC: UIViewController {
         mushroomTypePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
         mushroomTypePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         mushroomTypePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        mushroomTypePicker.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        mushroomTypePicker.heightAnchor.constraint(equalToConstant: 110).isActive = true
         mushroomTypePicker.backgroundColor = appColor.mediumGreen
-        mushroomTypePicker.setValue(UIColor(.white), forKeyPath: "textColor")
+        mushroomTypePicker.setValue(appColor.cream, forKeyPath: "textColor")
         mushroomTypePicker.layer.cornerRadius = 15
         mushroomTypePicker.layer.masksToBounds = true
         mushroomTypePicker.layer.borderWidth = 3
         mushroomTypePicker.layer.borderColor = appColor.lightGreen.cgColor
-
+        mushroomTypePicker.selectRow(1, inComponent: 0, animated: false)
+        
         setUpButton(useAddressButton, text: "Use Address")
         useAddressButton.addTarget(self, action: #selector(useAddress), for: .touchUpInside)
         useAddressButton.topAnchor.constraint(equalTo: mushroomTypePicker.bottomAnchor, constant: 10).isActive = true
         useAddressButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         useAddressButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -30).isActive = true
-
+        
         
         
         setUpTextField(addressTextField, placeholder: "123 Main St, Anytown, CA 54321")
@@ -224,7 +247,7 @@ class AddForageVC: UIViewController {
         useMyLocationButton.addTarget(self, action: #selector(useMyLocation), for: .touchUpInside)
         useMyLocationButton.topAnchor.constraint(equalTo: latitudeTextField.bottomAnchor, constant: 10).isActive = true
         useMyLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-                
+        
         setUpMap()
         updateView()
     }
@@ -238,7 +261,7 @@ class AddForageVC: UIViewController {
         textField.layer.borderWidth = 1.5
         textField.layer.borderColor = #colorLiteral(red: 0.3762139678, green: 0.4250671864, blue: 0.2216579318, alpha: 1)
         view.addSubview(textField)
-
+        
     }
     
     private func setUpButton(_ button: UIButton, text: String) {
@@ -292,18 +315,18 @@ class AddForageVC: UIViewController {
         alert.addAction(button)
         self.present(alert, animated: true)
     }
-
+    
 }
 
 extension AddForageVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         mushroomTypes.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         mushroomTypes[row]
     }
